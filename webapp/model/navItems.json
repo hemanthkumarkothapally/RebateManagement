@@ -1,0 +1,17 @@
+{
+  "selectedKey": "pageDashboard",
+  "navigation": [
+    {
+      "title": "Dashboard",
+      "icon": "sap-icon://dashboard",
+      "expanded": false,
+      "key": "pageDashboard"
+    },
+    {
+      "title": "Rebate Agreements",
+      "icon": "sap-icon://business-suite",
+      "expanded": false,
+      "key": "pageRebateAgreements"
+    }
+  ]
+}

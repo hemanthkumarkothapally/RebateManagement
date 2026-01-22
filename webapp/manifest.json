@@ -1,0 +1,128 @@
+{
+  "_version": "1.81.0",
+  "sap.app": {
+    "id": "com.cy.rbm",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.20.1",
+      "toolsId": "d83b1d5b-e0b8-44e6-9ef0-4269deac9d9d"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.143.2",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.cy.rbm.i18n.i18n"
+        }
+      },
+      "navItemsModel": {
+        "uri": "model/navItems.json",
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "rebateModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/rebateAgreements.json"
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "com.cy.rbm.view",
+        "async": true,
+        "viewPath": "com.cy.rbm.view"
+      },
+      "routes": [
+        {
+          "name": "RouteDashboard",
+          "pattern": ":?query:",
+          "target": [
+            "TargetDashboard"
+          ]
+        },
+        {
+          "pattern": "rebates",
+          "name": "rebateList",
+          "target": ["rebateList"]
+        },
+        {
+          "pattern": "rebates/{agreementNo}",
+          "name": "rebateDetails",
+          "target": ["rebateDetails"]
+        }
+      ],
+      "targets": {
+        "TargetDashboard": {
+          "id": "Dashboard",
+          "name": "Dashboard"
+        },
+         "rebateList": {
+          "id": "RebateAgreements",
+          "name": "RebateAgreements"
+        },
+        "rebateDetails": {
+          "id": "RebateAgreementDetails",
+          "name": "RebateAgreementDetails"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "com.cy.rbm.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "comcyrbm"
+  }
+}

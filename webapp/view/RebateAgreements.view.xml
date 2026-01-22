@@ -1,0 +1,97 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+
+  
+  <VBox >
+  <Toolbar >
+  <Title text="Rebate Agreements" ></Title>
+  </Toolbar>
+    <!-- Table -->
+    <Table
+    class="sapUiMediumMarginTop"
+      items="{rebateModel>/agreements}"
+      growing="true"
+      growingScrollToLoad="true"
+      mode="SingleSelectLeft"
+      backgroundDesign="Solid"
+      >
+      <headerToolbar>
+      <!-- Toolbar -->
+    <Toolbar design="Solid">
+      <SearchField
+        width="20rem"
+        placeholder="Search agreements..."
+        liveChange="onSearch"/>
+      <ToolbarSpacer/>
+      <Button text="Create" type="Emphasized" icon="sap-icon://add"/>
+      <Button icon="sap-icon://excel-attachment"/>
+      <Button icon="sap-icon://download"/>
+    </Toolbar>
+      </headerToolbar>
+
+      <columns >
+        <Column ><Text text="Status"/></Column>
+        <Column ><Text text="Agreement #"/></Column>
+        <Column><Text text="Description"/></Column>
+        <Column ><Text text="Type"/></Column>
+        <Column ><Text text="Partner"/></Column>
+        <Column ><Text text="Validity"/></Column>
+        <Column  ><Text text="Accrued"/></Column>
+        <Column  ><Text text="Pending"/></Column>
+        <Column ><Text text="Last Run"/></Column>
+      </columns>
+
+      <items>
+        <ColumnListItem type="Navigation" press=".onOpenRebateAgreementDetails">
+          <cells>
+
+            <!-- Status -->
+            <GenericTag text="{rebateModel>status}"
+              status="{rebateModel>statusState}" design="StatusIconHidden" ></GenericTag>
+            <!-- Agreement -->
+            <VBox>
+              <Link text="{rebateModel>agreementNo}"/>
+              <Label text="{rebateModel>currency}" class="sapUiTinyMarginTop"/>
+            </VBox>
+
+            <!-- Description -->
+            <Text text="{rebateModel>description}" wrapping="true"/>
+
+            <!-- Type -->
+            <Text text="{rebateModel>type}"/>
+
+            <!-- Partner -->
+            <VBox>
+              <Text text="{rebateModel>partner}"/>
+              <Label text="{rebateModel>partnerId}" class="sapUiTinyMarginTop"/>
+            </VBox>
+
+            <!-- Validity -->
+            <Text
+              text="{= ${rebateModel>validFrom} + ' - ' + ${rebateModel>validTo} }"/>
+
+            <!-- Accrued -->
+            <VBox >
+              <ObjectNumber
+                number="{rebateModel>accrued}"
+                unit="₹"/>
+              <Label text="{rebateModel>accruedDate}" class="sapUiTinyMarginTop"/>
+            </VBox>
+
+            <!-- Pending -->
+            <ObjectNumber
+              number="{rebateModel>pending}"
+              unit="₹"
+              state="Warning"/>
+
+            <!-- Last Run -->
+            <Link text="{rebateModel>lastRun}"/>
+
+          </cells>
+        </ColumnListItem>
+      </items>
+
+    </Table>
+
+</VBox>
+</core:FragmentDefinition>

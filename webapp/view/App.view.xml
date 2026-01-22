@@ -1,0 +1,84 @@
+<mvc:View controllerName="com.cy.rbm.controller.App"
+ xmlns:core="sap.ui.core" xmlns:tnt="sap.tnt" 
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+ 
+    <tnt:ToolPage id="toolPage" >
+    <tnt:header>
+            <tnt:ToolHeader>
+            <Button
+                    id="sideNavigationToggleButton"
+                    icon="sap-icon://menu2"
+                    type="Transparent"
+                    press=".onSideNavButtonPress">
+                    <layoutData>
+                        <OverflowToolbarLayoutData priority="NeverOverflow" />
+                    </layoutData>
+                </Button>
+                <Title text="{i18n>title}"></Title>
+                </tnt:ToolHeader>
+        </tnt:header>
+        <tnt:sideContent>
+            <tnt:SideNavigation
+                expanded="true"
+                itemPress=".onItemPress"
+                selectedKey="{navItemsModel>/selectedKey}"
+                itemSelect=".onItemSelect">
+                <tnt:NavigationList items="{path: 'navItemsModel>/navigation'}">
+                    <tnt:NavigationListItem
+                        text="{navItemsModel>title}"
+                        icon="{navItemsModel>icon}"
+                        enabled="{navItemsModel>enabled}"
+                        expanded="{navItemsModel>expanded}"
+                        items="{navItemsModel>items}"
+                        selectable="{= ${navItemsModel>items}.length > 3}"
+                        key="{navItemsModel>key}">
+                        <tnt:NavigationListItem
+                            text="{navItemsModel>title}"
+                            key="{navItemsModel>key}"
+                            enabled="{navItemsModel>enabled}" />
+                    </tnt:NavigationListItem>
+                </tnt:NavigationList>
+                <tnt:fixedItem>
+                    <tnt:NavigationList items="{path: 'navItemsModel>/fixedNavigation'}">
+                        <tnt:NavigationListItem text="{navItemsModel>title}" icon="{navItemsModel>icon}" ariaHasPopup="{navItemsModel>ariaHasPopup}" design="{navItemsModel>design}" press=".onQuickActionPress" selectable="{navItemsModel>selectable}"/>
+                    </tnt:NavigationList>
+                </tnt:fixedItem>
+            </tnt:SideNavigation>
+        </tnt:sideContent>
+        <tnt:mainContents>
+<App id="app">
+    </App> 
+            <!-- <NavContainer id="pageContainer" initialPage="pageDashboard">
+                <pages>
+                <ScrollContainer
+                        id="pageDashboard"
+                        horizontal="false"
+                        vertical="true"
+                        height="100%"
+                        class="sapUiContentPadding">
+                        <core:Fragment  fragmentName="com.cy.rm.rebate.view.Dashboard" type="XML"/>
+                    </ScrollContainer>
+                    <ScrollContainer
+                        id="pageRebateAgreements"
+                        horizontal="false"
+                        vertical="true"
+                        height="100%"
+                        class="sapUiContentPadding">
+                        <core:Fragment fragmentName="com.cy.rm.rebate.view.RebateAgreements" type="XML"/>
+                    </ScrollContainer>
+    <ScrollContainer
+      id="pageRebateAgreementDetails"
+      horizontal="false"
+      vertical="true"
+      height="100%"
+      class="sapUiContentPadding">
+      <core:Fragment fragmentName="com.cy.rm.rebate.view.RebateAgreementDetails" type="XML"/>
+    </ScrollContainer>
+                    </pages>
+            </NavContainer> -->
+        </tnt:mainContents>
+    </tnt:ToolPage>
+ 
+</mvc:View>
+ 
