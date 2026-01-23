@@ -1,0 +1,84 @@
+{
+    "period": {
+        "current": "March 2025",
+        "status": "OPEN", 
+        "statusState": "Success",
+        "actionsEnabled": true
+    },
+    "kpis": {
+        "accrued": { "value": "45.67", "unit": "L", "trend": "Up", "trendValue": "12%", "state": "Success" },
+        "settled": { "value": "12.34", "unit": "L", "sub": "5 pending", "state": "Warning" },
+        "disputes": { "value": "3", "unit": "", "sub": "₹2.1L risk", "state": "Error" },
+        "agreements": { "value": "48", "unit": "", "sub": "2 expiring", "state": "Warning" }
+    },
+    "chartAccrualTrend": [
+        { "Month": "Oct", "Accrued": 28.5, "Settled": 26.2 },
+        { "Month": "Nov", "Accrued": 32.1, "Settled": 30.8 },
+        { "Month": "Dec", "Accrued": 35.8, "Settled": 34.5 },
+        { "Month": "Jan", "Accrued": 37.5, "Settled": 35.4 },
+        { "Month": "Feb", "Accrued": 40.8, "Settled": 39.6 },
+        { "Month": "Mar", "Accrued": 45.7, "Settled": 33.4 }
+    ],
+    "chartAgreementStatus": [
+        { "Status": "Active", "Count": 42 },
+        { "Status": "Expiring", "Count": 3 },
+        { "Status": "Draft", "Count": 3 }
+    ],
+    "topPartners": [
+        { "Partner": "ABC Retail", "Value": 11.2 },
+        { "Partner": "XYZ Stores", "Value": 8.5 },
+        { "Partner": "LMN Dist", "Value": 7.1 },
+        { "Partner": "PQR Trading", "Value": 5.4 },
+        { "Partner": "South Zone", "Value": 4.2 }
+    ],
+    "tasks": [
+        { "title": "Approve: Agreement AGR-2025-048", "due": "Due: Today", "priority": "High" },
+        { "title": "Review: Settlement STL-2025-012", "due": "Due: Tomorrow", "priority": "None" },
+        { "title": "Resolve: Dispute DSP-2025-003", "due": "Due: 2 days", "priority": "None" }
+    ],
+    "deadlines": [
+        { "date": "Mar 31", "text": "Accrual Run due", "status": "Error", "badge": "TODAY" },
+        { "date": "Apr 02", "text": "AGR-2025-012 expires", "status": "None", "badge": "" },
+        { "date": "Apr 05", "text": "Q1 Settlement Review", "status": "Warning", "badge": "URGENT" },
+        { "date": "Apr 07", "text": "Partner ABC Audit", "status": "Success", "badge": "" },
+        { "date": "Apr 10", "text": "Tax Invoice Submission", "status": "None", "badge": "" },
+        { "date": "Apr 12", "text": "Rebate Payout Approval", "status": "Warning", "badge": "PENDING" },
+        { "date": "Apr 15", "text": "System Maintenance", "status": "None", "badge": "" }
+    ],
+    "timeline": [
+        { "label": "Oct 24", "status": "Closed", "icon": "sap-icon://accept", "state": "Success", "selected": false },
+        { "label": "Nov 24", "status": "Closed", "icon": "sap-icon://accept", "state": "Success", "selected": false },
+        { "label": "Jan 25", "status": "Closed", "icon": "sap-icon://accept", "state": "Success", "selected": false },
+        { "label": "Feb 25", "status": "Closed", "icon": "sap-icon://accept", "state": "Success", "selected": false },
+        { "label": "Mar 25", "status": "Open", "icon": "sap-icon://circle-task-2", "state": "Warning", "selected": true },
+        { "label": "Apr 25", "status": "Future", "icon": "sap-icon://pending", "state": "None", "selected": false }
+    ],
+    "notifications": [
+        { "title": "2 Agreements expiring", "desc": "Expiring in 3 days", "time": "1h ago", "priority": "High" },
+        { "title": "Settlement pending", "desc": "STL-012 awaiting approval", "time": "5h ago", "priority": "Medium" }
+    ],
+    "activities": [
+        { 
+            "title": "Agreement AGR-2025-048 created", 
+            "user": "Priya S.", 
+            "time": "2h ago", 
+            "icon": "sap-icon://notes", 
+            "state": "None" 
+        },
+        { 
+            "title": "Settlement STL-2025-012 approved", 
+            "user": "Rahul M.", 
+            "time": "3h ago", 
+            "icon": "sap-icon://accept", 
+            "state": "Success" 
+        },
+        { 
+            "title": "Dispute DSP-2025-003 raised", 
+            "user": "Customer", 
+            "time": "5h ago", 
+            "icon": "sap-icon://alert", 
+            "state": "Warning" 
+        }
+    ]
+
+}

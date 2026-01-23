@@ -19,6 +19,9 @@ sap.ui.define([
       // this.byId("pageContainer").to(this.getView().createId(oItem.getKey()));
       var oRouter = this.getOwnerComponent().getRouter();
 
+      if (oItem.getKey() === "pageRebateTransactionManagement") {
+        oRouter.navTo("rebateTransaction");
+      }
       if (oItem.getKey() === "pageDashboard") {
         oRouter.navTo("RouteDashboard");
       }

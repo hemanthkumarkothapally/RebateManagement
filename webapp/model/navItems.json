@@ -2,6 +2,12 @@
   "selectedKey": "pageDashboard",
   "navigation": [
     {
+      "title": "Rebate Transaction Management",
+      "icon": "sap-icon://collections-insight",
+      "expanded": false,
+      "key": "pageRebateTransactionManagement"
+    },
+    {
       "title": "Dashboard",
       "icon": "sap-icon://dashboard",
       "expanded": false,

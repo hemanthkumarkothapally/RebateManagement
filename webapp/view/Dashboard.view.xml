@@ -1,6 +1,327 @@
 <mvc:View controllerName="com.cy.rbm.controller.Dashboard"
+    xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
+    xmlns:f="sap.f"
+    xmlns:card="sap.f.cards"
+    xmlns:core="sap.ui.core"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:layout="sap.ui.layout" displayBlock="true" height="100%">
     <Page id="page" title="{i18n>title}">
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <core:Icon src="sap-icon://money-bills" size="1.5rem" color="#fff" class="sapUiSmallMarginBegin"/>
+                    <Title text="Rebate Management Hub" titleStyle="H3" class="headerTitleText"/>
+                </contentLeft>
+                <contentMiddle>
+                    <SearchField placeholder="Search agreements, partners..." width="400px" search=".onSearch" class="customSearch"/>
+                </contentMiddle>
+                <contentRight>
+                    <Button icon="sap-icon://bell" type="Transparent" press=".onNotificationsPress">
+                        <customData>
+                            <BadgeCustomData key="badge" value="3" visible="true"/>
+                        </customData>
+                    </Button>
+                    <Select selectedKey="{/period/current}" change=".onPeriodChange" class="transparentSelect">
+                        <items>
+                            <core:Item key="March 2025" text="Period: March 2025" />
+                            <core:Item key="February 2025" text="Period: Feb 2025" />
+                        </items>
+                    </Select>
+                    <ObjectStatus text="{/period/status}" state="{/period/statusState}" inverted="true" class="sapUiSmallMarginEnd"/>
+                </contentRight>
+            </Bar>
+        </customHeader>
+        <content>
+            <layout:Grid defaultSpan="L3 M6 S12" class="sapUiSmallMargin">
+                <layout:content>
+                    <f:Card semanticRole="ListItem" press=".onAccruedPress">
+                        <f:header>
+                            <card:Header title="Total Accrued" iconSrc="sap-icon://bar-chart" />
+                        </f:header>
+                        <f:content>
+                            <VBox class="sapUiSmallMargin">
+                                <Title text="₹{dashboard>/kpis/accrued/value} {dashboard>/kpis/accrued/unit}" titleStyle="H2"/>
+                                <ObjectStatus text="+{dashboard>/kpis/accrued/trendValue} vs last month" state="Success" icon="sap-icon://trend-up" />
+                            </VBox>
+                        </f:content>
+                    </f:Card>
+
+                    <f:Card semanticRole="ListItem" press=".onSettlementPress">
+                        <f:header>
+                            <card:Header title="Pending Settlement" iconSrc="sap-icon://credit-card" />
+                        </f:header>
+                        <f:content>
+                            <VBox class="sapUiSmallMargin">
+                                <Title text="₹{dashboard>/kpis/settled/value} {dashboard>/kpis/settled/unit}" titleStyle="H2"/>
+                                <ObjectStatus text="{dashboard>/kpis/settled/sub}" state="Warning" icon="sap-icon://alert" />
+                            </VBox>
+                        </f:content>
+                    </f:Card>
+
+                    <f:Card semanticRole="ListItem" press=".onDisputesPress">
+                        <f:header>
+                            <card:Header title="Open Disputes" iconSrc="sap-icon://alert" />
+                        </f:header>
+                        <f:content>
+                            <VBox class="sapUiSmallMargin">
+                                <Title text="{dashboard>/kpis/disputes/value}" titleStyle="H2"/>
+                                <ObjectStatus text="{dashboard>/kpis/disputes/sub}" state="Error" icon="sap-icon://error" />
+                            </VBox>
+                        </f:content>
+                    </f:Card>
+
+                    <f:Card semanticRole="ListItem" press=".onAgreementsPress">
+                        <f:header>
+                            <card:Header title="Active Agreements" iconSrc="sap-icon://sales-order" />
+                        </f:header>
+                        <f:content>
+                            <VBox class="sapUiSmallMargin">
+                                <Title text="{dashboard>/kpis/agreements/value}" titleStyle="H2"/>
+                                <ObjectStatus text="{dashboard>/kpis/agreements/sub}" state="Warning" />
+                            </VBox>
+                        </f:content>
+                    </f:Card>
+                </layout:content>
+            </layout:Grid>
+            <layout:Grid class = "sapUiSmallMargin">
+                <f:Card>
+                    <f:header>
+                        <card:Header title="Accrual Trend" subtitle="Last 6 months (₹ in Lakhs)" press=".onAccrualTrendPress" />
+                    </f:header>
+                    <f:content>
+                        <viz:VizFrame id="vizTrend" uiConfig="{applicationSet:'fiori'}" height="300px" width="100%" vizType="line">
+                            <viz:dataset>
+                                <viz.data:FlattenedDataset data="{dashboard>/chartAccrualTrend}">
+                                    <viz.data:dimensions>
+                                        <viz.data:DimensionDefinition name="Month" value="{dashboard>Month}" />
+                                    </viz.data:dimensions>
+                                    <viz.data:measures>
+                                        <viz.data:MeasureDefinition name="Accrued" value="{dashboard>Accrued}" />
+                                        <viz.data:MeasureDefinition name="Settled" value="{dashboard>Settled}" />
+                                    </viz.data:measures>
+                                </viz.data:FlattenedDataset>
+                            </viz:dataset>
+                            <viz:feeds>
+                                <viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Accrued,Settled" />
+                                <viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Month" />
+                            </viz:feeds>
+                        </viz:VizFrame>
+                    </f:content>
+                </f:Card>
+
+                <f:Card>
+                    <f:header>
+                        <card:Header title="Agreement Status" subtitle="Current period breakdown" press=".onAgreementStatusPress" />
+                    </f:header>
+                    <f:content>
+                        <viz:VizFrame id="vizDonut" uiConfig="{applicationSet:'fiori'}" height="300px" width="100%" vizType="donut">
+                            <viz:dataset>
+                                <viz.data:FlattenedDataset data="{dashboard>/chartAgreementStatus}">
+                                    <viz.data:dimensions>
+                                        <viz.data:DimensionDefinition name="Status" value="{dashboard>Status}" />
+                                    </viz.data:dimensions>
+                                    <viz.data:measures>
+                                        <viz.data:MeasureDefinition name="Count" value="{dashboard>Count}" />
+                                    </viz.data:measures>
+                                </viz.data:FlattenedDataset>
+                            </viz:dataset>
+                            <viz:feeds>
+                                <viz.feeds:FeedItem uid="size" type="Measure" values="Count" />
+                                <viz.feeds:FeedItem uid="color" type="Dimension" values="Status" />
+                            </viz:feeds>
+                        </viz:VizFrame>
+                    </f:content>
+                </f:Card>
+
+                <f:Card>
+                    <f:header>
+                        <card:Header title="Top 5 Partners by Rebate" subtitle="March 2025 (₹ in Lakhs)" press=".onTopPartnersPress" />
+                    </f:header>
+                    <f:content>
+                        <viz:VizFrame id="vizTop5" uiConfig="{applicationSet:'fiori'}" height="300px" width="100%" vizType="bar">
+                            <viz:dataset>
+                                <viz.data:FlattenedDataset data="{dashboard>/topPartners}">
+                                    <viz.data:dimensions>
+                                        <viz.data:DimensionDefinition name="Partner" value="{dashboard>Partner}" />
+                                    </viz.data:dimensions>
+                                    <viz.data:measures>
+                                        <viz.data:MeasureDefinition name="Rebate" value="{dashboard>Value}" />
+                                    </viz.data:measures>
+                                </viz.data:FlattenedDataset>
+                            </viz:dataset>
+                            <viz:feeds>
+                                <viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Rebate" />
+                                <viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Partner" />
+                            </viz:feeds>
+                        </viz:VizFrame>
+                    </f:content>
+                </f:Card>
+
+                <f:Card>
+                    <f:header>
+                        <card:Header title="Accrual vs Settlement" subtitle="Last 3 months comparison (₹ in Lakhs)" press=".onAccrualSettlementPress" />
+                    </f:header>
+                    <f:content>
+                        <VBox width="100%" height="300px">
+                            <viz:VizFrame id="vizAS" uiConfig="{applicationSet:'fiori'}" height="270px" width="100%" vizType="column">
+                                <viz:dataset>
+                                    <viz.data:FlattenedDataset data="{dashboard>/chartAccrualTrend}">
+                                        <viz.data:dimensions>
+                                            <viz.data:DimensionDefinition name="Month" value="{dashboard>Month}" />
+                                        </viz.data:dimensions>
+                                        <viz.data:measures>
+                                            <viz.data:MeasureDefinition name="Accrued" value="{dashboard>Accrued}" />
+                                            <viz.data:MeasureDefinition name="Settled" value="{dashboard>Settled}" />
+                                        </viz.data:measures>
+                                    </viz.data:FlattenedDataset>
+                                </viz:dataset>
+                                <viz:feeds>
+                                    <viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Accrued,Settled" />
+                                    <viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Month" />
+                                </viz:feeds>
+                            </viz:VizFrame>
+                            <HBox justifyContent="Center" class="sapUiSmallMarginBottom">
+                                <ObjectStatus text="Gap in Mar: ₹12.3L pending" state="Error" icon="sap-icon://alert" />
+                            </HBox>
+                        </VBox>
+                    </f:content>
+                </f:Card>
+            </layout:Grid>
+            <HBox class="sapUiMediumMargin" width="auto" alignItems="Start">
+
+                <f:Card height="300px" class="sapUiSmallMarginEnd">
+                    <f:layoutData>
+                        <FlexItemData growFactor=".5" baseSize="0" />
+                    </f:layoutData>
+
+                    <f:header>
+                        <card:Header press=".onMyTasks" title="My Tasks" subtitle="Pending actions assigned to you" />
+                    </f:header>
+
+                    <f:content>
+                        <List items="{dashboard>/tasks}" mode="MultiSelect" backgroundDesign="Transparent" showSeparators="Inner">
+                            <StandardListItem title="{dashboard>title}" type="Navigation" description="{dashboard>due}" info="{dashboard>priority}" infoState="{= ${dashboard>priority} === 'High' ? 'Error' : 'None'}" />
+                        </List>
+                    </f:content>
+                </f:Card>
+
+                <f:Card height="300px" class="sapUiSmallMarginBegin">
+                    <f:layoutData>
+                        <FlexItemData growFactor=".5" baseSize="0" />
+                    </f:layoutData>
+
+                    <f:header>
+                        <card:Header title="Upcoming Deadlines" press = ".onPressCalander" subtitle="Next 7 days" />
+                    </f:header>
+
+                    <f:content>
+                        <List items="{dashboard>/deadlines}" mode="None" backgroundDesign="Transparent" showSeparators="Inner">
+                            <CustomListItem>
+                                <HBox alignItems="Center" class="sapUiSmallMarginTopBottom sapUiSmallMarginBegin">
+                                    <ObjectStatus text="{dashboard>date}" state="{dashboard>status}" inverted="true" class="sapUiSmallMarginEnd" />
+
+                                    <VBox>
+                                        <Text text="{dashboard>text}" />
+                                        <ObjectStatus text="{dashboard>badge}" state="Error" visible="{= ${dashboard>badge} !== ''}" />
+                                    </VBox>
+                                </HBox>
+                            </CustomListItem>
+                        </List>
+                    </f:content>
+                </f:Card>
+
+            </HBox>
+
+            <VBox class="sapUiMediumMargin">
+                <f:Card semanticRole="ListItem" class="sapUiSmallMarginBottom">
+                    <f:header>
+                        <card:Header title="Fiscal Period Status" />
+                    </f:header>
+                    <f:content>
+                        <HBox items="{dashboard>/timeline}" width="100%" justifyContent="SpaceBetween" class="sapUiMediumMarginTopBottom sapUiMediumMarginBeginEnd">
+                            <VBox alignItems="Center">
+                                <Avatar src="{dashboard>icon}" displaySize="M" backgroundColor="{= ${dashboard>status} === 'Open' ? 'Accent6' : ${dashboard>status} === 'Closed' ? 'Accent7' : 'Placeholder'}" press=".onTimelinePress" active="{dashboard>selected}" class="sapUiTinyMarginBottom" />
+                                <Label text="{dashboard>label}" design="Bold" class="sapUiTinyMarginTop"/>
+                                <ObjectStatus text="{dashboard>status}" state="{dashboard>state}" />
+                            </VBox>
+                        </HBox>
+                    </f:content>
+                </f:Card>
+            </VBox>
+
+            <HBox class="sapUiMediumMargin" width="auto" alignItems="Start">
+
+                <f:Card semanticRole="ListItem" height="300px" class="sapUiSmallMarginEnd">
+                    <f:layoutData>
+                        <FlexItemData growFactor=".5" baseSize="0" />
+                    </f:layoutData>
+
+                    <f:header>
+                        <card:Header title="Quick Actions" subtitle="Common tasks" />
+                    </f:header>
+
+                    <f:content>
+                        <VBox class="sapUiSmallMargin">
+                            <HBox class="sapUiSmallMarginBottom">
+                                <GenericTile frameType="OneByHalf" class="sapUiSmallMarginEnd" header="Run Accrual" subheader="Calculate" press=".onActionPress" state="{= ${dashboard>/period/actionsEnabled} ? 'Loaded' : 'Disabled'}">
+                                    <TileContent>
+                                        <core:Icon src="sap-icon://media-play" size="2rem" />
+                                    </TileContent>
+                                </GenericTile>
+                                <GenericTile frameType="OneByHalf" header="Settlements" subheader="5 pending" press=".onActionPress" state="{= ${dashboard>/period/actionsEnabled} ? 'Loaded' : 'Disabled'}">
+                                    <TileContent>
+                                        <core:Icon src="sap-icon://credit-card" size="2rem" />
+                                    </TileContent>
+                                </GenericTile>
+                            </HBox>
+                            <HBox>
+                                <GenericTile frameType="OneByHalf" class="sapUiSmallMarginEnd" header="New Agreement" subheader="Create" press=".onActionPress" state="{= ${dashboard>/period/actionsEnabled} ? 'Loaded' : 'Disabled'}">
+                                    <TileContent>
+                                        <core:Icon src="sap-icon://add-document" size="2rem" />
+                                    </TileContent>
+                                </GenericTile>
+                                <GenericTile frameType="OneByHalf" header="Close Period" subheader="Soft close" press=".onActionPress" state="{= ${dashboard>/period/actionsEnabled} ? 'Loaded' : 'Disabled'}">
+                                    <TileContent>
+                                        <core:Icon src="sap-icon://locked" size="2rem" />
+                                    </TileContent>
+                                </GenericTile>
+                            </HBox>
+                        </VBox>
+                    </f:content>
+                </f:Card>
+
+                <f:Card height="300px" class="sapUiSmallMarginBegin">
+                    <f:layoutData>
+                        <FlexItemData growFactor=".5" baseSize="0" />
+                    </f:layoutData>
+
+                    <f:header>
+                        <card:Header press=".onRecentActivity" title="Recent Activity" subtitle="Latest actions across the system" />
+                    </f:header>
+
+                    <f:content>
+                        <List items="{dashboard>/activities}" mode="None" backgroundDesign="Transparent" showSeparators="Inner">
+                            <CustomListItem type="Active" press=".onActivityPress">
+                                <HBox alignItems="Center" justifyContent="SpaceBetween" class="sapUiSmallMargin">
+                                    <HBox alignItems="Center">
+                                        <ObjectStatus icon="{dashboard>icon}" state="{dashboard>state}" class="sapUiSmallMarginEnd" />
+                                        <VBox>
+                                            <Title text="{dashboard>title}" titleStyle="H6" />
+                                            <Text text="{dashboard>user}" class="sapUiTinyMarginTop" />
+                                        </VBox>
+                                    </HBox>
+                                    <Label text="{dashboard>time}" />
+                                </HBox>
+                            </CustomListItem>
+                        </List>
+                    </f:content>
+                </f:Card>
+
+            </HBox>
+
+        </content>
     </Page>
 </mvc:View>
