@@ -1,0 +1,755 @@
+[
+  {
+    "id": "TXN-2025-00001",
+    "agreement": "AGR-2025-001",
+    "agreementName": "Annual Volume Rebate",
+    "invoice": "INV-2025-00456",
+    "item": "10",
+    "period": "2025-01",
+    "periodStatus": "HARD_CLOSE",
+    "date": "2025-01-15",
+    "partner": "ABC Retail Pvt Ltd",
+    "partnerCode": "CUST-001",
+    "product": "Coca-Cola 500ml Case",
+    "productCode": "BEV-001",
+    "category": "Beverages",
+    "qty": 1000,
+    "unit": "CS",
+    "netAmount": 250000,
+    "eligible": 250000,
+    "rate": 2.0,
+    "rebate": 5000,
+    "status": "QUALIFIED",
+    "currency": "INR",
+    "salesOrg": "IN01",
+    "plant": "P001",
+    "incoterms": "EXW",
+    "paymentTerms": "Net 30",
+    "createdBy": "System",
+    "createdAt": "2025-01-15T10:30:00",
+    "notes": [],
+    "calculationTrace": {
+      "agreementRule": "R001 - Beverage Volume Tier",
+      "eligibilityChecks": [
+        {
+          "check": "Customer Match",
+          "result": "PASS",
+          "detail": "CUST-001 in agreement partner list"
+        },
+        {
+          "check": "Product Group",
+          "result": "PASS",
+          "detail": "BEV-001 belongs to BEVERAGES group"
+        },
+        {
+          "check": "Validity Period",
+          "result": "PASS",
+          "detail": "Invoice date within agreement validity"
+        }
+      ],
+      "volumeAccumulation": {
+        "previousVolume": 8200,
+        "currentInvoice": 1000,
+        "newTotal": 9200,
+        "unit": "CS"
+      },
+      "tierApplied": {
+        "tierNumber": 1,
+        "range": "0 - 10,000 CS",
+        "rate": 2.0,
+        "type": "Volume Based"
+      },
+      "calculation": {
+        "formula": "Eligible Amount × Rate",
+        "eligible": 250000,
+        "rate": 2.0,
+        "result": 5000
+      }
+    },
+    "accrualInfo": {
+      "runNumber": "ACR-2025-01-003",
+      "runDate": "2025-01-31",
+      "postingDate": "2025-01-31",
+      "fiDocument": "FI-1000001234",
+      "deltaAmount": 5000,
+      "reversalRef": null
+    }
+  },
+  {
+    "id": "TXN-2025-00002",
+    "agreement": "AGR-2025-001",
+    "agreementName": "Annual Volume Rebate",
+    "invoice": "INV-2025-00457",
+    "item": "10",
+    "period": "2025-01",
+    "periodStatus": "HARD_CLOSE",
+    "date": "2025-01-18",
+    "partner": "ABC Retail Pvt Ltd",
+    "partnerCode": "CUST-001",
+    "product": "Sprite 1L Case",
+    "productCode": "BEV-002",
+    "category": "Beverages",
+    "qty": 800,
+    "unit": "CS",
+    "netAmount": 180000,
+    "eligible": 180000,
+    "rate": 2.0,
+    "rebate": 3600,
+    "status": "QUALIFIED",
+    "currency": "INR",
+    "salesOrg": "IN01",
+    "plant": "P001",
+    "incoterms": "EXW",
+    "paymentTerms": "Net 30",
+    "createdBy": "System",
+    "createdAt": "2025-01-18T14:20:00",
+    "notes": [],
+    "calculationTrace": {
+      "agreementRule": "R001 - Beverage Volume Tier",
+      "eligibilityChecks": [
+        {
+          "check": "Customer Match",
+          "result": "PASS",
+          "detail": "CUST-001 in agreement partner list"
+        },
+        {
+          "check": "Product Group",
+          "result": "PASS",
+          "detail": "BEV-002 belongs to BEVERAGES group"
+        },
+        {
+          "check": "Validity Period",
+          "result": "PASS",
+          "detail": "Invoice date within agreement validity"
+        }
+      ],
+      "volumeAccumulation": {
+        "previousVolume": 9200,
+        "currentInvoice": 800,
+        "newTotal": 10000,
+        "unit": "CS"
+      },
+      "tierApplied": {
+        "tierNumber": 1,
+        "range": "0 - 10,000 CS",
+        "rate": 2.0,
+        "type": "Volume Based"
+      },
+      "calculation": {
+        "formula": "Eligible Amount × Rate",
+        "eligible": 180000,
+        "rate": 2.0,
+        "result": 3600
+      }
+    },
+    "accrualInfo": {
+      "runNumber": "ACR-2025-01-003",
+      "runDate": "2025-01-31",
+      "postingDate": "2025-01-31",
+      "fiDocument": "FI-1000001234",
+      "deltaAmount": 3600,
+      "reversalRef": null
+    }
+  },
+  {
+    "id": "TXN-2025-00003",
+    "agreement": "AGR-2025-001",
+    "agreementName": "Annual Volume Rebate",
+    "invoice": "INV-2025-00458",
+    "item": "20",
+    "period": "2025-01",
+    "periodStatus": "HARD_CLOSE",
+    "date": "2025-01-20",
+    "partner": "ABC Retail Pvt Ltd",
+    "partnerCode": "CUST-001",
+    "product": "Office Supplies Kit",
+    "productCode": "OFF-001",
+    "category": "Office Supplies",
+    "qty": 50,
+    "unit": "EA",
+    "netAmount": 25000,
+    "eligible": 0,
+    "rate": 0,
+    "rebate": 0,
+    "status": "REJECTED",
+    "currency": "INR",
+    "salesOrg": "IN01",
+    "plant": "P001",
+    "incoterms": "EXW",
+    "paymentTerms": "Net 30",
+    "rejectionReason": "Product not in eligible product group (BEV)",
+    "createdBy": "System",
+    "createdAt": "2025-01-20T09:15:00",
+    "notes": [],
+    "calculationTrace": {
+      "agreementRule": "R001 - Beverage Volume Tier",
+      "eligibilityChecks": [
+        {
+          "check": "Customer Match",
+          "result": "PASS",
+          "detail": "CUST-001 in agreement partner list"
+        },
+        {
+          "check": "Product Group",
+          "result": "FAIL",
+          "detail": "OFF-001 NOT in BEVERAGES group - belongs to OFFICE SUPPLIES"
+        },
+        {
+          "check": "Validity Period",
+          "result": "PASS",
+          "detail": "Invoice date within agreement validity"
+        }
+      ],
+      "volumeAccumulation": null,
+      "tierApplied": null,
+      "calculation": {
+        "formula": "N/A - Failed Eligibility",
+        "eligible": 0,
+        "rate": 0,
+        "result": 0
+      }
+    },
+    "accrualInfo": null
+  },
+  {
+    "id": "TXN-2025-00004",
+    "agreement": "AGR-2025-001",
+    "agreementName": "Annual Volume Rebate",
+    "invoice": "INV-2025-00459",
+    "item": "10",
+    "period": "2025-01",
+    "periodStatus": "HARD_CLOSE",
+    "date": "2025-01-22",
+    "partner": "ABC Retail Pvt Ltd",
+    "partnerCode": "CUST-001",
+    "product": "Fanta Orange 500ml Case",
+    "productCode": "BEV-003",
+    "category": "Beverages",
+    "qty": 600,
+    "unit": "CS",
+    "netAmount": 140000,
+    "eligible": 140000,
+    "rate": 2.0,
+    "rebate": 2800,
+    "status": "QUALIFIED",
+    "currency": "INR",
+    "salesOrg": "IN01",
+    "plant": "P001",
+    "incoterms": "EXW",
+    "paymentTerms": "Net 30",
+    "createdBy": "System",
+    "createdAt": "2025-01-22T11:45:00",
+    "notes": [],
+    "calculationTrace": {
+      "agreementRule": "R001 - Beverage Volume Tier",
+      "eligibilityChecks": [
+        {
+          "check": "Customer Match",
+          "result": "PASS",
+          "detail": "CUST-001 in agreement partner list"
+        },
+        {
+          "check": "Product Group",
+          "result": "PASS",
+          "detail": "BEV-003 belongs to BEVERAGES group"
+        },
+        {
+          "check": "Validity Period",
+          "result": "PASS",
+          "detail": "Invoice date within agreement validity"
+        }
+      ],
+      "volumeAccumulation": {
+        "previousVolume": 10000,
+        "currentInvoice": 600,
+        "newTotal": 10600,
+        "unit": "CS"
+      },
+      "tierApplied": {
+        "tierNumber": 2,
+        "range": "10,001 - 50,000 CS",
+        "rate": 2.0,
+        "type": "Volume Based",
+        "note": "Tier threshold crossed at 10,000 CS"
+      },
+      "calculation": {
+        "formula": "Eligible Amount × Rate",
+        "eligible": 140000,
+        "rate": 2.0,
+        "result": 2800
+      }
+    },
+    "accrualInfo": {
+      "runNumber": "ACR-2025-01-003",
+      "runDate": "2025-01-31",
+      "postingDate": "2025-01-31",
+      "fiDocument": "FI-1000001234",
+      "deltaAmount": 2800,
+      "reversalRef": null
+    }
+  },
+  {
+    "id": "TXN-2025-00005",
+    "agreement": "AGR-2025-001",
+    "agreementName": "Annual Volume Rebate",
+    "invoice": "INV-2025-00460",
+    "item": "10",
+    "period": "2025-01",
+    "periodStatus": "HARD_CLOSE",
+    "date": "2025-01-25",
+    "partner": "ABC Retail Pvt Ltd",
+    "partnerCode": "CUST-001",
+    "product": "Coca-Cola 500ml Case",
+    "productCode": "BEV-001",
+    "category": "Beverages",
+    "qty": 2000,
+    "unit": "CS",
+    "netAmount": 500000,
+    "eligible": 500000,
+    "rate": 2.0,
+    "rebate": 10000,
+    "status": "DISPUTED",
+    "currency": "INR",
+    "salesOrg": "IN01",
+    "plant": "P001",
+    "incoterms": "EXW",
+    "paymentTerms": "Net 30",
+    "disputeNumber": "DSP-2025-0042",
+    "disputeReason": "Under review - Customer claims incorrect rate applied",
+    "createdBy": "System",
+    "createdAt": "2025-01-25T16:00:00",
+    "notes": [
+      {
+        "date": "2025-01-26",
+        "user": "Rahul Kumar",
+        "note": "Investigating rate calculation"
+      }
+    ],
+    "calculationTrace": {
+      "agreementRule": "R001 - Beverage Volume Tier",
+      "eligibilityChecks": [
+        {
+          "check": "Customer Match",
+          "result": "PASS",
+          "detail": "CUST-001 in agreement partner list"
+        },
+        {
+          "check": "Product Group",
+          "result": "PASS",
+          "detail": "BEV-001 belongs to BEVERAGES group"
+        },
+        {
+          "check": "Validity Period",
+          "result": "PASS",
+          "detail": "Invoice date within agreement validity"
+        }
+      ],
+      "volumeAccumulation": {
+        "previousVolume": 10600,
+        "currentInvoice": 2000,
+        "newTotal": 12600,
+        "unit": "CS"
+      },
+      "tierApplied": {
+        "tierNumber": 2,
+        "range": "10,001 - 50,000 CS",
+        "rate": 2.0,
+        "type": "Volume Based"
+      },
+      "calculation": {
+        "formula": "Eligible Amount × Rate",
+        "eligible": 500000,
+        "rate": 2.0,
+        "result": 10000
+      }
+    },
+    "accrualInfo": {
+      "runNumber": "ACR-2025-01-003",
+      "runDate": "2025-01-31",
+      "postingDate": "2025-01-31",
+      "fiDocument": "FI-1000001234",
+      "deltaAmount": 10000,
+      "reversalRef": null
+    },
+    "disputeInfo": {
+      "number": "DSP-2025-0042",
+      "claimedAmount": 12500,
+      "systemAmount": 10000,
+      "difference": 2500,
+      "status": "UNDER_REVIEW",
+      "slaDate": "2025-02-05",
+      "owner": "Rahul Kumar"
+    }
+  },
+  {
+    "id": "TXN-2025-00006",
+    "agreement": "AGR-2025-002",
+    "agreementName": "Premium Customer Incentive",
+    "invoice": "INV-2025-00501",
+    "item": "10",
+    "period": "2025-01",
+    "periodStatus": "HARD_CLOSE",
+    "date": "2025-01-12",
+    "partner": "XYZ Stores India Ltd",
+    "partnerCode": "CUST-002",
+    "product": "Coca-Cola 500ml Case",
+    "productCode": "BEV-001",
+    "category": "Beverages",
+    "qty": 1500,
+    "unit": "CS",
+    "netAmount": 375000,
+    "eligible": 375000,
+    "rate": 2.5,
+    "rebate": 9375,
+    "status": "QUALIFIED",
+    "currency": "INR",
+    "salesOrg": "IN01",
+    "plant": "P002",
+    "incoterms": "FOB",
+    "paymentTerms": "Net 45",
+    "createdBy": "System",
+    "createdAt": "2025-01-12T13:20:00",
+    "notes": [],
+    "calculationTrace": {
+      "agreementRule": "R002 - Premium Customer Fixed Rate",
+      "eligibilityChecks": [
+        {
+          "check": "Customer Match",
+          "result": "PASS",
+          "detail": "CUST-002 is premium customer"
+        },
+        {
+          "check": "Product Group",
+          "result": "PASS",
+          "detail": "BEV-001 belongs to BEVERAGES group"
+        },
+        {
+          "check": "Validity Period",
+          "result": "PASS",
+          "detail": "Invoice date within agreement validity"
+        }
+      ],
+      "volumeAccumulation": {
+        "previousVolume": 0,
+        "currentInvoice": 1500,
+        "newTotal": 1500,
+        "unit": "CS"
+      },
+      "tierApplied": {
+        "tierNumber": 1,
+        "range": "All Volumes",
+        "rate": 2.5,
+        "type": "Fixed Rate"
+      },
+      "calculation": {
+        "formula": "Eligible Amount × Rate",
+        "eligible": 375000,
+        "rate": 2.5,
+        "result": 9375
+      }
+    },
+    "accrualInfo": {
+      "runNumber": "ACR-2025-01-002",
+      "runDate": "2025-01-31",
+      "postingDate": "2025-01-31",
+      "fiDocument": "FI-1000001235",
+      "deltaAmount": 9375,
+      "reversalRef": null
+    }
+  },
+  {
+    "id": "TXN-2025-00007",
+    "agreement": "AGR-2025-004",
+    "agreementName": "Distributor Growth Rebate",
+    "invoice": "INV-2025-00789",
+    "item": "10",
+    "period": "2025-02",
+    "periodStatus": "OPEN",
+    "date": "2025-02-05",
+    "partner": "LMN Distributors",
+    "partnerCode": "CUST-004",
+    "product": "Coca-Cola 500ml Case",
+    "productCode": "BEV-001",
+    "category": "Beverages",
+    "qty": 3000,
+    "unit": "CS",
+    "netAmount": 750000,
+    "eligible": 750000,
+    "rate": 3.0,
+    "rebate": 22500,
+    "status": "ACCRUED",
+    "currency": "INR",
+    "salesOrg": "IN01",
+    "plant": "P001",
+    "incoterms": "EXW",
+    "paymentTerms": "Net 30",
+    "accrualNumber": "ACR-2025-0007",
+    "createdBy": "System",
+    "createdAt": "2025-02-05T08:30:00",
+    "notes": [],
+    "calculationTrace": {
+      "agreementRule": "R003 - Distributor Volume Incentive",
+      "eligibilityChecks": [
+        {
+          "check": "Customer Match",
+          "result": "PASS",
+          "detail": "CUST-004 is approved distributor"
+        },
+        {
+          "check": "Product Group",
+          "result": "PASS",
+          "detail": "BEV-001 belongs to BEVERAGES group"
+        },
+        {
+          "check": "Validity Period",
+          "result": "PASS",
+          "detail": "Invoice date within agreement validity"
+        }
+      ],
+      "volumeAccumulation": {
+        "previousVolume": 5000,
+        "currentInvoice": 3000,
+        "newTotal": 8000,
+        "unit": "CS"
+      },
+      "tierApplied": {
+        "tierNumber": 1,
+        "range": "0 - 10,000 CS",
+        "rate": 3.0,
+        "type": "Volume Based"
+      },
+      "calculation": {
+        "formula": "Eligible Amount × Rate",
+        "eligible": 750000,
+        "rate": 3.0,
+        "result": 22500
+      }
+    },
+    "accrualInfo": {
+      "runNumber": "ACR-2025-02-001",
+      "runDate": "2025-02-28",
+      "postingDate": "2025-02-28",
+      "fiDocument": "FI-1000001300",
+      "deltaAmount": 22500,
+      "reversalRef": null
+    }
+  },
+  {
+    "id": "TXN-2025-00008",
+    "agreement": "AGR-2025-001",
+    "agreementName": "Annual Volume Rebate",
+    "invoice": "INV-2025-00461",
+    "item": "10",
+    "period": "2025-01",
+    "periodStatus": "HARD_CLOSE",
+    "date": "2025-01-28",
+    "partner": "ABC Retail Pvt Ltd",
+    "partnerCode": "CUST-001",
+    "product": "Thums Up 500ml Case",
+    "productCode": "BEV-004",
+    "category": "Beverages",
+    "qty": 1200,
+    "unit": "CS",
+    "netAmount": 300000,
+    "eligible": 300000,
+    "rate": 2.0,
+    "rebate": 6000,
+    "status": "QUALIFIED",
+    "currency": "INR",
+    "salesOrg": "IN01",
+    "plant": "P001",
+    "incoterms": "EXW",
+    "paymentTerms": "Net 30",
+    "createdBy": "System",
+    "createdAt": "2025-01-28T10:00:00",
+    "notes": [],
+    "calculationTrace": {
+      "agreementRule": "R001 - Beverage Volume Tier",
+      "eligibilityChecks": [
+        {
+          "check": "Customer Match",
+          "result": "PASS",
+          "detail": "CUST-001 in agreement partner list"
+        },
+        {
+          "check": "Product Group",
+          "result": "PASS",
+          "detail": "BEV-004 belongs to BEVERAGES group"
+        },
+        {
+          "check": "Validity Period",
+          "result": "PASS",
+          "detail": "Invoice date within agreement validity"
+        }
+      ],
+      "volumeAccumulation": {
+        "previousVolume": 12600,
+        "currentInvoice": 1200,
+        "newTotal": 13800,
+        "unit": "CS"
+      },
+      "tierApplied": {
+        "tierNumber": 2,
+        "range": "10,001 - 50,000 CS",
+        "rate": 2.0,
+        "type": "Volume Based"
+      },
+      "calculation": {
+        "formula": "Eligible Amount × Rate",
+        "eligible": 300000,
+        "rate": 2.0,
+        "result": 6000
+      }
+    },
+    "accrualInfo": {
+      "runNumber": "ACR-2025-01-003",
+      "runDate": "2025-01-31",
+      "postingDate": "2025-01-31",
+      "fiDocument": "FI-1000001234",
+      "deltaAmount": 6000,
+      "reversalRef": null
+    }
+  },
+  {
+    "id": "TXN-2025-00009",
+    "agreement": "AGR-2025-002",
+    "agreementName": "Premium Customer Incentive",
+    "invoice": "INV-2025-00502",
+    "item": "10",
+    "period": "2025-01",
+    "periodStatus": "HARD_CLOSE",
+    "date": "2025-01-20",
+    "partner": "XYZ Stores India Ltd",
+    "partnerCode": "CUST-002",
+    "product": "Sprite 1L Case",
+    "productCode": "BEV-002",
+    "category": "Beverages",
+    "qty": 900,
+    "unit": "CS",
+    "netAmount": 202500,
+    "eligible": 202500,
+    "rate": 2.5,
+    "rebate": 5062.5,
+    "status": "SETTLED",
+    "currency": "INR",
+    "salesOrg": "IN01",
+    "plant": "P002",
+    "incoterms": "FOB",
+    "paymentTerms": "Net 45",
+    "settlementNumber": "STL-2025-Q1-002",
+    "createdBy": "System",
+    "createdAt": "2025-01-20T15:30:00",
+    "notes": [],
+    "calculationTrace": {
+      "agreementRule": "R002 - Premium Customer Fixed Rate",
+      "eligibilityChecks": [
+        {
+          "check": "Customer Match",
+          "result": "PASS",
+          "detail": "CUST-002 is premium customer"
+        },
+        {
+          "check": "Product Group",
+          "result": "PASS",
+          "detail": "BEV-002 belongs to BEVERAGES group"
+        },
+        {
+          "check": "Validity Period",
+          "result": "PASS",
+          "detail": "Invoice date within agreement validity"
+        }
+      ],
+      "volumeAccumulation": {
+        "previousVolume": 1500,
+        "currentInvoice": 900,
+        "newTotal": 2400,
+        "unit": "CS"
+      },
+      "tierApplied": {
+        "tierNumber": 1,
+        "range": "All Volumes",
+        "rate": 2.5,
+        "type": "Fixed Rate"
+      },
+      "calculation": {
+        "formula": "Eligible Amount × Rate",
+        "eligible": 202500,
+        "rate": 2.5,
+        "result": 5062.5
+      }
+    },
+    "accrualInfo": {
+      "runNumber": "ACR-2025-01-002",
+      "runDate": "2025-01-31",
+      "postingDate": "2025-01-31",
+      "fiDocument": "FI-1000001235",
+      "deltaAmount": 5062.5,
+      "reversalRef": null
+    },
+    "settlementInfo": {
+      "number": "STL-2025-Q1-002",
+      "settledDate": "2025-04-15",
+      "paymentDoc": "PAY-2025-00045"
+    }
+  },
+  {
+    "id": "TXN-2025-00010",
+    "agreement": "AGR-2025-001",
+    "agreementName": "Annual Volume Rebate",
+    "invoice": "INV-2025-00462",
+    "item": "20",
+    "period": "2025-01",
+    "periodStatus": "HARD_CLOSE",
+    "date": "2025-01-30",
+    "partner": "ABC Retail Pvt Ltd",
+    "partnerCode": "CUST-001",
+    "product": "Cleaning Supplies",
+    "productCode": "CLN-001",
+    "category": "Supplies",
+    "qty": 100,
+    "unit": "EA",
+    "netAmount": 45000,
+    "eligible": 0,
+    "rate": 0,
+    "rebate": 0,
+    "status": "REJECTED",
+    "currency": "INR",
+    "salesOrg": "IN01",
+    "plant": "P001",
+    "incoterms": "EXW",
+    "paymentTerms": "Net 30",
+    "rejectionReason": "Product category excluded from rebate program",
+    "createdBy": "System",
+    "createdAt": "2025-01-30T12:00:00",
+    "notes": [],
+    "calculationTrace": {
+      "agreementRule": "R001 - Beverage Volume Tier",
+      "eligibilityChecks": [
+        {
+          "check": "Customer Match",
+          "result": "PASS",
+          "detail": "CUST-001 in agreement partner list"
+        },
+        {
+          "check": "Product Group",
+          "result": "FAIL",
+          "detail": "CLN-001 NOT in BEVERAGES group - belongs to SUPPLIES"
+        },
+        {
+          "check": "Validity Period",
+          "result": "PASS",
+          "detail": "Invoice date within agreement validity"
+        }
+      ],
+      "volumeAccumulation": null,
+      "tierApplied": null,
+      "calculation": {
+        "formula": "N/A - Failed Eligibility",
+        "eligible": 0,
+        "rate": 0,
+        "result": 0
+      }
+    },
+    "accrualInfo": null
+  }
+]

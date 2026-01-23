@@ -1,0 +1,146 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+    height="100%">
+
+    <f:DynamicPage id="dynamicPage" headerExpanded="true" fitContent="true" class="sapUiNoContentPadding">
+        
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Rebate Transaction Management" level="H2"/>
+                </f:heading>
+                <f:actions>
+                    <Label text="Period:"/>
+                    <Select selectedKey="{ui>/selectedPeriod}" change="onFilterSearch">
+                        <core:Item key="2025-01" text="2025-01"/>
+                        <core:Item key="2024-12" text="2024-12"/>
+                    </Select>
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <f:content>
+                    <VBox>
+                        <OverflowToolbar design="Transparent">
+                            <SearchField 
+                                placeholder="Search by transaction, invoice, partner..." 
+                                width="40%" 
+                                value="{ui>/searchTerm}"
+                                search="onFilterSearch"/>
+                            <ToolbarSpacer/>
+                            <Button text="Filters" icon="sap-icon://filter" press="onToggleFilters" type="{= ${ui>/filtersVisible} ? 'Emphasized' : 'Transparent' }"/>
+                            <Button text="Export" icon="sap-icon://excel-attachment" press="onExport"/>
+                            <Button text="Refresh" icon="sap-icon://refresh" press="onRefresh"/>
+                        </OverflowToolbar>
+
+                        <HBox alignItems="Center" justifyContent="SpaceBetween" width="100%" class="sapUiMediumMarginTop">
+                            <HBox alignItems="Center">
+                                <VBox class="sapUiMediumMarginEnd" alignItems="Center">
+                                    <Label text="Total Transactions" design="Bold"/>
+                                    <Title text="{= ${transaction>/}.length }" level="H3"/>
+                                </VBox>
+                                </HBox>
+                        </HBox>
+                    </VBox>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+
+        <f:content>
+            <Table 
+                id="rebateTable"
+                items="{transaction>/}"
+                mode="MultiSelect"
+                sticky="ColumnHeaders"
+                growing="true"
+                class="sapUiSmallMarginTop">
+                
+                <columns>
+                    <Column width="110px"><Text text="Status" /></Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true"><Text text="Transaction" /></Column>
+                    <Column width="90px" minScreenWidth="Desktop" demandPopin="true"><Text text="Period" /></Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true"><Text text="Invoice" /></Column>
+                    <Column minScreenWidth="Desktop" demandPopin="true"><Text text="Partner" /></Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true"><Text text="Product" /></Column>
+                    <Column hAlign="End"><Text text="Net Amount" /></Column>
+                    <Column hAlign="End" minScreenWidth="Desktop" demandPopin="true"><Text text="Eligible" /></Column>
+                    <Column hAlign="Center" width="60px"><Text text="Rate" /></Column>
+                    <Column hAlign="End"><Text text="Rebate" /></Column>
+                    <Column hAlign="Center" width="80px"><Text text="Actions" /></Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem vAlign="Middle" type="Navigation" press="onViewDetails">
+                        <cells>
+                            <VBox>
+                                <ObjectStatus 
+                                    text="{transaction>status}" 
+                                    inverted="true"
+                                    state="{= ${transaction>status} === 'QUALIFIED' ? 'Success' : 
+                                              ${transaction>status} === 'REJECTED' ? 'Error' : 
+                                              ${transaction>status} === 'DISPUTED' ? 'Warning' : 'Information' }" />
+                                
+                                <Text 
+                                    text="{= ${transaction>status} === 'REJECTED' ? ${transaction>rejectionReason} : 
+                                             ${transaction>status} === 'DISPUTED' ? ${transaction>disputeReason} : '' }" 
+                                    class="sapUiTinyFontSize sapUiTinyMarginTop" 
+                                    wrapping="true" 
+                                    visible="{= ${transaction>status} === 'REJECTED' || ${transaction>status} === 'DISPUTED' }"/>
+                            </VBox>
+
+                            <VBox>
+                                <ObjectIdentifier title="{transaction>id}" titleActive="true" titlePress="onViewDetails"/>
+                                <Text text="{transaction>agreement}" class="sapUiTinyFontSize"/>
+                            </VBox>
+
+                            <VBox>
+                                <Text text="{transaction>period}" />
+                                <ObjectStatus 
+                                    text="{= ${transaction>periodStatus} === 'HARD_CLOSE' ? 'Locked' : 'Open' }" 
+                                    icon="{= ${transaction>periodStatus} === 'HARD_CLOSE' ? 'sap-icon://locked' : 'sap-icon://unlocked' }" 
+                                    state="{= ${transaction>periodStatus} === 'HARD_CLOSE' ? 'Warning' : 'Success' }" 
+                                    inverted="true" 
+                                    class="sapUiTinyMarginTop sapUiTinyFontSize"/>
+                            </VBox>
+
+                            <VBox>
+                                <Text text="{transaction>invoice}"/>
+                                <Text text="{path: 'transaction>date', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium', source: { pattern: 'yyyy-MM-dd' } } }" class="sapUiTinyFontSize"/>
+                            </VBox>
+
+                            <VBox>
+                                <Text text="{transaction>partner}"/>
+                                <Text text="{transaction>partnerCode}" class="sapUiTinyFontSize"/>
+                            </VBox>
+
+                            <VBox>
+                                <Text text="{transaction>product}" />
+                                <Text text="{transaction>qty} {transaction>unit}" class="sapUiTinyFontSize"/>
+                            </VBox>
+
+                            <ObjectNumber number="{parts:[{path:'transaction>netAmount'},{path:'transaction>currency'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false}}" unit="{transaction>currency}" />
+                            <ObjectNumber number="{parts:[{path:'transaction>eligible'},{path:'transaction>currency'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false}}" />
+                            
+                            <Text text="{= ${transaction>rate} > 0 ? ${transaction>rate} + '%' : '-'}" />
+
+                            <ObjectNumber 
+                                number="{parts:[{path:'transaction>rebate'},{path:'transaction>currency'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false}}" 
+                                state="{= ${transaction>rebate} > 0 ? 'Success' : 'None'}" />
+
+                            <HBox justifyContent="Center">
+                                <Button icon="sap-icon://show" type="Transparent" press="onViewDetails" tooltip="View Details"/>
+                                <Button icon="sap-icon://alert" type="Transparent" press="onRaiseDispute" visible="{= ${transaction>status} === 'QUALIFIED' || ${transaction>status} === 'DISPUTED' }" tooltip="Raise Dispute"/>
+                            </HBox>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+
+    </f:DynamicPage>
+</mvc:View>

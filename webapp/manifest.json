@@ -52,6 +52,14 @@
           "bundleName": "com.cy.rbm.i18n.i18n"
         }
       },
+      "transaction": {
+            "type": "sap.ui.model.json.JSONModel",
+            "uri": "model/transaction.json"
+      },
+      "dashboard": {
+            "type": "sap.ui.model.json.JSONModel",
+            "uri": "model/dashboard.json"
+      },
       "navItemsModel": {
         "uri": "model/navItems.json",
         "type": "sap.ui.model.json.JSONModel"
@@ -94,6 +102,11 @@
           "target": ["rebateList"]
         },
         {
+          "pattern": "rebate",
+          "name": "rebateTransaction",
+          "target": ["rebateTransaction"]
+        },
+        {
           "pattern": "rebates/{agreementNo}",
           "name": "rebateDetails",
           "target": ["rebateDetails"]
@@ -107,6 +120,10 @@
          "rebateList": {
           "id": "RebateAgreements",
           "name": "RebateAgreements"
+        },
+        "rebateTransaction": {
+          "id": "RebateTransactionManagement",
+          "name": "RebateTransactionManagement"
         },
         "rebateDetails": {
           "id": "RebateAgreementDetails",
