@@ -1,6 +1,9 @@
-<core:FragmentDefinition xmlns="sap.m"
-	xmlns:core="sap.ui.core">
 
+<mvc:View
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:uxap="sap.uxap"
+  controllerName="com.cy.rbm.controller.RebateAgreements">
   
   <VBox >
   <Toolbar >
@@ -42,7 +45,7 @@
       </columns>
 
       <items>
-        <ColumnListItem type="Navigation" press=".onOpenRebateAgreementDetails">
+        <ColumnListItem type="Navigation" press=".onOpenRebateDetails">
           <cells>
 
             <!-- Status -->
@@ -94,4 +97,4 @@
     </Table>
 
 </VBox>
-</core:FragmentDefinition>
+</mvc:View>

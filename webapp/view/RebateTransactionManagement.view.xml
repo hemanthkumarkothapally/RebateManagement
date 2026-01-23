@@ -1,0 +1,225 @@
+<mvc:View controllerName="com.cy.rbm.controller.RebateTransactionManagement"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:fb="sap.ui.comp.filterbar" displayBlock="true" height="100%">
+
+    <f:DynamicPage id="dynamicPage" headerExpanded="true" preserveHeaderStateOnScroll="true" showFooter="true">
+
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Rebate Transaction Management" level="H2"/>
+                </f:heading>
+
+                <f:actions>
+                    <Label text="Period: 2025-01"/>
+                    <ToolbarSeparator />
+
+                    <Button icon="sap-icon://bell" tooltip="Notifications"/>
+                    <Button icon="sap-icon://action-settings" tooltip="Settings"/>
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <f:content>
+                    <VBox class="sapUiSmallMarginBottom">
+                        <MessageStrip text="This is a read-only view. Transactions are automatically calculated. Period locks enforce audit compliance." type="Information" showIcon="true" class="sapUiSmallMarginBottom"/>
+
+                        <fb:FilterBar id="filterBar" search="onSearch" showRestoreButton="true">
+                            <fb:filterGroupItems>
+                                <fb:FilterGroupItem groupName="G1" name="Search" label="Search" visibleInFilterBar="true">
+                                    <fb:control>
+                                        <SearchField placeholder="Search transaction, invoice..."/>
+                                    </fb:control>
+                                </fb:FilterGroupItem>
+                                <fb:FilterGroupItem groupName="G1" name="Period" label="Period" visibleInFilterBar="true">
+                                    <fb:control>
+                                        <Select selectedKey="2025-01">
+                                            <core:Item key="2025-01" text="2025-01"/>
+                                            <core:Item key="2024-12" text="2024-12"/>
+                                        </Select>
+                                    </fb:control>
+                                </fb:FilterGroupItem>
+                                <fb:FilterGroupItem groupName="G1" name="Status" label="Status" visibleInFilterBar="true">
+                                    <fb:control>
+                                        <ComboBox>
+                                            <core:Item key="ALL" text="All Statuses"/>
+                                            <core:Item key="QUALIFIED" text="Qualified"/>
+                                            <core:Item key="REJECTED" text="Rejected"/>
+                                        </ComboBox>
+                                    </fb:control>
+                                </fb:FilterGroupItem>
+                                <fb:FilterGroupItem groupName="G1" name="Partner" label="Partner" visibleInFilterBar="true">
+                                    <fb:control>
+                                        <Input placeholder="Partner Name..."/>
+                                    </fb:control>
+                                </fb:FilterGroupItem>
+                            </fb:filterGroupItems>
+                        </fb:FilterBar>
+                        <HBox justifyContent="SpaceBetween" class="sapUiSmallMarginLeftRight">
+                            <HBox alignItems="Center" class="sapUiSmallMargin">
+
+                                <VBox alignItems="Center" class="sapUiMediumMarginEnd">
+                                    <ObjectStatus text="Total : {= ${transaction>/}.length }" active="true" inverted="true" state="Indication19" />
+                                </VBox>
+
+
+
+                                <VBox alignItems="Center" class="sapUiMediumMarginBeginEnd">
+                                    <ObjectStatus text="Qualified : {= ${transaction>/}.length }" active="true" inverted="true" state="Indication14" />
+                                </VBox>
+
+
+
+                                <VBox alignItems="Center" class="sapUiMediumMarginBeginEnd">
+                                    <ObjectStatus text="Rejected : {= ${transaction>/}.length }" active="true" inverted="true" state="Indication12" />
+                                </VBox>
+
+
+
+                                <VBox alignItems="Center" class="sapUiMediumMarginBeginEnd">
+                                    <ObjectStatus text="Disputed : {= ${transaction>/}.length }" active="true" inverted="true" state="Indication13" />
+                                </VBox>
+
+
+
+                                <VBox alignItems="Center" class="sapUiMediumMarginBegin">
+                                    <ObjectStatus text="Accrued : {= ${transaction>/}.length }" active="true" inverted="true" state="Indication15" />
+                                </VBox>
+
+                            </HBox>
+
+                            <HBox alignItems="Center">
+                                <VBox alignItems="Center" class="sapUiSmallMargin">
+                                    <Text text="Eligible Amount"></Text>
+                                    <ObjectStatus class="largeStatText" text="₹19,47,500"></ObjectStatus>
+
+                                </VBox>
+                                <ToolbarSeparator />
+                                <VBox alignItems="Center" class="sapUiSmallMargin">
+                                    <Text text="Total Rebate"></Text>
+                                    <ObjectStatus class="largeStatText" text="₹41,837.5" state="Success"></ObjectStatus>
+
+                                </VBox>
+                                <ToolbarSeparator />
+                                <VBox alignItems="Center" class="sapUiSmallMargin">
+                                    <Text text="Avg Rate"></Text>
+                                    <ObjectStatus class="largeStatText" text="2.15%"></ObjectStatus>
+
+                                </VBox>
+                            </HBox>
+                        </HBox>
+
+
+                    </VBox>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+
+        <f:content>
+            <Table id="transactionsTable" mode="MultiSelect" autoPopinMode="false" sticky="ColumnHeaders,HeaderToolbar" inset="false" items="{/transactions}" class="" growing="true" growingThreshold="20">
+
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Transactions (10)" level="H3"/>
+                        <ToolbarSpacer/>
+                        <Button text="Recalculate" icon="sap-icon://refresh" type="Emphasized"/>
+                        <Button text="Flag" icon="sap-icon://flag"/>
+                        <Button text="Export" icon="sap-icon://excel-attachment" press="onExport"/>
+                        <Button icon="sap-icon://sort" tooltip="Sort"/>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column hAlign="Begin">
+                        <Text text="Status" />
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="Transaction / Agreement" />
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="Period" />
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="Invoice / Date" />
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="Partner" />
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="Product" />
+                    </Column>
+                    <Column hAlign="End" minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="Net Amount" />
+                    </Column>
+                    <Column hAlign="End" minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="Eligible" />
+                    </Column>
+                    <Column hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="Rate" />
+                    </Column>
+                    <Column hAlign="End" minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="Rebate" />
+                    </Column>
+                    <Column hAlign="Center">
+                        <Text text="Actions" />
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem press="onPressItem">
+                        <cells>
+                            <VBox >
+                                <ObjectStatus text="{status}" state="{= ${status} === 'QUALIFIED' ? 'Success' : ${status} === 'REJECTED' ? 'Error' : ${status} === 'DISPUTED' ? 'Warning' : 'None' }" icon="{= ${status} === 'QUALIFIED' ? 'sap-icon://accept' : ${status} === 'REJECTED' ? 'sap-icon://decline' : ${status} === 'DISPUTED' ? 'sap-icon://alert' : 'sap-icon://pending' }" inverted="true" />
+                                <Text text="{rejectionReason}" visible="{= !!${rejectionReason}}" class="sapUiTinyMarginTop sapUiTinyFontSize sapUiMediumText"/>
+                            </VBox>
+
+                            <ObjectIdentifier title="{id}" text="{agreement}" titleActive="true" titlePress="onPressTransaction"/>
+
+                            <VBox>
+                                <Label text="{period}" design="Bold"/>
+                                <ObjectStatus text="{= ${periodStatus} === 'HARD_CLOSE' ? 'Locked' : 'Open'}" icon="{= ${periodStatus} === 'HARD_CLOSE' ? 'sap-icon://locked' : 'sap-icon://unlocked'}" state="{= ${periodStatus} === 'HARD_CLOSE' ? 'Error' : 'Success'}" class="sapUiTinyMarginTop"/>
+                            </VBox>
+
+                            <ObjectIdentifier title="{invoice}" text="Item {item} • {date}"/>
+
+                            <ObjectIdentifier title="{partner}" text="{partnerCode}"/>
+
+                            <VBox>
+                                <Text text="{product}" wrapping="true"/>
+                                <Label text="{qty} {unit} • {category}" design="Standard" class="sapUiTinyMarginTop"/>
+                            </VBox>
+                            <ObjectIdentifier title="₹{netAmount}"/>
+                            <ObjectIdentifier title="₹{eligible}"/>
+
+
+                            <Text text="{rate}%" />
+
+                            <ObjectStatus text="₹{rebate}" state="Success"/>
+
+                            <HBox justifyContent="Center">
+                                <Button icon="sap-icon://show" type="Transparent" tooltip="View Details / Trace" press="onViewDetails"/>
+                                <Button icon="sap-icon://alert" type="Transparent" visible="{= ${status} === 'QUALIFIED'}" tooltip="Raise Dispute" press="onDispute"/>
+                            </HBox>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+
+        <f:footer>
+            <OverflowToolbar>
+                <Label text="Showing 10 transaction(s) for period 2025-01"/>
+                <ToolbarSpacer/>
+                <Button icon="sap-icon://navigation-left-arrow" enabled="false"/>
+                <Label text="Page 1 of 1"/>
+                <Button icon="sap-icon://navigation-right-arrow" enabled="false"/>
+            </OverflowToolbar>
+        </f:footer>
+
+    </f:DynamicPage>
+</mvc:View>

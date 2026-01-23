@@ -1,0 +1,90 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form">
+
+    <Dialog
+        title="Raise Dispute: {transaction>id}"
+        contentWidth="600px"
+        icon="sap-icon://alert">
+        
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <ObjectHeader
+                    title="{transaction>partner}"
+                    number="{parts:[{path:'transaction>rebate'},{path:'transaction>currency'}], type: 'sap.ui.model.type.Currency'}"
+                    numberUnit="Current Rebate"
+                    intro="{transaction>invoice}">
+                    <attributes>
+                        <ObjectAttribute text="Current Rate: {transaction>rate}%" />
+                    </attributes>
+                </ObjectHeader>
+
+                <f:SimpleForm 
+                    layout="ResponsiveGridLayout"
+                    editable="true"
+                    labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12">
+                    
+                    <Label text="Dispute Reason" required="true"/>
+                    <Select selectedKey="{view>/disputeReason}" width="100%">
+                        <core:Item key="RATE" text="Incorrect rate applied"/>
+                        <core:Item key="INVOICE" text="Invoice not included"/>
+                        <core:Item key="TIER" text="Tier calculation error"/>
+                        <core:Item key="PRODUCT" text="Product eligibility issue"/>
+                    </Select>
+
+                    <Label text="Claimed Amount" required="true"/>
+                    <Input 
+                        value="{view>/claimedAmount}" 
+                        type="Number" 
+                        description="{transaction>currency}" 
+                        placeholder="Enter amount..."
+                        liveChange="onDisputeAmountChange" />
+
+                    <Label text="Difference" />
+                    <ObjectStatus 
+                        text="{view>/disputeDifference}" 
+                        state="{= ${view>/disputeDifferenceValue} >= 0 ? 'Success' : 'Error' }"
+                        icon="{= ${view>/disputeDifferenceValue} >= 0 ? 'sap-icon://trend-up' : 'sap-icon://trend-down' }" />
+                    
+                    <Label text="Description" required="true"/>
+                    <TextArea value="{view>/disputeComment}" rows="4" placeholder="Provide detailed explanation..." />
+                </f:SimpleForm>
+
+                <Panel 
+                    headerText="Impact Preview" 
+                    visible="{= ${view>/claimedAmount} !== '' &amp;&amp; ${view>/claimedAmount} !== ${transaction>rebate} }"
+                    backgroundDesign="Solid"
+                    class="sapUiSmallMarginTop">
+                    <l:Grid defaultSpan="L6 M6 S12">
+                        <VBox>
+                            <Label text="Adjustment Required" design="Bold"/>
+                            <ObjectNumber 
+                                number="{view>/disputeDifference}" 
+                                unit="{transaction>currency}"
+                                state="{= ${view>/disputeDifferenceValue} >= 0 ? 'Success' : 'Error' }" />
+                        </VBox>
+                        <VBox>
+                            <Label text="Next Settlement Impact" design="Bold"/>
+                            <Text text="{= ${view>/disputeDifferenceValue} >= 0 ? 'Increases payout' : 'Decreases payout' }" />
+                        </VBox>
+                    </l:Grid>
+                    <Text 
+                        text="If accepted, this adjustment will be posted to {transaction>partner} in the next run." 
+                        class="sapUiTinyMarginTop sapUiTinyFontSize" />
+                </Panel>
+
+            </VBox>
+        </content>
+
+        <buttons>
+            <Button text="Cancel" press="onCloseDisputeDialog" />
+            <Button 
+                text="Submit Dispute" 
+                type="Emphasized" 
+                press="onSubmitDispute" 
+                enabled="{= !!${view>/disputeReason} &amp;&amp; !!${view>/disputeComment} }" />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

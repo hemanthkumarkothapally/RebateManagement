@@ -1,0 +1,309 @@
+<mvc:View
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:uxap="sap.uxap"
+  controllerName="com.cy.rbm.controller.RebateAgreementDetails">
+
+  <uxap:ObjectPageLayout
+    showTitleInHeaderContent="true"
+    useIconTabBar="true"
+    upperCaseAnchorBar="false">
+
+    <!-- ================= HEADER ================= -->
+    <uxap:headerTitle>
+      <uxap:ObjectPageDynamicHeaderTitle>
+
+        <uxap:heading>
+          <HBox alignItems="Center">
+            <Avatar
+              src="sap-icon://clipboard"
+              displaySize="L"
+              backgroundColor="Accent6"/>
+            <VBox class="sapUiSmallMarginBegin">
+              <Title text="{rebateModel>/agreementNo}" level="H2"/>
+              <ObjectStatus
+                text="{rebateModel>/status}"
+                state="{rebateModel>/statusState}"/>
+              <Text text="{rebateModel>/description}"/>
+            </VBox>
+          </HBox>
+        </uxap:heading>
+
+        <uxap:actions>
+          <Button text="Edit"/>
+          <Button text="Suspend"/>
+          <MenuButton text="Actions"/>
+          <Button
+            type="Transparent"
+            text="← Back to List"
+            press=".onCloseDetails"/>
+        </uxap:actions>
+
+      </uxap:ObjectPageDynamicHeaderTitle>
+    </uxap:headerTitle>
+
+    <!-- ================= KPI CARDS ================= -->
+    <uxap:headerContent>
+      <HBox wrap="Wrap" width="100%" class="sapUiSmallMargin">
+
+        <GenericTile header="Status">
+          <TileContent>
+            <VBox>
+              <ObjectStatus
+                text="{rebateModel>/status}"
+                state="{rebateModel>/statusState}"/>
+              <Text text="{rebateModel>/statusSince}"/>
+            </VBox>
+          </TileContent>
+        </GenericTile>
+
+        <GenericTile header="Validity Period">
+          <TileContent>
+            <VBox>
+              <Text text="{rebateModel>/validFrom}"/>
+              <Text text="to {rebateModel>/validTo}"/>
+            </VBox>
+          </TileContent>
+        </GenericTile>
+
+        <GenericTile header="Total Accrued">
+          <TileContent>
+            <VBox>
+              <ObjectNumber
+                number="{rebateModel>/totalAccrued}"
+                unit="₹"/>
+              <Link text="Settled: ₹{rebateModel>/settledAmount}"/>
+            </VBox>
+          </TileContent>
+        </GenericTile>
+
+        <GenericTile header="Pending Settlement">
+          <TileContent>
+            <VBox>
+              <ObjectNumber
+                number="{rebateModel>/pendingSettlement}"
+                unit="₹"
+                state="Warning"/>
+              <Text text="Awaiting next settlement run"/>
+            </VBox>
+          </TileContent>
+        </GenericTile>
+
+      </HBox>
+    </uxap:headerContent>
+
+    <!-- ================= SECTIONS ================= -->
+    <uxap:sections>
+
+      <!-- ===== Rebate Rules ===== -->
+      <uxap:ObjectPageSection title="Rebate Rules">
+        <uxap:ObjectPageSubSection>
+
+          <Table items="{rebateModel>/rules}">
+            <columns>
+              <Column><Text text="Active"/></Column>
+              <Column><Text text="Rule ID"/></Column>
+              <Column><Text text="Rule Name"/></Column>
+              <Column><Text text="Rule Type"/></Column>
+              <Column><Text text="Calculation Basis"/></Column>
+              <Column><Text text="Rate/Tier"/></Column>
+            </columns>
+
+            <items>
+              <ColumnListItem>
+                <cells>
+                  <Switch state="{active}"/>
+                  <Link text="{ruleId}"/>
+                  <Text text="{ruleName}"/>
+                  <Text text="{ruleType}"/>
+                  <Text text="{calculationBasis}"/>
+                  <Text text="{rateSummary}"/>
+                </cells>
+              </ColumnListItem>
+            </items>
+          </Table>
+
+          <!-- Tiers -->
+          <Panel
+            headerText="Tiers for Rule R001 - Beverage Volume Tier"
+            expandable="false"
+            class="sapUiMediumMarginTop">
+
+            <Table items="{rebateModel>/tiers}">
+              <columns>
+                <Column><Text text="Tier"/></Column>
+                <Column><Text text="From Value"/></Column>
+                <Column><Text text="To Value"/></Column>
+                <Column><Text text="Rate"/></Column>
+                <Column><Text text="Type"/></Column>
+              </columns>
+
+              <items>
+                <ColumnListItem>
+                  <cells>
+                    <Text text="{tier}"/>
+                    <Text text="{from}"/>
+                    <Text text="{to}"/>
+                    <Link text="{rate}"/>
+                    <Text text="{type}"/>
+                  </cells>
+                </ColumnListItem>
+              </items>
+            </Table>
+          </Panel>
+
+          <!-- Eligibility -->
+          <Panel
+            headerText="Eligibility Criteria for Rule R001"
+            expandable="false"
+            class="sapUiMediumMarginTop">
+
+            <Table items="{rebateModel>/eligibility}">
+              <columns>
+                <Column><Text text="Criteria Type"/></Column>
+                <Column><Text text="Include / Exclude"/></Column>
+                <Column><Text text="Value"/></Column>
+                <Column><Text text="Description"/></Column>
+              </columns>
+
+              <items>
+                <ColumnListItem>
+                  <cells>
+                    <Text text="{criteriaType}"/>
+                    <ObjectStatus
+                      text="{includeExclude}"
+                      state="{state}"/>
+                    <Text text="{value}"/>
+                    <Text text="{description}"/>
+                  </cells>
+                </ColumnListItem>
+              </items>
+            </Table>
+          </Panel>
+
+        </uxap:ObjectPageSubSection>
+      </uxap:ObjectPageSection>
+
+      <!-- ===== Transactions ===== -->
+      <uxap:ObjectPageSection title="Transactions">
+        <uxap:ObjectPageSubSection>
+          <Table items="{rebateModel>/transactions}">
+            <columns>
+              <Column><Text text="Status"/></Column>
+              <Column><Text text="Transaction ID"/></Column>
+              <Column><Text text="Invoice"/></Column>
+              <Column><Text text="Date"/></Column>
+              <Column><Text text="Product"/></Column>
+              <Column><Text text="Net Amount"/></Column>
+              <Column><Text text="Rebate"/></Column>
+            </columns>
+
+            <items>
+              <ColumnListItem>
+                <cells>
+                  <ObjectStatus text="{rebateModel>status}" state="{rebateModel>state}"/>
+                  <Link text="{transactionId}"/>
+                  <Link text="{invoice}"/>
+                  <Text text="{date}"/>
+                  <Text text="{product}"/>
+                  <Text text="{netAmount}"/>
+                  <Text text="{rebate}"/>
+                </cells>
+              </ColumnListItem>
+            </items>
+          </Table>
+        </uxap:ObjectPageSubSection>
+      </uxap:ObjectPageSection>
+
+      <!-- ===== Accruals ===== -->
+      <uxap:ObjectPageSection title="Accruals">
+        <uxap:ObjectPageSubSection>
+          <Table items="{rebateModel>/accruals}">
+            <columns>
+              <Column><Text text="Status"/></Column>
+              <Column><Text text="Accrual #"/></Column>
+              <Column><Text text="Period"/></Column>
+              <Column><Text text="Type"/></Column>
+              <Column><Text text="Base Amount"/></Column>
+              <Column><Text text="Accrual"/></Column>
+              <Column><Text text="Cumulative"/></Column>
+              <Column><Text text="FI Document"/></Column>
+            </columns>
+
+            <items>
+              <ColumnListItem>
+                <cells>
+                  <ObjectStatus text="{status}" state="{state}"/>
+                  <Link text="{accrualId}"/>
+                  <Text text="{period}"/>
+                  <Text text="{type}"/>
+                  <Text text="{baseAmount}"/>
+                  <Text text="{accrual}"/>
+                  <Text text="{cumulative}"/>
+                  <Text text="{fiDocument}"/>
+                </cells>
+              </ColumnListItem>
+            </items>
+          </Table>
+        </uxap:ObjectPageSubSection>
+      </uxap:ObjectPageSection>
+
+      <!-- ===== Settlements ===== -->
+      <uxap:ObjectPageSection title="Settlements">
+        <uxap:ObjectPageSubSection>
+          <Table items="{rebateModel>/settlements}">
+            <columns>
+              <Column><Text text="Status"/></Column>
+              <Column><Text text="Settlement #"/></Column>
+              <Column><Text text="Period"/></Column>
+              <Column><Text text="Type"/></Column>
+              <Column><Text text="Amount"/></Column>
+              <Column><Text text="Payment Date"/></Column>
+              <Column><Text text="FI Document"/></Column>
+            </columns>
+
+            <items>
+              <ColumnListItem>
+                <cells>
+                  <ObjectStatus text="{status}" state="{state}"/>
+                  <Link text="{settlementId}"/>
+                  <Text text="{period}"/>
+                  <Text text="{type}"/>
+                  <Text text="{amount}"/>
+                  <Text text="{paymentDate}"/>
+                  <Text text="{fiDocument}"/>
+                </cells>
+              </ColumnListItem>
+            </items>
+          </Table>
+        </uxap:ObjectPageSubSection>
+      </uxap:ObjectPageSection>
+
+      <!-- ===== History ===== -->
+      <uxap:ObjectPageSection title="History">
+        <uxap:ObjectPageSubSection>
+          <Table items="{rebateModel>/history}">
+            <columns>
+              <Column><Text text="Date &amp; Time"/></Column>
+              <Column><Text text="User"/></Column>
+              <Column><Text text="Action"/></Column>
+              <Column><Text text="Details"/></Column>
+            </columns>
+
+            <items>
+              <ColumnListItem>
+                <cells>
+                  <Text text="{dateTime}"/>
+                  <Text text="{user}"/>
+                  <ObjectStatus text="{action}" state="{state}"/>
+                  <Text text="{details}"/>
+                </cells>
+              </ColumnListItem>
+            </items>
+          </Table>
+        </uxap:ObjectPageSubSection>
+      </uxap:ObjectPageSection>
+
+    </uxap:sections>
+  </uxap:ObjectPageLayout>
+</mvc:View>

@@ -1,21 +1,65 @@
 {
   "agreements": [
     {
-      "status": "Active",
-      "statusState": "Success",
-      "agreementNo": "AGR-2025-001",
-      "currency": "INR",
-      "description": "Annual Volume Rebate - Beverages",
-      "type": "Customer",
-      "partner": "ABC Retail Pvt Ltd",
-      "partnerId": "CUST-001",
-      "validFrom": "Jan 2025",
-      "validTo": "Dec 2025",
-      "accrued": 156000,
-      "accruedDate": "2025-03",
-      "pending": 56000,
-      "lastRun": "RUN-2025-03-001"
+  "agreementNo": "AGR-2025-001",
+  "description": "Annual Volume Rebate - Beverages",
+  "status": "Active",
+  "statusState": "Success",
+  "statusSince": "Since 18 Dec 2024",
+  "validFrom": "01 Jan 2025",
+  "validTo": "31 Dec 2025",
+  "totalAccrued": "1,56,000",
+  "settledAmount": "1,00,000",
+  "pendingSettlement": "56,000",
+
+  "rules": [
+    {
+      "active": true,
+      "ruleId": "R001",
+      "ruleName": "Beverage Volume Tier",
+      "ruleType": "Tiered (Retroactive)",
+      "calculationBasis": "Net Value",
+      "rateSummary": "1–3%"
     },
+    {
+      "active": true,
+      "ruleId": "R002",
+      "ruleName": "Snacks Flat Rate",
+      "ruleType": "Flat Percentage",
+      "calculationBasis": "Net Value",
+      "rateSummary": "1.5%"
+    }
+  ],
+
+  "tiers": [
+    { "tier": "Tier 1", "from": "₹0", "to": "₹10,00,000", "rate": "1.0%", "type": "Value" },
+    { "tier": "Tier 2", "from": "₹10,00,001", "to": "₹50,00,000", "rate": "2.0%", "type": "Value" },
+    { "tier": "Tier 3", "from": "₹50,00,001", "to": "Unlimited", "rate": "3.0%", "type": "Value" }
+  ],
+
+  "eligibility": [
+    { "criteriaType": "Product Group", "includeExclude": "Include", "state": "Success", "value": "BEV", "description": "Beverages" },
+    { "criteriaType": "Product Group", "includeExclude": "Exclude", "state": "Error", "value": "BEV-ALC", "description": "Alcoholic Beverages" }
+  ],
+
+  "transactions": [
+    { "status": "Qualified", "state": "Success", "transactionId": "TXN-0001", "invoice": "INV-2025-00456", "date": "15 Jan 2025", "product": "Coca-Cola 500ml", "netAmount": "₹2,50,000", "rebate": "₹5,000" },
+    { "status": "Rejected", "state": "Error", "transactionId": "TXN-0003", "invoice": "INV-2025-00458", "date": "20 Jan 2025", "product": "Office Supplies", "netAmount": "₹25,000", "rebate": "₹0" }
+  ],
+
+  "accruals": [
+    { "status": "Posted", "state": "Success", "accrualId": "ACR-00001", "period": "2025-01", "type": "Regular", "baseAmount": "₹10,70,000", "accrual": "₹21,400", "cumulative": "₹21,400", "fiDocument": "1000001234" }
+  ],
+
+  "settlements": [
+    { "status": "Paid", "state": "Success", "settlementId": "STL-00001", "period": "Q1 2025", "type": "Credit Note", "amount": "₹1,00,000", "paymentDate": "15 Apr 2025", "fiDocument": "2000001234" }
+  ],
+
+  "history": [
+    { "dateTime": "18 Dec 2024, 14:30", "user": "Suresh Reddy", "action": "Approved", "state": "Success", "details": "Agreement activated" },
+    { "dateTime": "16 Dec 2024, 11:15", "user": "Amit Kumar", "action": "Submitted", "state": "Warning", "details": "Submitted for approval" }
+  ]
+},
     {
       "status": "Active",
       "statusState": "Success",
