@@ -1,1 +1,12 @@
 /* Enter your custom styles here */
+/* Increase font size for specific ObjectStatus */
+.largeStatText .sapMObjStatusText {
+    font-size: 1.5rem;  /* Adjust size as needed (e.g., 20px, 2rem) */
+    font-weight: bold;  /* Optional: make it bold */
+    line-height: normal; /* Fixes vertical alignment if text gets too big */
+}
+
+/* If you have an icon, you might want to resize that too */
+.largeStatText .sapMObjStatusIcon {
+    font-size: 1.5rem;
+}
