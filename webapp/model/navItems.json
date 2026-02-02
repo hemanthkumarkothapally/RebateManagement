@@ -2,22 +2,34 @@
   "selectedKey": "pageDashboard",
   "navigation": [
     {
+      "title": "Dashboard",
+      "icon": "sap-icon://bbyd-dashboard",
+      "expanded": false,
+      "key": "pageDashboard"
+    },
+    {
+      "title": "Rebate Agreements",
+      "icon": "sap-icon://decision",
+      "expanded": false,
+      "key": "pageRebateAgreements"
+    },
+    {
       "title": "Rebate Transaction Management",
       "icon": "sap-icon://collections-insight",
       "expanded": false,
       "key": "pageRebateTransactionManagement"
     },
     {
-      "title": "Dashboard",
-      "icon": "sap-icon://dashboard",
+      "title": "Accrual Runs",
+      "icon": "sap-icon://accounting-document-verification",
       "expanded": false,
-      "key": "pageDashboard"
+      "key": "pageAccrualRuns"
     },
     {
-      "title": "Rebate Agreements",
-      "icon": "sap-icon://business-suite",
+      "title": "Settlement Workbench",
+      "icon": "sap-icon://currency",
       "expanded": false,
-      "key": "pageRebateAgreements"
+      "key": "pageSettlementWorkbench"
     }
   ]
 }

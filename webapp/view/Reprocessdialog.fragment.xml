@@ -1,0 +1,68 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form">
+
+    <Dialog title="Reprocess Period" contentWidth="600px" afterClose=".onDialogClose">
+
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <!-- Warning Message -->
+                <MessageStrip text="Reprocessing will recalculate accruals. Existing postings will be reversed and new postings created." type="Warning" showIcon="true" class="sapUiTinyMarginBottom"/>
+
+                <!-- Form -->
+                <f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="true">
+
+                    <f:content>
+                        <Label text="Fiscal Period" required="true"/>
+                        <Select id="reprocessFiscalPeriod" selectedKey="2025-01" width="100%">
+                            <items>
+                                <core:Item key="2025-01" text="2025-01"/>
+                                <core:Item key="2024-12" text="2024-12"/>
+                                <core:Item key="2024-11" text="2024-11"/>
+                            </items>
+                        </Select>
+
+                        <Label text="Reprocess Scope" required="true"/>
+                        <Select id="reprocessScope" selectedKey="selected" width="100%" change=".onScopeChange">
+                            <items>
+                                <core:Item key="selected" text="Selected Agreements"/>
+                                <core:Item key="all" text="All Agreements"/>
+                                <core:Item key="failed" text="Failed Agreements Only"/>
+                            </items>
+                        </Select>
+
+                        <Label text="Select Agreements"/>
+                        <VBox width="100%">
+                            <Table id="agreementsTable" items="{accrualRunsModel>/reprocessAgreements}" mode="MultiSelect" growing="true" growingThreshold="10">
+                                <columns>
+                                    <Column width="40%">
+                                        <Text text="Agreement"/>
+                                    </Column>
+                                    <Column width="60%">
+                                        <Text text="Description"/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem selected="{accrualRunsModel>selected}">
+                                        <cells>
+                                            <Text text="{accrualRunsModel>agreementId}"/>
+                                            <Text text="{accrualRunsModel>description}"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </VBox>
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+
+        <beginButton>
+            <Button text="Start Reprocess" type="Emphasized" icon="sap-icon://refresh" press=".onStartReprocess"/>
+        </beginButton>
+
+        <endButton>
+            <Button text="Cancel" press=".onCancelReprocess"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

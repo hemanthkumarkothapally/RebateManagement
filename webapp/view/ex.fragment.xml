@@ -1,0 +1,592 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:fi="sap.f"
+    xmlns:card="sap.f.cards"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:grid="sap.ui.layout.cssgrid"
+>
+    <Dialog
+        title="Create Rebate Rule"
+        contentWidth="1100px"
+        icon="sap-icon://bar-chart"
+    >
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <Panel
+                    headerText="1️⃣ Rule Type"
+                    class="sapUiSmallMarginBottom"
+                    backgroundDesign="Transparent"
+                >
+                    <grid:CSSGrid
+                        id="ruleTypeGrid"
+                        gridTemplateColumns="repeat(auto-fit, minmax(14rem, 1fr))"
+                        gridGap="1rem"
+                        class="sapUiSmallMargin"
+                    >
+                        <fi:Card
+                            class="sapUiMediumMarginBottom cursorPointer"
+                            validationSuccess="true"
+                        >
+                            <fi:header>
+                                <card:Header
+                                    title="Tiered Rebate"
+                                    subtitle="Progressive rates based on volume/value"
+                                    iconSrc="sap-icon://signal-full"
+                                    iconDisplayShape="Circle"
+                                    press="onSelectRuleType"
+                                >
+                                    <card:customData>
+                                        <core:CustomData
+                                            key="ruleKey"
+                                            value="TIERED"
+                                        />
+                                    </card:customData>
+                                </card:Header>
+                            </fi:header>
+                        </fi:Card>
+
+                        <fi:Card class="sapUiMediumMarginBottom cursorPointer">
+                            <fi:header>
+                                <card:Header
+                                    title="Flat Rate"
+                                    subtitle="Fixed percentage on all transactions"
+                                    iconSrc="sap-icon://horizontal-bar-chart"
+                                    iconDisplayShape="Circle"
+                                    press="onSelectRuleType"
+                                >
+                                    <card:customData>
+                                        <core:CustomData
+                                            key="ruleKey"
+                                            value="FLAT"
+                                        />
+                                    </card:customData>
+                                </card:Header>
+                            </fi:header>
+                        </fi:Card>
+
+                        <fi:Card class="sapUiMediumMarginBottom cursorPointer">
+                            <fi:header>
+                                <card:Header
+                                    title="Growth Incentive"
+                                    subtitle="Rewards based on YoY growth"
+                                    iconSrc="sap-icon://trend-up"
+                                    iconDisplayShape="Circle"
+                                    statusText="Popular"
+                                    press="onSelectRuleType"
+                                >
+                                    <card:customData>
+                                        <core:CustomData
+                                            key="ruleKey"
+                                            value="GROWTH"
+                                        />
+                                    </card:customData>
+                                </card:Header>
+                            </fi:header>
+                        </fi:Card>
+
+                        <fi:Card class="sapUiMediumMarginBottom cursorPointer">
+                            <fi:header>
+                                <card:Header
+                                    title="Promotional"
+                                    subtitle="Time-limited promotional bonuses"
+                                    iconSrc="sap-icon://target-group"
+                                    iconDisplayShape="Circle"
+                                    press="onSelectRuleType"
+                                >
+                                    <card:customData>
+                                        <core:CustomData
+                                            key="ruleKey"
+                                            value="PROMO"
+                                        />
+                                    </card:customData>
+                                </card:Header>
+                            </fi:header>
+                        </fi:Card>
+
+                        <fi:Card class="sapUiMediumMarginBottom cursorPointer">
+                            <fi:header>
+                                <card:Header
+                                    title="Volume Count"
+                                    subtitle="Based on quantity/units purchased"
+                                    iconSrc="sap-icon://product"
+                                    iconDisplayShape="Circle"
+                                    press="onSelectRuleType"
+                                >
+                                    <card:customData>
+                                        <core:CustomData
+                                            key="ruleKey"
+                                            value="VOLUME"
+                                        />
+                                    </card:customData>
+                                </card:Header>
+                            </fi:header>
+                        </fi:Card>
+
+                        <fi:Card class="sapUiMediumMarginBottom cursorPointer">
+                            <fi:header>
+                                <card:Header
+                                    title="Product Mix"
+                                    subtitle="Bundle incentives for combinations"
+                                    iconSrc="sap-icon://basket"
+                                    iconDisplayShape="Circle"
+                                    press="onSelectRuleType"
+                                >
+                                    <card:customData>
+                                        <core:CustomData
+                                            key="ruleKey"
+                                            value="MIX"
+                                        />
+                                    </card:customData>
+                                </card:Header>
+                            </fi:header>
+                        </fi:Card>
+
+                        <fi:Card class="sapUiMediumMarginBottom cursorPointer">
+                            <fi:header>
+                                <card:Header
+                                    title="Target Achievement"
+                                    subtitle="Bonus for meeting sales targets"
+                                    iconSrc="sap-icon://badge"
+                                    iconDisplayShape="Circle"
+                                    press="onSelectRuleType"
+                                >
+                                    <card:customData>
+                                        <core:CustomData
+                                            key="ruleKey"
+                                            value="TARGET"
+                                        />
+                                    </card:customData>
+                                </card:Header>
+                            </fi:header>
+                        </fi:Card>
+
+                        <fi:Card class="sapUiMediumMarginBottom cursorPointer">
+                            <fi:header>
+                                <card:Header
+                                    title="Loyalty Bonus"
+                                    subtitle="Long-term tenure rewards"
+                                    iconSrc="sap-icon://favorite"
+                                    iconDisplayShape="Circle"
+                                    press="onSelectRuleType"
+                                >
+                                    <card:customData>
+                                        <core:CustomData
+                                            key="ruleKey"
+                                            value="LOYALTY"
+                                        />
+                                    </card:customData>
+                                </card:Header>
+                            </fi:header>
+                        </fi:Card>
+                    </grid:CSSGrid>
+                </Panel>
+
+                <Panel
+                    headerText="2️⃣ Rule Details"
+                    class="sapUiSmallMarginBottom"
+                    backgroundDesign="Transparent"
+                >
+                    <f:SimpleForm
+                        layout="ResponsiveGridLayout"
+                        labelSpanXL="3"
+                        labelSpanL="3"
+                        labelSpanM="3"
+                        labelSpanS="12"
+                    >
+                        <Label
+                            text="Rule ID"
+                            required="true"
+                        />
+                        <Input
+                            value="{createAgreementModel>/newRule/ruleId}"
+                            placeholder="e.g., R0001"
+                            maxLength="50"
+                            valueState="{= ${createAgreementModel>/ruleValidationMode} &amp;&amp; !${createAgreementModel>/newRule/ruleId} ? 'Error' : 'None' }"
+                            valueStateText="Rule ID is required"
+                        />
+
+                        <Label
+                            text="Rule Name"
+                            required="true"
+                        />
+                        <Input
+                            value="{createAgreementModel>/newRule/ruleName}"
+                            placeholder="e.g., Annual Volume Rebate 2026"
+                            maxLength="50"
+                            valueState="{= ${createAgreementModel>/ruleValidationMode} &amp;&amp; !${createAgreementModel>/newRule/ruleName} ? 'Error' : 'None' }"
+                            valueStateText="Rule Name is required"
+                        />
+
+                        <Label text="Status" />
+                        <Switch
+                            state="{createAgreementModel>/newRule/active}"
+                            customTextOn="Active"
+                            customTextOff="Inactive"
+                        />
+
+                        <Label
+                            text="Calculation Basis"
+                            required="true"
+                        />
+                        <Select
+                            selectedKey="{createAgreementModel>/newRule/calculationBasis}"
+                        >
+                            <core:Item
+                                key="NET"
+                                text="Net Value (After Discounts)"
+                            />
+                            <core:Item
+                                key="GROSS"
+                                text="Gross Value (Before Discounts)"
+                            />
+                            <core:Item
+                                key="QTY"
+                                text="Quantity / Units"
+                            />
+                            <core:Item
+                                key="WEIGHT"
+                                text="Weight (Kg)"
+                            />
+                            <core:Item
+                                key="CASES"
+                                text="Cases / Cartons"
+                            />
+                        </Select>
+
+                        <Label
+                            text="Calculation Method"
+                            required="true"
+                        />
+                        <Select
+                            selectedKey="{createAgreementModel>/newRule/calcMethod}"
+                        >
+                            <core:Item
+                                key="PCT"
+                                text="Percentage (%)"
+                            />
+                            <core:Item
+                                key="FIXED_UNIT"
+                                text="Fixed Amount per Unit"
+                            />
+                            <core:Item
+                                key="FIXED_TXN"
+                                text="Fixed Amount per Transaction"
+                            />
+                            <core:Item
+                                key="LUMP"
+                                text="Lump Sum on Achievement"
+                            />
+                        </Select>
+
+                        <Label text="Tier Application" />
+                        <RadioButtonGroup
+                            columns="3"
+                            selectedIndex="{createAgreementModel>/newRule/tierApp}"
+                        >
+                            <buttons>
+                                <RadioButton
+                                    text="Retroactive (All at highest)"
+                                />
+                                <RadioButton text="Prospective (Stepped)" />
+                                <RadioButton text="Incremental (Excess only)" />
+                            </buttons>
+                        </RadioButtonGroup>
+                    </f:SimpleForm>
+                </Panel>
+
+                <Panel
+                    headerText="3️⃣ Tiers &amp; Rates"
+                    class="sapUiSmallMarginBottom"
+                    backgroundDesign="Transparent"
+                >
+                    <Table
+                        id="tiersTable"
+                        items="{createAgreementModel>/newRule/tiers}"
+                        mode="Delete"
+                        delete="onDeleteTier"
+                    >
+                        <columns>
+                            <Column>
+                                <Text text="From Value" />
+                            </Column>
+                            <Column>
+                                <Text text="To Value" />
+                            </Column>
+                            <Column>
+                                <Text text="Rate / Amount" />
+                            </Column>
+                            <Column>
+                                <Text text="Bonus (Optional)" />
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <Input
+                                        value="{createAgreementModel>from}"
+                                        type="Number"
+                                        placeholder="From"
+                                        description="{createAgreementModel>/newRule/currency}"
+                                    />
+                                    <Input
+                                        value="{createAgreementModel>to}"
+                                        type="Number"
+                                        placeholder="To"
+                                        description="{createAgreementModel>/newRule/currency}"
+                                    />
+                                    <Input
+                                        value="{createAgreementModel>rate}"
+                                        type="Number"
+                                        placeholder="Rate"
+                                        description="%"
+                                    />
+                                    <Input
+                                        value="{createAgreementModel>bonus}"
+                                        type="Number"
+                                        placeholder="Bonus"
+                                    />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                    <Button
+                        text="➕ Add Another Tier"
+                        type="Ghost"
+                        press="onAddTier"
+                        class="sapUiTinyMarginTop"
+                    />
+                </Panel>
+
+                <Panel
+                    headerText="4️⃣ Eligibility Criteria"
+                    class="sapUiSmallMarginBottom"
+                    backgroundDesign="Transparent"
+                >
+                    <f:SimpleForm
+                        layout="ResponsiveGridLayout"
+                        labelSpanXL="3"
+                        labelSpanL="3"
+                        labelSpanM="3"
+                        labelSpanS="12"
+                    >
+                        <Label text="✅ Included" />
+                        <MultiComboBox
+                            placeholder="Select products, groups, zones..."
+                            showSecondaryValues="true"
+                            value="{createAgreementModel>/newRule/selectedInclusions}"
+                        >
+                            <core:ListItem
+                                key="BEV"
+                                text="Beverages"
+                                additionalText="Category"
+                            />
+                            <core:ListItem
+                                key="SNK"
+                                text="Snacks"
+                                additionalText="Category"
+                            />
+                            <core:ListItem
+                                key="COLA"
+                                text="Cola Drinks"
+                                additionalText="Sub-Category"
+                            />
+                            <core:ListItem
+                                key="Lay"
+                                text="Lays"
+                                additionalText="Brand"
+                            />
+                            <core:ListItem
+                                key="NZ"
+                                text="North Zone"
+                                additionalText="Region"
+                            />
+                        </MultiComboBox>
+
+                        <Label text="❌ Excluded" />
+                        <MultiComboBox
+                            value="{createAgreementModel>/newRule/selectedExclusions}"
+                            placeholder="Select exclusions..."
+                        >
+                            <core:ListItem
+                                key="ALC"
+                                text="Alcoholic"
+                                additionalText="Category"
+                            />
+                            <core:ListItem
+                                key="TOB"
+                                text="Tobacco"
+                                additionalText="Category"
+                            />
+                            <core:ListItem
+                                key="RET"
+                                text="Returns"
+                                additionalText="Type"
+                            />
+                            <core:ListItem
+                                key="FOC"
+                                text="Free of Charge"
+                                additionalText="Type"
+                            />
+                        </MultiComboBox>
+                    </f:SimpleForm>
+                </Panel>
+
+                <Panel
+                    headerText="5️⃣ Conditions &amp; Limits"
+                    class="sapUiSmallMarginBottom"
+                    backgroundDesign="Transparent"
+                >
+                    <f:SimpleForm
+                        layout="ResponsiveGridLayout"
+                        labelSpanXL="4"
+                        labelSpanL="4"
+                        labelSpanM="4"
+                        labelSpanS="12"
+                        columnsL="2"
+                        columnsM="2"
+                    >
+                        <core:Title text="📉 Minimum Thresholds" />
+                        <Label text="Min. Transaction" />
+                        <Input
+                            value="{createAgreementModel>/newRule/conditions/minTransaction}"
+                            type="Number"
+                            placeholder="0.00"
+                        />
+                        <Label text="Min. Period Vol" />
+                        <Input
+                            value="{createAgreementModel>/newRule/conditions/minPeriodVolume}"
+                            type="Number"
+                            placeholder="0"
+                        />
+
+                        <core:Title text="📈 Maximum Caps" />
+                        <Label text="Max. Rebate Amt" />
+                        <Input
+                            value="{createAgreementModel>/newRule/conditions/maxRebateAmount}"
+                            type="Number"
+                            placeholder="No Limit"
+                        />
+                        <Label text="Max. Rate %" />
+                        <Input
+                            value="{createAgreementModel>/newRule/conditions/maxRate}"
+                            type="Number"
+                            placeholder="No Limit"
+                        />
+
+                        <core:Title text="📅 Time Conditions" />
+                        <Label text="Validity Period" />
+                        <DateRangeSelection
+                            value="{createAgreementModel>/newRule/conditions/validityDate}"
+                            displayFormat="medium"
+                        />
+
+                        <core:Title text="⚙️ Special Conditions" />
+                        <Label text="Payment Terms" />
+                        <Select
+                            selectedItem="{createAgreementModel>/newRule/conditions/paymentTerms}"
+                        >
+                            <core:Item
+                                key="ANY"
+                                text="Any"
+                            />
+                            <core:Item
+                                key="30"
+                                text="Within 30 days"
+                            />
+                            <core:Item
+                                key="CASH"
+                                text="Cash Only"
+                            />
+                        </Select>
+                        <Label text="Exclude Discounts" />
+                        <Select
+                            selectedItem="{createAgreementModel>/newRule/conditions/excludeDiscounts}"
+                        >
+                            <core:Item
+                                key="NO"
+                                text="No"
+                            />
+                            <core:Item
+                                key="ALL"
+                                text="Yes - All Discounts"
+                            />
+                        </Select>
+                    </f:SimpleForm>
+                </Panel>
+
+                <Panel
+                    headerText="👁️ Rule Preview"
+                    backgroundDesign="Solid"
+                    class="sapUiNoContentPadding"
+                >
+                    <VBox class="sapUiSmallMargin">
+                        <MessageStrip
+                            text="Formula: IF Net Value ≤ ₹10L THEN 1.0% ELSE IF ≤ ₹50L THEN 2.0% ELSE 3.0% + ₹25k Bonus"
+                            type="Information"
+                            showIcon="true"
+                            class="sapUiSmallMarginBottom"
+                        />
+
+                        <grid:CSSGrid
+                            gridTemplateColumns="repeat(4, 1fr)"
+                            gridGap="1rem"
+                        >
+                            <VBox>
+                                <Label
+                                    text="Example Base"
+                                    design="Bold"
+                                />
+                                <Text text="₹75,00,000" />
+                            </VBox>
+                            <VBox>
+                                <Label
+                                    text="Applied Rate"
+                                    design="Bold"
+                                />
+                                <Text text="3.0% (Tier 3)" />
+                            </VBox>
+                            <VBox>
+                                <Label
+                                    text="Calculated Rebate"
+                                    design="Bold"
+                                />
+                                <Text text="₹2,25,000" />
+                            </VBox>
+                            <VBox>
+                                <Label
+                                    text="Total with Bonus"
+                                    design="Bold"
+                                />
+                                <ObjectNumber
+                                    number="2,50,000"
+                                    unit="INR"
+                                    state="Success"
+                                />
+                            </VBox>
+                        </grid:CSSGrid>
+                    </VBox>
+                </Panel>
+            </VBox>
+        </content>
+
+        <buttons>
+            <Button
+                text="Cancel"
+                press="onCance"
+            />
+            <Button
+                text="Save Rule"
+                type="Emphasized"
+                press=".onSaveRule"
+                enabled="{= 
+        (!!${createAgreementModel>/newRule/ruleId} &amp;&amp; 
+        ${createAgreementModel>/newRule/ruleId}.length > 0) &amp;&amp; 
+        (!!${createAgreementModel>/newRule/ruleName} &amp;&amp; 
+        ${createAgreementModel>/newRule/ruleName}.length > 0)
+    }"
+            />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

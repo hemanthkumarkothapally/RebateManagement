@@ -1,0 +1,226 @@
+<mvc:View
+    controllerName="com.cy.rbm.controller.SettlementWorkbenchDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:uxap="sap.uxap"
+    xmlns:f="sap.f"
+    xmlns:card="sap.f.cards" 
+    xmlns:layout="sap.ui.layout"
+    xmlns:suite="sap.suite.ui.commons"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form">
+
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" showHeaderContent="true">
+        
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <Title text="STL-2025-Q1-001" wrapping="true"/>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <Title text="STL-2025-Q1-001" wrapping="true"/>
+                </uxap:snappedHeading>
+                <uxap:breadcrumbs>
+                    <Breadcrumbs>
+                        <Link text="Settlement Workbench" press="onNavBack"/>
+                        <Link text="STL-2025-Q1-001"/>
+                    </Breadcrumbs>
+                </uxap:breadcrumbs>
+                <uxap:actions>
+                    <Button text="Add Adjustment" icon="sap-icon://add" press="onOpenAdjustmentDialog"/>
+                    <Button text="Approve" type="Success" icon="sap-icon://accept" press="onOpenApproveDialog"/>
+                    <Button text="Reject" type="Reject" icon="sap-icon://decline" press="onOpenRejectDialog"/>
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+
+        <uxap:headerContent>
+            <FlexBox wrap="Wrap" fitContainer="true" alignItems="Stretch">
+                <Avatar src="sap-icon://sales-order" displaySize="L" class="sapUiTinyMarginEnd"/>
+                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                    <Label text="Partner"/>
+                    <ObjectAttribute title="ABC Retail Pvt Ltd" text="CUST-001"/>
+                </layout:VerticalLayout>
+                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                    <Label text="Period"/>
+                    <ObjectAttribute text="2025-Q1"/>
+                </layout:VerticalLayout>
+                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                    <Label text="Status"/>
+                    <ObjectStatus text="Pending Approval" state="Warning" icon="sap-icon://pending" inverted="true"/>
+                </layout:VerticalLayout>
+                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                    <Label text="Total Amount"/>
+                    <ObjectNumber number="1,56,000" unit="INR" state="Success" emphasized="true"/>
+                </layout:VerticalLayout>
+            </FlexBox>
+        </uxap:headerContent>
+
+        <uxap:sections>
+            
+            <uxap:ObjectPageSection title="Summary">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <f:Card class="sapUiMediumMarginBottom">
+                                <f:header>
+                                    <card:Header title="Settlement Reconciliation Flow" icon="sap-icon://process"/>
+                                </f:header>
+                                <f:content>
+                                    <HBox justifyContent="SpaceAround" alignItems="Center" class="sapUiMediumMargin">
+                                        <VBox alignItems="Center">
+                                            <Label text="Total Accrued"/>
+                                            <Title text="₹1,00,000" level="H3"/>
+                                            <Text text="3 Periods" class="sapUiTinyMarginTop"/>
+                                        </VBox>
+                                        <core:Icon src="sap-icon://arrow-right" size="2rem" color="#888"/>
+                                        <VBox alignItems="Center">
+                                            <Label text="Adjustments"/>
+                                            <Title text="+₹56,000" level="H3" class="sapUiPositiveText"/>
+                                            <Text text="2 Entries" class="sapUiTinyMarginTop"/>
+                                        </VBox>
+                                        <core:Icon src="sap-icon://arrow-right" size="2rem" color="#888"/>
+                                        <VBox alignItems="Center">
+                                            <Label text="Final Settlement"/>
+                                            <Title text="₹1,56,000" level="H1"/>
+                                            <ObjectStatus text="Delta +56%" state="Success" class="sapUiTinyMarginTop"/>
+                                        </VBox>
+                                    </HBox>
+                                </f:content>
+                            </f:Card>
+
+                            <f:Card>
+                                <f:header>
+                                    <card:Header title="Accounting Impact" icon="sap-icon://account"/>
+                                </f:header>
+                                <f:content>
+                                    <layout:Grid defaultSpan="L6 M6 S12">
+                                        <VBox class="sapUiSmallMargin">
+                                            <Label text="Debit (Liability)"/>
+                                            <ObjectNumber number="1,56,000" unit="INR" state="Error"/>
+                                            <Text text="GL: 2100500 - Accrued Rebate Liability"/>
+                                        </VBox>
+                                        <VBox class="sapUiSmallMargin">
+                                            <Label text="Credit (Payable)"/>
+                                            <ObjectNumber number="1,56,000" unit="INR" state="Success"/>
+                                            <Text text="GL: 2000100 - Accounts Payable"/>
+                                        </VBox>
+                                    </layout:Grid>
+                                </f:content>
+                            </f:Card>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection title="Adjustments">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <Table items="{detailModel>/adjustments}">
+                                <columns>
+                                    <Column><Text text="Type"/></Column>
+                                    <Column><Text text="Reason"/></Column>
+                                    <Column><Text text="Date"/></Column>
+                                    <Column hAlign="End"><Text text="Amount"/></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <ObjectIdentifier title="{detailModel>type}"/>
+                                        <Text text="{detailModel>reason}"/>
+                                        <Text text="{detailModel>date}"/>
+                                        <ObjectNumber number="{detailModel>amount}" unit="INR" state="{detailModel>state}" />
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection title="Disputes">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <layout:Grid defaultSpan="L4 M6 S12">
+                                <f:Card>
+                                    <f:content>
+                                        <VBox alignItems="Center" class="sapUiMediumMargin">
+                                            <Title text="{detailModel>/disputes/included/count}" level="H1" class="sapUiPositiveText"/>
+                                            <Label text="Included in Settlement"/>
+                                            <Text text="₹{detailModel>/disputes/included/amount}"/>
+                                        </VBox>
+                                    </f:content>
+                                </f:Card>
+                                <f:Card>
+                                    <f:content>
+                                        <VBox alignItems="Center" class="sapUiMediumMargin">
+                                            <Title text="{detailModel>/disputes/excluded/count}" level="H1" class="sapUiCriticalText"/>
+                                            <Label text="Excluded (Pending)"/>
+                                            <Text text="₹{detailModel>/disputes/excluded/amount}"/>
+                                        </VBox>
+                                    </f:content>
+                                </f:Card>
+                                <f:Card>
+                                    <f:content>
+                                        <VBox alignItems="Center" class="sapUiMediumMargin">
+                                            <Title text="{detailModel>/disputes/deferred/count}" level="H1"/>
+                                            <Label text="Deferred"/>
+                                            <Text text="₹{detailModel>/disputes/deferred/amount}"/>
+                                        </VBox>
+                                    </f:content>
+                                </f:Card>
+                            </layout:Grid>
+                            
+                            <List headerText="Excluded Disputes" items="{detailModel>/disputes/items}">
+                                <StandardListItem title="{detailModel>title}" description="{detailModel>desc}" info="₹{detailModel>amount}" infoState="{detailModel>state}" icon="sap-icon://alert"/>
+                            </List>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection title="Line Items">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <Table items="{detailModel>/lineItems}">
+                                <columns>
+                                    <Column><Text text="Period"/></Column>
+                                    <Column><Text text="Description"/></Column>
+                                    <Column hAlign="End"><Text text="Base Amount"/></Column>
+                                    <Column hAlign="End"><Text text="Rate"/></Column>
+                                    <Column hAlign="End"><Text text="Accrual Amount"/></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <Text text="{detailModel>period}"/>
+                                        <Text text="{detailModel>desc}"/>
+                                        <Text text="{detailModel>base}"/>
+                                        <Text text="{detailModel>rate}"/>
+                                        <Text text="{detailModel>amount}"/>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection title="Approval History">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <suite:Timeline content="{detailModel>/history}">
+                                <suite:content>
+                                    <suite:TimelineItem dateTime="{detailModel>dateTime}" title="{detailModel>title}" userName="{detailModel>user}" icon="{detailModel>icon}" status="{detailModel>status}"/>
+                                </suite:content>
+                            </suite:Timeline>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

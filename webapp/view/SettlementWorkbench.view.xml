@@ -1,0 +1,110 @@
+<mvc:View
+    controllerName="com.cy.rbm.controller.SettlementWorkbench"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout">
+
+    <f:DynamicPage  headerExpanded="true">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Settlement Workbench"/>
+                </f:heading>
+                <f:expandedContent>
+                    <Label text="Review, adjust, and approve settlements for payment"/>
+                </f:expandedContent>
+                <f:actions>
+                    <Button text="Refresh" icon="sap-icon://refresh" press="onRefresh"/>
+                    <Button text="Export" icon="sap-icon://excel-attachment" press="onExport"/>
+                    <Button text="Create Settlement" type="Emphasized" icon="sap-icon://add" press="onOpenCreateDialog"/>
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <f:content>
+                    <HBox wrap="Wrap" displayInline="true" alignItems="Stretch">
+                        <GenericTile header="Total Settlements" subheader="All Status" class="sapUiTinyMarginBegin">
+                            <TileContent>
+                                <NumericContent value="8" icon="sap-icon://crm-service-manager" />
+                            </TileContent>
+                        </GenericTile>
+                        <GenericTile header="Pending" subheader="Action Required" class="sapUiTinyMarginBegin">
+                            <TileContent>
+                                <NumericContent value="4" valueColor="Critical" icon="sap-icon://pending" />
+                            </TileContent>
+                        </GenericTile>
+                        <GenericTile header="Approved" subheader="Ready to Post" class="sapUiTinyMarginBegin">
+                            <TileContent>
+                                <NumericContent value="2" valueColor="Good" icon="sap-icon://accept" />
+                            </TileContent>
+                        </GenericTile>
+                        <GenericTile header="Ready for Payment" subheader="INR" class="sapUiTinyMarginBegin">
+                            <TileContent>
+                                <NumericContent value="45.6L" scale="INR" valueColor="Neutral" />
+                            </TileContent>
+                        </GenericTile>
+                    </HBox>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+
+        <f:content>
+            <Table id="settlementTable" inset="false" items="{/settlements}" mode="SingleSelectMaster" itemPress="onNavToDetail">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <content>
+                            <Select forceSelection="true" selectedKey="2025-Q1">
+                                <core:Item key="All" text="All Periods"/>
+                                <core:Item key="2025-Q1" text="2025-Q1"/>
+                                <core:Item key="2024-Q4" text="2024-Q4"/>
+                            </Select>
+                            <Select forceSelection="true">
+                                <core:Item key="All" text="All Partners"/>
+                                <core:Item key="abc" text="ABC Retail"/>
+                            </Select>
+                            <ToolbarSpacer/>
+                            <SearchField width="20%" placeholder="Search settlements..."/>
+                            <Button icon="sap-icon://sort" />
+                            <Button icon="sap-icon://filter" />
+                        </content>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column><Text text="Settlement #"/></Column>
+                    <Column><Text text="Period"/></Column>
+                    <Column><Text text="Partner"/></Column>
+                    <Column><Text text="Agreement"/></Column>
+                    <Column><Text text="Status"/></Column>
+                    <Column hAlign="End"><Text text="Accrued"/></Column>
+                    <Column hAlign="End"><Text text="Adjustments"/></Column>
+                    <Column hAlign="End"><Text text="Settlement Amt"/></Column>
+                    <Column><Text text="Due Date"/></Column>
+                    <Column hAlign="Center"><Text text="Actions"/></Column>
+                </columns>
+                <items>
+                    <ColumnListItem type="Navigation">
+                        <cells>
+                            <ObjectIdentifier title="{id}"/>
+                            <Text text="{period}" />
+                            <Text text="{partner}" />
+                            <Text text="{agreement}" />
+                            <ObjectStatus text="{statusText}" state="{statusState}" icon="{statusIcon}" />
+                            <Text text="{accrued}" />
+                            <ObjectNumber number="{adjustments}" state="{adjustmentState}" />
+                            <ObjectNumber number="{amount}" unit="INR" state="Success" />
+                            <Text text="{dueDate}" />
+                            <HBox justifyContent="Center">
+                                <Button icon="sap-icon://accept" type="Transparent" press="onQuickApprove" tooltip="Approve"/>
+                            </HBox>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

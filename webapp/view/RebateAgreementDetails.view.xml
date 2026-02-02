@@ -30,8 +30,8 @@
         </uxap:heading>
 
         <uxap:actions>
-          <Button text="Edit"/>
-          <Button text="Suspend"/>
+          <Button text="Edit" press="oneditAggrement" />
+          <Button text="Suspend" press="onSuspendAggrement"/>
           <MenuButton text="Actions"/>
           <Button
             type="Transparent"
@@ -44,9 +44,9 @@
 
     <!-- ================= KPI CARDS ================= -->
     <uxap:headerContent>
-      <HBox wrap="Wrap" width="100%" class="sapUiSmallMargin">
+      <HBox wrap="Wrap" width="100%" justifyContent="SpaceAround" class="sapUiSmallMargin">
 
-        <GenericTile header="Status">
+        <GenericTile header="Status" frameType="OneByOne">
           <TileContent>
             <VBox>
               <ObjectStatus
@@ -57,7 +57,7 @@
           </TileContent>
         </GenericTile>
 
-        <GenericTile header="Validity Period">
+        <GenericTile frameType="OneByOne" header="Validity Period">
           <TileContent>
             <VBox>
               <Text text="{rebateModel>/validFrom}"/>
@@ -66,7 +66,7 @@
           </TileContent>
         </GenericTile>
 
-        <GenericTile header="Total Accrued">
+        <GenericTile frameType="OneByOne" header="Total Accrued">
           <TileContent>
             <VBox>
               <ObjectNumber
@@ -77,7 +77,7 @@
           </TileContent>
         </GenericTile>
 
-        <GenericTile header="Pending Settlement">
+        <GenericTile frameType="OneByOne" header="Pending Settlement">
           <TileContent>
             <VBox>
               <ObjectNumber
@@ -98,7 +98,7 @@
       <!-- ===== Rebate Rules ===== -->
       <uxap:ObjectPageSection title="Rebate Rules">
         <uxap:ObjectPageSubSection>
-
+<VBox >
           <Table items="{rebateModel>/rules}">
             <columns>
               <Column><Text text="Active"/></Column>
@@ -112,12 +112,12 @@
             <items>
               <ColumnListItem>
                 <cells>
-                  <Switch state="{active}"/>
-                  <Link text="{ruleId}"/>
-                  <Text text="{ruleName}"/>
-                  <Text text="{ruleType}"/>
-                  <Text text="{calculationBasis}"/>
-                  <Text text="{rateSummary}"/>
+                  <Switch state="{rebateModel>active}"/>
+                  <Link text="{rebateModel>ruleId}"/>
+                  <Text text="{rebateModel>ruleName}"/>
+                  <Text text="{rebateModel>ruleType}"/>
+                  <Text text="{rebateModel>calculationBasis}"/>
+                  <Text text="{rebateModel>rateSummary}"/>
                 </cells>
               </ColumnListItem>
             </items>
@@ -141,11 +141,11 @@
               <items>
                 <ColumnListItem>
                   <cells>
-                    <Text text="{tier}"/>
-                    <Text text="{from}"/>
-                    <Text text="{to}"/>
-                    <Link text="{rate}"/>
-                    <Text text="{type}"/>
+                    <Text text="{rebateModel>tier}"/>
+                    <Text text="{rebateModel>from}"/>
+                    <Text text="{rebateModel>to}"/>
+                    <Link text="{rebateModel>rate}"/>
+                    <Text text="{rebateModel>type}"/>
                   </cells>
                 </ColumnListItem>
               </items>
@@ -169,18 +169,18 @@
               <items>
                 <ColumnListItem>
                   <cells>
-                    <Text text="{criteriaType}"/>
+                    <Text text="{rebateModel>criteriaType}"/>
                     <ObjectStatus
-                      text="{includeExclude}"
-                      state="{state}"/>
-                    <Text text="{value}"/>
-                    <Text text="{description}"/>
+                      text="{rebateModel>includeExclude}"
+                      state="{rebateModel>state}"/>
+                    <Text text="{rebateModel>value}"/>
+                    <Text text="{rebateModel>description}"/>
                   </cells>
                 </ColumnListItem>
               </items>
             </Table>
           </Panel>
-
+</VBox>
         </uxap:ObjectPageSubSection>
       </uxap:ObjectPageSection>
 
@@ -202,12 +202,12 @@
               <ColumnListItem>
                 <cells>
                   <ObjectStatus text="{rebateModel>status}" state="{rebateModel>state}"/>
-                  <Link text="{transactionId}"/>
-                  <Link text="{invoice}"/>
-                  <Text text="{date}"/>
-                  <Text text="{product}"/>
-                  <Text text="{netAmount}"/>
-                  <Text text="{rebate}"/>
+                  <Link text="{rebateModel>transactionId}"/>
+                  <Link text="{rebateModel>invoice}"/>
+                  <Text text="{rebateModel>date}"/>
+                  <Text text="{rebateModel>product}"/>
+                  <Text text="{rebateModel>netAmount}"/>
+                  <Text text="{rebateModel>rebate}"/>
                 </cells>
               </ColumnListItem>
             </items>
@@ -233,14 +233,14 @@
             <items>
               <ColumnListItem>
                 <cells>
-                  <ObjectStatus text="{status}" state="{state}"/>
-                  <Link text="{accrualId}"/>
-                  <Text text="{period}"/>
-                  <Text text="{type}"/>
-                  <Text text="{baseAmount}"/>
-                  <Text text="{accrual}"/>
-                  <Text text="{cumulative}"/>
-                  <Text text="{fiDocument}"/>
+                  <ObjectStatus text="{rebateModel>status}" state="{rebateModel>state}"/>
+                  <Link text="{rebateModel>accrualId}"/>
+                  <Text text="{rebateModel>period}"/>
+                  <Text text="{rebateModel>type}"/>
+                  <Text text="{rebateModel>baseAmount}"/>
+                  <Text text="{rebateModel>accrual}"/>
+                  <Text text="{rebateModel>cumulative}"/>
+                  <Text text="{rebateModel>fiDocument}"/>
                 </cells>
               </ColumnListItem>
             </items>
@@ -265,13 +265,13 @@
             <items>
               <ColumnListItem>
                 <cells>
-                  <ObjectStatus text="{status}" state="{state}"/>
-                  <Link text="{settlementId}"/>
-                  <Text text="{period}"/>
-                  <Text text="{type}"/>
-                  <Text text="{amount}"/>
-                  <Text text="{paymentDate}"/>
-                  <Text text="{fiDocument}"/>
+                  <ObjectStatus text="{rebateModel>status}" state="{rebateModel>state}"/>
+                  <Link text="{rebateModel>settlementId}"/>
+                  <Text text="{rebateModel>period}"/>
+                  <Text text="{rebateModel>type}"/>
+                  <Text text="{rebateModel>amount}"/>
+                  <Text text="{rebateModel>paymentDate}"/>
+                  <Text text="{rebateModel>fiDocument}"/>
                 </cells>
               </ColumnListItem>
             </items>
@@ -293,10 +293,10 @@
             <items>
               <ColumnListItem>
                 <cells>
-                  <Text text="{dateTime}"/>
-                  <Text text="{user}"/>
-                  <ObjectStatus text="{action}" state="{state}"/>
-                  <Text text="{details}"/>
+                  <Text text="{rebateModel>dateTime}"/>
+                  <Text text="{rebateModel>user}"/>
+                  <ObjectStatus text="{rebateModel>action}" state="{rebateModel>state}"/>
+                  <Text text="{rebateModel>details}"/>
                 </cells>
               </ColumnListItem>
             </items>

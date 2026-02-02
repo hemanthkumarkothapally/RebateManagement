@@ -1,176 +1,728 @@
 {
   "agreements": [
     {
-  "agreementNo": "AGR-2025-001",
-  "description": "Annual Volume Rebate - Beverages",
-  "status": "Active",
-  "statusState": "Success",
-  "statusSince": "Since 18 Dec 2024",
-  "validFrom": "01 Jan 2025",
-  "validTo": "31 Dec 2025",
-  "totalAccrued": "1,56,000",
-  "settledAmount": "1,00,000",
-  "pendingSettlement": "56,000",
-
-  "rules": [
-    {
-      "active": true,
-      "ruleId": "R001",
-      "ruleName": "Beverage Volume Tier",
-      "ruleType": "Tiered (Retroactive)",
-      "calculationBasis": "Net Value",
-      "rateSummary": "1–3%"
-    },
-    {
-      "active": true,
-      "ruleId": "R002",
-      "ruleName": "Snacks Flat Rate",
-      "ruleType": "Flat Percentage",
-      "calculationBasis": "Net Value",
-      "rateSummary": "1.5%"
-    }
-  ],
-
-  "tiers": [
-    { "tier": "Tier 1", "from": "₹0", "to": "₹10,00,000", "rate": "1.0%", "type": "Value" },
-    { "tier": "Tier 2", "from": "₹10,00,001", "to": "₹50,00,000", "rate": "2.0%", "type": "Value" },
-    { "tier": "Tier 3", "from": "₹50,00,001", "to": "Unlimited", "rate": "3.0%", "type": "Value" }
-  ],
-
-  "eligibility": [
-    { "criteriaType": "Product Group", "includeExclude": "Include", "state": "Success", "value": "BEV", "description": "Beverages" },
-    { "criteriaType": "Product Group", "includeExclude": "Exclude", "state": "Error", "value": "BEV-ALC", "description": "Alcoholic Beverages" }
-  ],
-
-  "transactions": [
-    { "status": "Qualified", "state": "Success", "transactionId": "TXN-0001", "invoice": "INV-2025-00456", "date": "15 Jan 2025", "product": "Coca-Cola 500ml", "netAmount": "₹2,50,000", "rebate": "₹5,000" },
-    { "status": "Rejected", "state": "Error", "transactionId": "TXN-0003", "invoice": "INV-2025-00458", "date": "20 Jan 2025", "product": "Office Supplies", "netAmount": "₹25,000", "rebate": "₹0" }
-  ],
-
-  "accruals": [
-    { "status": "Posted", "state": "Success", "accrualId": "ACR-00001", "period": "2025-01", "type": "Regular", "baseAmount": "₹10,70,000", "accrual": "₹21,400", "cumulative": "₹21,400", "fiDocument": "1000001234" }
-  ],
-
-  "settlements": [
-    { "status": "Paid", "state": "Success", "settlementId": "STL-00001", "period": "Q1 2025", "type": "Credit Note", "amount": "₹1,00,000", "paymentDate": "15 Apr 2025", "fiDocument": "2000001234" }
-  ],
-
-  "history": [
-    { "dateTime": "18 Dec 2024, 14:30", "user": "Suresh Reddy", "action": "Approved", "state": "Success", "details": "Agreement activated" },
-    { "dateTime": "16 Dec 2024, 11:15", "user": "Amit Kumar", "action": "Submitted", "state": "Warning", "details": "Submitted for approval" }
-  ]
-},
-    {
+      "agreementNo": "AGR-2025-001",
+      "description": "Annual Volume Rebate - Beverages",
       "status": "Active",
       "statusState": "Success",
-      "agreementNo": "AGR-2025-002",
+      "statusSince": "Since 18 Dec 2024",
+      "partner": "ABC Retail Pvt Ltd",
       "currency": "INR",
-      "description": "Growth Incentive Program",
-      "type": "Customer",
-      "partner": "XYZ Stores India Ltd",
-      "partnerId": "CUST-002",
-      "validFrom": "Jan 2025",
-      "validTo": "Dec 2025",
-      "accrued": 89000,
-      "accruedDate": "2025-03",
-      "pending": 44000,
-      "lastRun": "RUN-2025-03-001"
+      "validFrom": "01 Jan 2025",
+      "validTo": "31 Dec 2025",
+      "totalAccrued": "1,56,000",
+      "settledAmount": "1,00,000",
+      "pendingSettlement": "56,000",
+      "rules": [
+        {
+          "active": true,
+          "ruleId": "R001",
+          "ruleName": "Beverage Volume Tier",
+          "ruleType": "Tiered (Retroactive)",
+          "calculationBasis": "Net Value",
+          "rateSummary": "1.3%",
+          "tiers": [
+            {
+              "tier": "Tier 1",
+              "from": 0,
+              "to": 1000000,
+              "rate": 1.0
+            },
+            {
+              "tier": "Tier 2",
+              "from": 1000001,
+              "to": 5000000,
+              "rate": 2.0
+            },
+            {
+              "tier": "Tier 3",
+              "from": 5000001,
+              "to": 10000000,
+              "rate": 3.0
+            }
+          ]
+        },
+        {
+          "active": true,
+          "ruleId": "R002",
+          "ruleName": "Snacks Flat Rate",
+          "ruleType": "Flat Percentage",
+          "calculationBasis": "Net Value",
+          "rateSummary": "1.5%"
+        }
+      ],
+      "tiers": [
+        {
+          "tier": "Tier 1",
+          "from": "₹0",
+          "to": "₹10,00,000",
+          "rate": "1.0%",
+          "type": "Value"
+        },
+        {
+          "tier": "Tier 2",
+          "from": "₹10,00,001",
+          "to": "₹50,00,000",
+          "rate": "2.0%",
+          "type": "Value"
+        },
+        {
+          "tier": "Tier 3",
+          "from": "₹50,00,001",
+          "to": "Unlimited",
+          "rate": "3.0%",
+          "type": "Value"
+        }
+      ],
+      "eligibility": [
+        {
+          "criteriaType": "Product Group",
+          "includeExclude": "Include",
+          "state": "Success",
+          "value": "BEV",
+          "description": "Beverages"
+        },
+        {
+          "criteriaType": "Product Group",
+          "includeExclude": "Exclude",
+          "state": "Error",
+          "value": "BEV-ALC",
+          "description": "Alcoholic Beverages"
+        }
+      ],
+      "transactions": [
+        {
+          "status": "Qualified",
+          "state": "Success",
+          "transactionId": "TXN-0001",
+          "invoice": "INV-2025-00456",
+          "date": "15 Jan 2025",
+          "product": "Coca-Cola 500ml",
+          "netAmount": "₹2,50,000",
+          "rebate": "₹5,000"
+        },
+        {
+          "status": "Rejected",
+          "state": "Error",
+          "transactionId": "TXN-0003",
+          "invoice": "INV-2025-00458",
+          "date": "20 Jan 2025",
+          "product": "Office Supplies",
+          "netAmount": "₹25,000",
+          "rebate": "₹0"
+        }
+      ],
+      "accruals": [
+        {
+          "status": "Posted",
+          "state": "Success",
+          "accrualId": "ACR-00001",
+          "period": "2025-01",
+          "type": "Regular",
+          "baseAmount": "₹10,70,000",
+          "accrual": "₹21,400",
+          "cumulative": "₹21,400",
+          "fiDocument": "1000001234"
+        }
+      ],
+      "settlements": [
+        {
+          "status": "Paid",
+          "state": "Success",
+          "settlementId": "STL-00001",
+          "period": "Q1 2025",
+          "type": "Credit Note",
+          "amount": "₹1,00,000",
+          "paymentDate": "15 Apr 2025",
+          "fiDocument": "2000001234"
+        }
+      ],
+      "history": [
+        {
+          "dateTime": "18 Dec 2024, 14:30",
+          "user": "Suresh Reddy",
+          "action": "Approved",
+          "state": "Success",
+          "details": "Agreement activated"
+        },
+        {
+          "dateTime": "16 Dec 2024, 11:15",
+          "user": "Amit Kumar",
+          "action": "Submitted",
+          "state": "Warning",
+          "details": "Submitted for approval"
+        }
+      ]
     },
     {
+      "agreementNo": "AGR-2025-002",
+      "description": "Growth Incentive Program",
+      "status": "Active",
+      "statusState": "Success",
+      "statusSince": "Since 02 Jan 2025",
+      "partner": "XYZ Stores India Ltd",
+      "currency": "INR",
+      "validFrom": "01 Jan 2025",
+      "validTo": "31 Dec 2025",
+      "totalAccrued": "89,000",
+      "settledAmount": "0",
+      "pendingSettlement": "44,000",
+      "rules": [
+        {
+          "active": true,
+          "ruleId": "R005",
+          "ruleName": "YoY Growth Bonus",
+          "ruleType": "Growth Incentive",
+          "calculationBasis": "Net Value Growth",
+          "rateSummary": "5.0% on Incremental",
+          "tiers": [{
+          "tier": "Base",
+          "from": 0,
+          "to": 10,
+          "rate": 2.0,
+          "type": "Growth"
+        },
+        {
+          "tier": "Target",
+          "from": 11,
+          "to": 20,
+          "rate": 5.0,
+          "type": "Growth"
+        }]
+        }
+      ],
+      "tiers": [
+        {
+          "tier": "Base",
+          "from": "0%",
+          "to": "10% Growth",
+          "rate": "2.0%",
+          "type": "Growth"
+        },
+        {
+          "tier": "Target",
+          "from": "11%",
+          "to": "20% Growth",
+          "rate": "5.0%",
+          "type": "Growth"
+        }
+      ],
+      "eligibility": [
+        {
+          "criteriaType": "Customer Group",
+          "includeExclude": "Include",
+          "state": "Success",
+          "value": "Retail-North",
+          "description": "North India Retailers"
+        }
+      ],
+      "transactions": [
+        {
+          "status": "Qualified",
+          "state": "Success",
+          "transactionId": "TXN-0055",
+          "invoice": "INV-2025-01001",
+          "date": "05 Feb 2025",
+          "product": "Assorted Goods",
+          "netAmount": "₹8,00,000",
+          "rebate": "₹40,000"
+        }
+      ],
+      "accruals": [
+        {
+          "status": "Posted",
+          "state": "Success",
+          "accrualId": "ACR-00005",
+          "period": "2025-01",
+          "type": "Regular",
+          "baseAmount": "₹8,00,000",
+          "accrual": "₹40,000",
+          "cumulative": "₹40,000",
+          "fiDocument": "1000005678"
+        }
+      ],
+      "settlements": [],
+      "history": [
+        {
+          "dateTime": "02 Jan 2025, 10:00",
+          "user": "Priya Sharma",
+          "action": "Approved",
+          "state": "Success",
+          "details": "Growth plan initiated"
+        }
+      ]
+    },
+    {
+      "agreementNo": "AGR-2025-003",
+      "description": "New Customer Welcome Bonus",
       "status": "Draft",
       "statusState": "None",
-      "agreementNo": "AGR-2025-003",
-      "currency": "INR",
-      "description": "New Customer Welcome Bonus",
-      "type": "Customer",
+      "statusSince": "Created 15 Mar 2025",
       "partner": "PQR Supermarket Chain",
-      "partnerId": "CUST-003",
-      "validFrom": "Apr 2025",
-      "validTo": "Dec 2025",
-      "accrued": 0,
-      "accruedDate": "",
-      "pending": 0,
-      "lastRun": "-"
+      "currency": "INR",
+      "validFrom": "01 Apr 2025",
+      "validTo": "31 Dec 2025",
+      "totalAccrued": "0",
+      "settledAmount": "0",
+      "pendingSettlement": "0",
+      "rules": [
+        {
+          "active": false,
+          "ruleId": "R008",
+          "ruleName": "First Order Bonus",
+          "ruleType": "Lump Sum",
+          "calculationBasis": "Fixed Amount",
+          "rateSummary": "₹50,000 One-time",
+          "tiers": []
+        }
+      ],
+      "tiers": [],
+      "eligibility": [
+        {
+          "criteriaType": "Customer ID",
+          "includeExclude": "Include",
+          "state": "Success",
+          "value": "CUST-PQR-001",
+          "description": "PQR Supermarket Chain"
+        }
+      ],
+      "transactions": [],
+      "accruals": [],
+      "settlements": [],
+      "history": [
+        {
+          "dateTime": "15 Mar 2025, 09:30",
+          "user": "System Admin",
+          "action": "Created",
+          "state": "Information",
+          "details": "Draft agreement created"
+        }
+      ]
     },
     {
-      "status": "Active",
-      "statusState": "Success",
       "agreementNo": "AGR-2025-004",
-      "currency": "INR",
       "description": "Quarterly Target Achievement",
-      "type": "Customer",
-      "partner": "LMN Distributors",
-      "partnerId": "CUST-004",
-      "validFrom": "Jan 2025",
-      "validTo": "Dec 2025",
-      "accrued": 234000,
-      "accruedDate": "2025-03",
-      "pending": 54000,
-      "lastRun": "RUN-2025-03-001"
-    },
-    {
       "status": "Active",
       "statusState": "Success",
-      "agreementNo": "AGR-2025-005",
+      "statusSince": "Since 01 Jan 2025",
+      "partner": "LMN Distributors",
       "currency": "INR",
-      "description": "Supplier Volume Discount",
-      "type": "Supplier",
-      "partner": "Coca-Cola India",
-      "partnerId": "SUPP-001",
-      "validFrom": "Jan 2025",
-      "validTo": "Dec 2025",
-      "accrued": 567000,
-      "accruedDate": "2025-03",
-      "pending": 167000,
-      "lastRun": "RUN-2025-03-001"
+      "validFrom": "01 Jan 2025",
+      "validTo": "31 Dec 2025",
+      "totalAccrued": "2,34,000",
+      "settledAmount": "0",
+      "pendingSettlement": "54,000",
+      "rules": [
+        {
+          "active": true,
+          "ruleId": "R012",
+          "ruleName": "Q1 Target Bonus",
+          "ruleType": "Target Achievement",
+          "calculationBasis": "Sales Value",
+          "rateSummary": "2.5% Flat",
+          "tiers": [{
+          "tier": "Q1 Target",
+          "from": 5000000,
+          "to": 10000000000,
+          "rate": 2.5,
+          "type": "Target"
+        }]
+        }
+      ],
+      "tiers": [
+        {
+          "tier": "Q1 Target",
+          "from": "₹50,00,000",
+          "to": "Unlimited",
+          "rate": "2.5%",
+          "type": "Target"
+        }
+      ],
+      "eligibility": [
+        {
+          "criteriaType": "Region",
+          "includeExclude": "Include",
+          "state": "Success",
+          "value": "WEST",
+          "description": "Western Region"
+        }
+      ],
+      "transactions": [
+        {
+          "status": "Qualified",
+          "state": "Success",
+          "transactionId": "TXN-0102",
+          "invoice": "INV-2025-02100",
+          "date": "10 Mar 2025",
+          "product": "Electronics Mix",
+          "netAmount": "₹15,00,000",
+          "rebate": "₹37,500"
+        }
+      ],
+      "accruals": [
+        {
+          "status": "Posted",
+          "state": "Success",
+          "accrualId": "ACR-00201",
+          "period": "2025-01",
+          "type": "Regular",
+          "baseAmount": "₹40,00,000",
+          "accrual": "₹1,00,000",
+          "cumulative": "₹1,00,000",
+          "fiDocument": "1000008899"
+        },
+        {
+          "status": "Posted",
+          "state": "Success",
+          "accrualId": "ACR-00202",
+          "period": "2025-02",
+          "type": "Regular",
+          "baseAmount": "₹53,60,000",
+          "accrual": "₹1,34,000",
+          "cumulative": "₹2,34,000",
+          "fiDocument": "1000009900"
+        }
+      ],
+      "settlements": [],
+      "history": [
+        {
+          "dateTime": "01 Jan 2025, 08:00",
+          "user": "Sales Head",
+          "action": "Approved",
+          "state": "Success",
+          "details": "Targets locked for 2025"
+        }
+      ]
     },
     {
+      "agreementNo": "AGR-2025-005",
+      "description": "Supplier Volume Discount",
+      "status": "Active",
+      "statusState": "Success",
+      "statusSince": "Since 05 Jan 2025",
+      "partner": "Coca-Cola India",
+      "currency": "INR",
+      "validFrom": "01 Jan 2025",
+      "validTo": "31 Dec 2025",
+      "totalAccrued": "5,67,000",
+      "settledAmount": "0",
+      "pendingSettlement": "1,67,000",
+      "rules": [
+        {
+          "active": true,
+          "ruleId": "R020",
+          "ruleName": "Raw Material Discount",
+          "ruleType": "Tiered (Step)",
+          "calculationBasis": "Quantity (Liters)",
+          "rateSummary": "₹2.0 - ₹5.0 / Liter",
+          "tiers": [
+            {
+              "tier": "Base",
+              "from": 0,
+              "to": 10000,
+              "rate": 2.0
+            },
+            {
+              "tier": "Gold",
+              "from": 10001,
+              "to": 50000,
+              "rate": 5.0
+            }
+          ]
+        }
+      ],
+      "tiers": [
+        {
+          "tier": "Base",
+          "from": "0 L",
+          "to": "10,000 L",
+          "rate": "₹2.0 / L",
+          "type": "Quantity"
+        },
+        {
+          "tier": "Gold",
+          "from": "10,001 L",
+          "to": "50,000 L",
+          "rate": "₹5.0 / L",
+          "type": "Quantity"
+        }
+      ],
+      "eligibility": [
+        {
+          "criteriaType": "Material Group",
+          "includeExclude": "Include",
+          "state": "Success",
+          "value": "RAW-SYRUP",
+          "description": "Syrup Concentrate"
+        }
+      ],
+      "transactions": [
+        {
+          "status": "Qualified",
+          "state": "Success",
+          "transactionId": "TXN-0300",
+          "invoice": "INV-2025-03050",
+          "date": "22 Jan 2025",
+          "product": "Syrup Drum 200L",
+          "netAmount": "₹2,00,000",
+          "rebate": "₹400"
+        },
+        {
+          "status": "Qualified",
+          "state": "Success",
+          "transactionId": "TXN-0305",
+          "invoice": "INV-2025-03099",
+          "date": "15 Feb 2025",
+          "product": "Syrup Drum 200L",
+          "netAmount": "₹10,00,000",
+          "rebate": "₹2,000"
+        }
+      ],
+      "accruals": [
+        {
+          "status": "Posted",
+          "state": "Success",
+          "accrualId": "ACR-00305",
+          "period": "2025-01",
+          "type": "Regular",
+          "baseAmount": "₹50,00,000",
+          "accrual": "₹1,50,000",
+          "cumulative": "₹1,50,000",
+          "fiDocument": "1000004455"
+        }
+      ],
+      "settlements": [],
+      "history": [
+        {
+          "dateTime": "05 Jan 2025, 12:00",
+          "user": "Procurement Mgr",
+          "action": "Activated",
+          "state": "Success",
+          "details": "Terms agreed with supplier"
+        }
+      ]
+    },
+    {
+      "agreementNo": "AGR-2025-006",
+      "description": "Premium Partner Rebate",
       "status": "Pending Approval",
       "statusState": "Warning",
-      "agreementNo": "AGR-2025-006",
-      "currency": "INR",
-      "description": "Premium Partner Rebate",
-      "type": "Customer",
+      "statusSince": "Since 28 Jan 2025",
       "partner": "Metro Cash & Carry",
-      "partnerId": "CUST-005",
-      "validFrom": "Feb 2025",
-      "validTo": "Dec 2025",
-      "accrued": 0,
-      "accruedDate": "",
-      "pending": 0,
-      "lastRun": "-"
+      "currency": "INR",
+      "validFrom": "01 Feb 2025",
+      "validTo": "31 Dec 2025",
+      "totalAccrued": "0",
+      "settledAmount": "0",
+      "pendingSettlement": "0",
+      "rules": [
+        {
+          "active": true,
+          "ruleId": "R025",
+          "ruleName": "Bulk Purchase Incentive",
+          "ruleType": "Flat Percentage",
+          "calculationBasis": "Gross Value",
+          "rateSummary": "1.5%",
+          "tiers": []
+        }
+      ],
+      "tiers": [],
+      "eligibility": [
+        {
+          "criteriaType": "Channel",
+          "includeExclude": "Include",
+          "state": "Success",
+          "value": "Wholesale",
+          "description": "Wholesale Channel"
+        }
+      ],
+      "transactions": [],
+      "accruals": [],
+      "settlements": [],
+      "history": [
+        {
+          "dateTime": "28 Jan 2025, 16:45",
+          "user": "Account Manager",
+          "action": "Submitted",
+          "state": "Warning",
+          "details": "Pending Finance Approval"
+        }
+      ]
     },
     {
+      "agreementNo": "AGR-2025-007",
+      "description": "Regional Expansion Incentive",
       "status": "Suspended",
       "statusState": "Error",
-      "agreementNo": "AGR-2025-007",
-      "currency": "INR",
-      "description": "Regional Expansion Incentive",
-      "type": "Customer",
+      "statusSince": "Since 10 Feb 2025",
       "partner": "South Zone Traders",
-      "partnerId": "CUST-006",
-      "validFrom": "Jan 2025",
-      "validTo": "Dec 2025",
-      "accrued": 45000,
-      "accruedDate": "2025-02",
-      "pending": 45000,
-      "lastRun": "RUN-2025-02-001"
+      "currency": "INR",
+      "validFrom": "01 Jan 2025",
+      "validTo": "31 Dec 2025",
+      "totalAccrued": "45,000",
+      "settledAmount": "0",
+      "pendingSettlement": "45,000",
+      "rules": [
+        {
+          "active": false,
+          "ruleId": "R030",
+          "ruleName": "New Market Entry",
+          "ruleType": "Volume Count",
+          "calculationBasis": "Units Sold",
+          "rateSummary": "₹10 / Unit",
+          "tiers": []
+        }
+      ],
+      "tiers": [],
+      "eligibility": [
+        {
+          "criteriaType": "State",
+          "includeExclude": "Include",
+          "state": "Success",
+          "value": "TN",
+          "description": "Tamil Nadu"
+        },
+        {
+          "criteriaType": "State",
+          "includeExclude": "Include",
+          "state": "Success",
+          "value": "KA",
+          "description": "Karnataka"
+        }
+      ],
+      "transactions": [
+        {
+          "status": "Suspended",
+          "state": "Warning",
+          "transactionId": "TXN-0401",
+          "invoice": "INV-2025-04001",
+          "date": "12 Feb 2025",
+          "product": "Standard Pack",
+          "netAmount": "₹50,000",
+          "rebate": "₹0"
+        }
+      ],
+      "accruals": [
+        {
+          "status": "On Hold",
+          "state": "Warning",
+          "accrualId": "ACR-00401",
+          "period": "2025-01",
+          "type": "Regular",
+          "baseAmount": "₹4,50,000",
+          "accrual": "₹45,000",
+          "cumulative": "₹45,000",
+          "fiDocument": "Not Posted"
+        }
+      ],
+      "settlements": [],
+      "history": [
+        {
+          "dateTime": "10 Feb 2025, 09:00",
+          "user": "Compliance Officer",
+          "action": "Suspended",
+          "state": "Error",
+          "details": "Pending KYC verification"
+        },
+        {
+          "dateTime": "01 Jan 2025, 10:00",
+          "user": "Sales Lead",
+          "action": "Activated",
+          "state": "Success",
+          "details": "Program started"
+        }
+      ]
     },
     {
+      "agreementNo": "AGR-2024-015",
+      "description": "Annual Rebate 2024",
       "status": "Expired",
       "statusState": "Information",
-      "agreementNo": "AGR-2024-015",
-      "currency": "INR",
-      "description": "Annual Rebate 2024",
-      "type": "Customer",
+      "statusSince": "Ended 31 Dec 2024",
       "partner": "ABC Retail Pvt Ltd",
-      "partnerId": "CUST-001",
-      "validFrom": "Jan 2024",
-      "validTo": "Dec 2024",
-      "accrued": 890000,
-      "accruedDate": "2024-12",
-      "pending": 0,
-      "lastRun": "RUN-2024-12-001"
+      "currency": "INR",
+      "validFrom": "01 Jan 2024",
+      "validTo": "31 Dec 2024",
+      "totalAccrued": "8,90,000",
+      "settledAmount": "8,90,000",
+      "pendingSettlement": "0",
+      "rules": [
+        {
+          "active": false,
+          "ruleId": "R24-001",
+          "ruleName": "2024 Volume Bonus",
+          "ruleType": "Tiered",
+          "calculationBasis": "Net Value",
+          "rateSummary": "2.5%",
+          "tiers": [{
+          "tier": "Final Tier",
+          "from": 50,
+          "to": 100,
+          "rate": 2.5,
+          "type": "Value"
+        }]
+        }
+      ],
+      "tiers": [
+        {
+          "tier": "Final Tier",
+          "from": "₹50L",
+          "to": "Unlimited",
+          "rate": "2.5%",
+          "type": "Value"
+        }
+      ],
+      "eligibility": [
+        {
+          "criteriaType": "All Products",
+          "includeExclude": "Include",
+          "state": "Success",
+          "value": "ALL",
+          "description": "All Categories"
+        }
+      ],
+      "transactions": [],
+      "accruals": [
+        {
+          "status": "Finalized",
+          "state": "Success",
+          "accrualId": "ACR-Final-24",
+          "period": "2024-12",
+          "type": "True-up",
+          "baseAmount": "₹3,56,00,000",
+          "accrual": "₹8,90,000",
+          "cumulative": "₹8,90,000",
+          "fiDocument": "1000001000"
+        }
+      ],
+      "settlements": [
+        {
+          "status": "Paid",
+          "state": "Success",
+          "settlementId": "STL-2024-Final",
+          "period": "2024",
+          "type": "Bank Transfer",
+          "amount": "₹8,90,000",
+          "paymentDate": "15 Jan 2025",
+          "fiDocument": "2000009988"
+        }
+      ],
+      "history": [
+        {
+          "dateTime": "31 Dec 2024, 23:59",
+          "user": "System",
+          "action": "Expired",
+          "state": "Information",
+          "details": "Validity ended"
+        },
+        {
+          "dateTime": "15 Jan 2025, 14:00",
+          "user": "Finance Team",
+          "action": "Settled",
+          "state": "Success",
+          "details": "Final payment processed"
+        }
+      ]
     }
   ]
 }

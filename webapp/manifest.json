@@ -67,6 +67,14 @@
       "rebateModel": {
         "type": "sap.ui.model.json.JSONModel",
         "uri": "model/rebateAgreements.json"
+      },
+       "createAgreementModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/createAgreement.json"
+      },
+      "accrualRunsModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/accrualRuns.json"
       }
     },
     "resources": {
@@ -110,6 +118,26 @@
           "pattern": "rebates/{agreementNo}",
           "name": "rebateDetails",
           "target": ["rebateDetails"]
+        },
+        {
+          "pattern": "accrualRuns",
+          "name": "accrualRuns",
+          "target": ["accrualRuns"]
+        },
+        {
+          "pattern": "AccrualRundetail/{runId}",
+          "name": "AccrualRundetail",
+          "target": "AccrualRundetail"
+        },
+        {
+          "pattern": "SettlementWorkbench",
+          "name": "SettlementWorkbench",
+          "target": ["SettlementWorkbench"]
+        },
+        {
+          "pattern": "SettlementWorkbenchDetail/{runId}",
+          "name": "SettlementWorkbenchDetail",
+          "target": "SettlementWorkbenchDetail"
         }
       ],
       "targets": {
@@ -128,6 +156,22 @@
         "rebateDetails": {
           "id": "RebateAgreementDetails",
           "name": "RebateAgreementDetails"
+        },
+         "accrualRuns": {
+          "id": "AccrualRuns",
+          "name": "AccrualRuns"
+        },
+        "AccrualRundetail": {
+           "id": "AccrualRundetail",
+          "name": "AccrualRundetail" 
+        },
+         "SettlementWorkbench": {
+          "id": "SettlementWorkbench",
+          "name": "SettlementWorkbench"
+        },
+        "SettlementWorkbenchDetail": {
+           "id": "SettlementWorkbenchDetail",
+          "name": "SettlementWorkbenchDetail" 
         }
       }
     },

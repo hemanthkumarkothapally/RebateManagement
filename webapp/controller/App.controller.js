@@ -28,6 +28,12 @@ sap.ui.define([
       if (oItem.getKey() === "pageRebateAgreements") {
         oRouter.navTo("rebateList");
       }
+      if (oItem.getKey() === "pageAccrualRuns") {
+        oRouter.navTo("accrualRuns");
+      }
+      if (oItem.getKey() === "pageSettlementWorkbench") {
+        oRouter.navTo("SettlementWorkbench");
+      }
     }
   });
 });

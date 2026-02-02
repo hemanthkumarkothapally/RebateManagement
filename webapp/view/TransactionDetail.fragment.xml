@@ -1,21 +1,15 @@
-<core:FragmentDefinition
-    xmlns="sap.m"
+<core:FragmentDefinition xmlns="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
     xmlns:grid="sap.ui.layout.cssgrid">
 
-    <Dialog
-        title="Transaction Details: {transaction>id}"
-        contentWidth="900px"
-        contentHeight="600px"
-        resizable="true"
-        draggable="true">
-        
+    <Dialog contentWidth="900px" contentHeight="600px" resizable="true" draggable="true">
+
         <customHeader>
             <Bar>
                 <contentLeft>
-                    <Title text="Transaction Details" level="H2"/>
+                    <Title text="Raise Dispute: {transaction>id}" level="H2"/>
                 </contentLeft>
                 <contentRight>
                     <Button icon="sap-icon://decline" press="onCloseDetailDialog" />
@@ -25,42 +19,30 @@
 
         <content>
             <VBox class="sapUiSmallMargin">
-                <MessageStrip
-                    text="{= ${transaction>status} === 'QUALIFIED' ? 'Qualified Transaction' : 
-                          ${transaction>status} === 'REJECTED' ? 'Transaction Rejected: ' + ${transaction>rejectionReason} : 
-                          ${transaction>status} === 'DISPUTED' ? 'Under Dispute: ' + ${transaction>disputeReason} : ${transaction>status} }"
-                    type="{= ${transaction>status} === 'QUALIFIED' ? 'Success' : 
-                          ${transaction>status} === 'REJECTED' ? 'Error' : 
-                          ${transaction>status} === 'DISPUTED' ? 'Warning' : 'Information' }"
-                    showIcon="true"
-                    class="sapUiTinyMarginBottom" />
-                
+                <MessageStrip text="{= ${transaction>status} === 'QUALIFIED' ? 'Qualified Transaction' : ${transaction>status} === 'REJECTED' ? 'Transaction Rejected: ' + ${transaction>rejectionReason} : ${transaction>status} === 'DISPUTED' ? 'Under Dispute: ' + ${transaction>disputeReason} : ${transaction>status} }" type="{= ${transaction>status} === 'QUALIFIED' ? 'Success' : ${transaction>status} === 'REJECTED' ? 'Error' : ${transaction>status} === 'DISPUTED' ? 'Warning' : 'Information' }" showIcon="true" class="sapUiTinyMarginBottom" />
+
                 <HBox alignItems="Center">
-                    <ObjectStatus 
-                        text="{= ${transaction>periodStatus} === 'HARD_CLOSE' ? 'Period Hard Closed' : 'Period Open' }"
-                        icon="{= ${transaction>periodStatus} === 'HARD_CLOSE' ? 'sap-icon://locked' : 'sap-icon://unlocked' }"
-                        state="{= ${transaction>periodStatus} === 'HARD_CLOSE' ? 'Error' : 'Success' }"
-                        inverted="true" />
+                    <ObjectStatus text="{= ${transaction>periodStatus} === 'HARD_CLOSE' ? 'Period Hard Closed' : 'Period Open' }" icon="{= ${transaction>periodStatus} === 'HARD_CLOSE' ? 'sap-icon://locked' : 'sap-icon://unlocked' }" state="{= ${transaction>periodStatus} === 'HARD_CLOSE' ? 'Error' : 'Success' }" inverted="true" />
                 </HBox>
             </VBox>
 
-            <IconTabBar id="idIconTabBar" expanded="true" class="sapUiResponsiveContentPadding">
+            <IconTabBar id="idIconTabBar" headerMode="Inline" expanded="true" class="sapUiResponsiveContentPadding">
                 <items>
                     <IconTabFilter icon="sap-icon://sales-order" text="Transaction Details" key="details">
                         <grid:CSSGrid gridTemplateColumns="1fr 1fr" gridGap="1rem">
-                            
-                            <Panel headerText="Agreement Information" backgroundDesign="Transparent">
+
+                            <Panel headerText="Agreement Information">
                                 <f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12">
                                     <Label text="Agreement No" />
                                     <Link text="{transaction>agreement}" />
                                     <Label text="Name" />
-                                    <Text text="{transaction>agreementName}" />
+                                    <Text text="Annual Volume Rebate" />
                                     <Label text="Fiscal Period" />
                                     <ObjectStatus text="{transaction>period}" state="Indication06" inverted="true" />
                                 </f:SimpleForm>
                             </Panel>
 
-                            <Panel headerText="Financial Details" backgroundDesign="Transparent">
+                            <Panel headerText="Financial Details">
                                 <f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12">
                                     <Label text="Net Amount" />
                                     <Text text="{parts:[{path:'transaction>netAmount'},{path:'transaction>currency'}], type: 'sap.ui.model.type.Currency'}" />
@@ -69,100 +51,198 @@
                                     <Label text="Rate Applied" />
                                     <Text text="{transaction>rate}%" />
                                     <Label text="Rebate Amount" design="Bold"/>
-                                    <ObjectNumber 
-                                        number="{parts:[{path:'transaction>rebate'},{path:'transaction>currency'}], type: 'sap.ui.model.type.Currency'}" 
-                                        state="Success" />
+                                    <ObjectNumber number="{parts:[{path:'transaction>rebate'},{path:'transaction>currency'}], type: 'sap.ui.model.type.Currency'}" state="Success" />
                                 </f:SimpleForm>
                             </Panel>
 
-                            <Panel headerText="Accrual Information" visible="{= !!${transaction>accrualInfo} }" width="100%">
-                                <layoutData><grid:GridItemLayoutData gridColumn="1 / span 2"/></layoutData>
-                                <grid:CSSGrid gridTemplateColumns="repeat(4, 1fr)" gridGap="1rem">
+                            <Panel headerText="Accrual Information (FI Posting)" visible="{= !!${transaction>accrualInfo} }" width="100%">
+                                <layoutData>
+                                    <grid:GridItemLayoutData gridColumn="1 / span 2"/>
+                                </layoutData>
+
+                                <grid:CSSGrid gridTemplateColumns="repeat(3, 1fr)" gridGap="1rem">
+
                                     <VBox>
-                                        <Label text="Run Number" design="Bold"/>
+                                        <Label text="Accrual Run" design="Bold"/>
                                         <Link text="{transaction>accrualInfo/runNumber}"/>
                                     </VBox>
+
                                     <VBox>
                                         <Label text="Run Date" design="Bold"/>
-                                        <Text text="{path: 'transaction>accrualInfo/runDate', type: 'sap.ui.model.type.Date'}"/>
+                                        <Text text="{transaction>accrualInfo/runDate}"/>
                                     </VBox>
+
+                                    <VBox>
+                                        <Label text="Posting Date" design="Bold"/>
+                                        <Text text="{transaction>accrualInfo/postingDate}"/>
+                                    </VBox>
+
                                     <VBox>
                                         <Label text="FI Document" design="Bold"/>
                                         <Text text="{transaction>accrualInfo/fiDocument}"/>
                                     </VBox>
+
                                     <VBox>
                                         <Label text="Delta Amount" design="Bold"/>
-                                        <Text text="{transaction>accrualInfo/deltaAmount}"/>
+                                        <Text text="{parts:[{path:'transaction>accrualInfo/deltaAmount'},{path:'transaction>currency'}], type: 'sap.ui.model.type.Currency'}"/>
                                     </VBox>
+
+                                    <VBox>
+                                        <Label text="Reversal" design="Bold"/>
+                                        <Text text="{= ${transaction>accrualInfo/reversalRef} || 'None' }"/>
+                                    </VBox>
+
                                 </grid:CSSGrid>
+                            </Panel>
+                            <Panel headerText="Partner Information">
+                                <f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12">
+                                    <Label text="Partner Name" />
+                                    <Text text="{transaction>partner}" />
+                                    <Label text="Partner Code" />
+                                    <Text text="{transaction>partnerCode}" />
+                                </f:SimpleForm>
+                            </Panel>
+
+                            <Panel headerText="Invoice Information">
+                                <f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12">
+                                    <Label text="Invoice Number" />
+                                    <Text text="{transaction>invoice}" />
+                                    <Label text="Invoice Date" />
+                                    <Text text="{transaction>date}" />
+                                </f:SimpleForm>
                             </Panel>
 
                         </grid:CSSGrid>
                     </IconTabFilter>
 
                     <IconTabFilter icon="sap-icon://simulate" text="Calculation Trace" key="calc">
+
+                      
+        <Panel   class="sapUiSmallMarginBottom">
+            <headerToolbar>
+                <Toolbar height="3rem">
+                    <Title text="Agreement Rule Applied" level="H3"/>
+                    <ToolbarSpacer />
+                </Toolbar>
+            </headerToolbar>
+                    <ObjectStatus 
+                        text="{transaction>calculationTrace/agreementRule}" 
+                        state="Information" 
+                        icon="sap-icon://request"/>
+        </Panel>
+
+        <Panel headerText="Eligibility Validation"   class="sapUiSmallMarginBottom">
+            <List items="{transaction>calculationTrace/eligibilityChecks}" showSeparators="Inner"  >
+                <CustomListItem>
+                    <HBox alignItems="Start" class="sapUiSmallMargin">
+                        <core:Icon 
+                            src="{= ${transaction>result} === 'PASS' ? 'sap-icon://accept' : 'sap-icon://decline' }" 
+                            color="{= ${transaction>result} === 'PASS' ? 'Positive' : 'Negative' }" 
+                            size="1.2rem"
+                            class="sapUiSmallMarginEnd sapUiTinyMarginTop"/>
                         
-                        <Panel class="sapUiSmallMarginBottom">
-                            <headerToolbar>
-                                <Toolbar>
-                                    <Title text="Agreement Rule Applied" />
-                                    <ToolbarSpacer />
-                                    <ObjectStatus text="{transaction>calculationTrace/agreementRule}" state="Information" inverted="true" />
-                                </Toolbar>
-                            </headerToolbar>
-                        </Panel>
+                        <VBox>
+                            <Title text="{transaction>check}" level="H5" class="sapUiTinyMarginBottom"/>
+                            <Text text="{transaction>detail}" class="sapUiTinyFontSize"/>
+                        </VBox>
+                        
+                        <ToolbarSpacer />
+                        <ObjectStatus 
+                            text="{transaction>result}" 
+                            state="{= ${transaction>result} === 'PASS' ? 'Success' : 'Error' }"
+                            inverted="true" />
+                    </HBox>
+                </CustomListItem>
+            </List>
+        </Panel>
 
-                        <Panel headerText="Eligibility Validation" class="sapUiSmallMarginBottom">
-                            <List items="{transaction>calculationTrace/eligibilityChecks}">
-                                <CustomListItem>
-                                    <HBox alignItems="Center" class="sapUiSmallMargin">
-                                        <core:Icon 
-                                            src="{= ${transaction>result} === 'PASS' ? 'sap-icon://accept' : 'sap-icon://decline' }" 
-                                            color="{= ${transaction>result} === 'PASS' ? 'Positive' : 'Negative' }" 
-                                            size="1.5rem" 
-                                            class="sapUiSmallMarginEnd"/>
-                                        <VBox>
-                                            <Title text="{transaction>check}" level="H5"/>
-                                            <Text text="{transaction>detail}" class="sapUiTinyMarginTop"/>
-                                        </VBox>
-                                        <ToolbarSpacer />
-                                        <ObjectStatus text="{transaction>result}" state="{= ${transaction>result} === 'PASS' ? 'Success' : 'Error' }" />
-                                    </HBox>
-                                </CustomListItem>
-                            </List>
-                        </Panel>
+        <Panel headerText="Volume Accumulation" class="sapUiSmallMarginBottom"  visible="{= !!${transaction>calculationTrace/volumeAccumulation} }">
+            <HBox justifyContent="SpaceAround" alignItems="Center" class="sapUiMediumMarginTopBottom">
+                
+                <VBox alignItems="Center">
+                    <Label text="Previous Volume" />
+                    <ObjectNumber 
+                        number="{transaction>calculationTrace/volumeAccumulation/previousVolume}" 
+                        unit="{transaction>calculationTrace/volumeAccumulation/unit}"
+                        state="None"
+                        emphasized="false"/>
+                </VBox>
 
-                        <Panel headerText="Volume Accumulation &amp; Tiers" visible="{= !!${transaction>calculationTrace/volumeAccumulation} }">
-                            <HBox justifyContent="SpaceAround" alignItems="Center" class="sapUiMediumMarginBottom sapUiMediumMarginTop">
-                                <VBox alignItems="Center">
-                                    <Label text="Previous Volume" />
-                                    <Title text="{transaction>calculationTrace/volumeAccumulation/previousVolume} {transaction>calculationTrace/volumeAccumulation/unit}" />
-                                </VBox>
-                                <core:Icon src="sap-icon://add" size="1.5rem" color="#999"/>
-                                <VBox alignItems="Center">
-                                    <Label text="Current Invoice" />
-                                    <Title text="{transaction>calculationTrace/volumeAccumulation/currentInvoice} {transaction>calculationTrace/volumeAccumulation/unit}"/>
-                                </VBox>
-                                <core:Icon src="sap-icon://initiative" size="1.5rem" color="#999"/>
-                                <VBox alignItems="Center">
-                                    <Label text="New Total" />
-                                    <Title text="{transaction>calculationTrace/volumeAccumulation/newTotal} {transaction>calculationTrace/volumeAccumulation/unit}"/>
-                                </VBox>
-                            </HBox>
-                            
-                            <MessageStrip 
-                                text="Tier Applied: {transaction>calculationTrace/tierApplied/range} @ {transaction>calculationTrace/tierApplied/rate}%" 
-                                type="Information" 
-                                showIcon="true" 
-                                class="sapUiSmallMargin"/>
-                        </Panel>
+                <Title text="+" level="H1" class="sapUiMediumMarginBeginEnd"/>
 
-                        <Panel headerText="Final Calculation">
-                            <VBox alignItems="Center" class="sapUiMediumMargin">
-                                <Text text="{transaction>calculationTrace/calculation/formula}" class="sapUiSmallMarginBottom"/>
-                                <Title level="H3" text="{parts:[{path:'transaction>eligible'},{path:'transaction>currency'}], type: 'sap.ui.model.type.Currency'} × {transaction>rate}% = {parts:[{path:'transaction>rebate'},{path:'transaction>currency'}], type: 'sap.ui.model.type.Currency'}" />
-                            </VBox>
-                        </Panel>
+                <VBox alignItems="Center">
+                    <Label text="Current Invoice" />
+                    <ObjectNumber 
+                        number="{transaction>calculationTrace/volumeAccumulation/currentInvoice}" 
+                        unit="{transaction>calculationTrace/volumeAccumulation/unit}"
+                        state="Information"
+                        emphasized="true"/>
+                </VBox>
+
+                <Title text="=" level="H1" class="sapUiMediumMarginBeginEnd"/>
+
+                <VBox alignItems="Center">
+                    <Label text="New Total" />
+                    <ObjectNumber 
+                        number="{transaction>calculationTrace/volumeAccumulation/newTotal}" 
+                        unit="{transaction>calculationTrace/volumeAccumulation/unit}"
+                        state="Success"
+                        emphasized="true"/>
+                </VBox>
+            </HBox>
+        </Panel>
+
+        <Panel headerText="Tier Applied" class="sapUiSmallMarginBottom"  visible="{= !!${transaction>calculationTrace/tierApplied} }">
+            <VBox class="sapUiSmallMargin">
+                <grid:CSSGrid gridTemplateColumns="1fr 1fr" gridGap="1rem">
+                    <VBox>
+                        <Label text="Tier Level" />
+                        <Title text="Tier {transaction>calculationTrace/tierApplied/tierNumber}" level="H3"/>
+                        <Text text="Range: {transaction>calculationTrace/tierApplied/range}" class="sapUiTinyMarginTop"/>
+                    </VBox>
+                    <VBox alignItems="End">
+                        <Label text="Applied Rate" />
+                        <ObjectNumber 
+                            number="{transaction>calculationTrace/tierApplied/rate}" 
+                            unit="%" 
+                            state="Information" 
+                            emphasized="true" 
+                            class="sapUiMediumFontSize"/>
+                    </VBox>
+                </grid:CSSGrid>
+
+                <MessageStrip 
+                    text="{transaction>calculationTrace/tierApplied/note}" 
+                    type="Information" 
+                    showIcon="true" 
+                    customIcon="sap-icon://lightbulb"
+                    class="sapUiSmallMarginTop"
+                    visible="{= !!${transaction>calculationTrace/tierApplied/note} }"/>
+            </VBox>
+        </Panel>
+
+        <Panel headerText="Final Calculation" class="sapUiSmallMarginBottom" >
+            <VBox alignItems="Center" class="sapUiMediumMargin">
+                <Text text="{transaction>calculationTrace/calculation/formula}" class="sapUiSmallMarginBottom"/>
+
+                <HBox alignItems="Center" wrap="Wrap" justifyContent="Center">
+                    <ObjectNumber 
+                        number="{parts:[{path:'transaction>eligible'},{path:'transaction>currency'}], type:'sap.ui.model.type.Currency', formatOptions:{showMeasure: false}}"
+                        unit="{transaction>currency}"
+                        state="None" />
+
+                    <Title text=" × {transaction>rate}%" class="sapUiTinyMarginBeginEnd" level="H3"/>
+                    <Title text=" = " class="sapUiTinyMarginEnd" level="H3"/>
+
+                    <ObjectNumber 
+                        number="{parts:[{path:'transaction>rebate'},{path:'transaction>currency'}], type:'sap.ui.model.type.Currency', formatOptions:{showMeasure: false}}"
+                        unit="{transaction>currency}"
+                        state="Success" 
+                        emphasized="true"/>
+                </HBox>
+            </VBox>
+        </Panel>
+    
 
                     </IconTabFilter>
                 </items>

@@ -12,13 +12,12 @@
         <customHeader>
             <Bar>
                 <contentLeft>
-                    <core:Icon src="sap-icon://money-bills" size="1.5rem" color="#fff" class="sapUiSmallMarginBegin"/>
+                    <core:Icon src="sap-icon://money-bills" size="1.5rem" color="#fff" class="sapUiSTinyMarginBegin"/>
                     <Title text="Rebate Management Hub" titleStyle="H3" class="headerTitleText"/>
                 </contentLeft>
-                <contentMiddle>
-                    <SearchField placeholder="Search agreements, partners..." width="400px" search=".onSearch" class="customSearch"/>
-                </contentMiddle>
+                
                 <contentRight>
+                    <SearchField placeholder="Search agreements, partners..." width="200px" search=".onSearch" class="customSearch"/>
                     <Button icon="sap-icon://bell" type="Transparent" press=".onNotificationsPress">
                         <customData>
                             <BadgeCustomData key="badge" value="3" visible="true"/>

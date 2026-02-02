@@ -1,94 +1,92 @@
-
 <mvc:View
   xmlns:mvc="sap.ui.core.mvc"
   xmlns="sap.m"
-  xmlns:uxap="sap.uxap"
   controllerName="com.cy.rbm.controller.RebateAgreements">
-  
-  <VBox >
-  <Toolbar >
-  <Title text="Rebate Agreements" ></Title>
-  </Toolbar>
-    <!-- Table -->
+
+  <VBox>
+
+    <Toolbar>
+      <Title text="Rebate Agreements"/>
+    </Toolbar>
+
     <Table
-    class="sapUiMediumMarginTop"
+      class="sapUiMediumMarginTop"
       items="{rebateModel>/agreements}"
       growing="true"
       growingScrollToLoad="true"
       mode="SingleSelectLeft"
-      backgroundDesign="Solid"
-      >
+      backgroundDesign="Solid">
+
+      <!-- ================= HEADER TOOLBAR ================= -->
       <headerToolbar>
-      <!-- Toolbar -->
-    <Toolbar design="Solid">
-      <SearchField
-        width="20rem"
-        placeholder="Search agreements..."
-        liveChange="onSearch"/>
-      <ToolbarSpacer/>
-      <Button text="Create" type="Emphasized" icon="sap-icon://add"/>
-      <Button icon="sap-icon://excel-attachment"/>
-      <Button icon="sap-icon://download"/>
-    </Toolbar>
+        <Toolbar>
+          <SearchField
+            width="20rem"
+            placeholder="Search agreements..."
+            liveChange="onSearch"/>
+          <ToolbarSpacer/>
+          <Button text="Create" type="Emphasized" icon="sap-icon://add" press=".onCreateAggrement" />
+          <Button icon="sap-icon://excel-attachment"/>
+          <Button icon="sap-icon://download"/>
+        </Toolbar>
       </headerToolbar>
 
-      <columns >
-        <Column ><Text text="Status"/></Column>
-        <Column ><Text text="Agreement #"/></Column>
+      <!-- ================= COLUMNS ================= -->
+      <columns>
+        <Column><Text text="Status"/></Column>
+        <Column><Text text="Agreement #"/></Column>
         <Column><Text text="Description"/></Column>
-        <Column ><Text text="Type"/></Column>
-        <Column ><Text text="Partner"/></Column>
-        <Column ><Text text="Validity"/></Column>
-        <Column  ><Text text="Accrued"/></Column>
-        <Column  ><Text text="Pending"/></Column>
-        <Column ><Text text="Last Run"/></Column>
+        <Column><Text text="Partner"/></Column>
+        <Column><Text text="Validity"/></Column>
+        <Column hAlign="End"><Text text="Total Accrued"/></Column>
+        <Column hAlign="End"><Text text="Pending"/></Column>
+        <Column><Text text="Last Run"/></Column>
       </columns>
 
+      <!-- ================= ITEMS ================= -->
       <items>
-        <ColumnListItem type="Navigation" press=".onOpenRebateDetails">
+        <ColumnListItem
+          type="Navigation"
+          press=".onOpenRebateDetails">
+
           <cells>
 
             <!-- Status -->
-            <GenericTag text="{rebateModel>status}"
-              status="{rebateModel>statusState}" design="StatusIconHidden" ></GenericTag>
+            <GenericTag
+              text="{rebateModel>status}"
+              status="{rebateModel>statusState}"
+              design="StatusIconHidden"/>
+
             <!-- Agreement -->
             <VBox>
               <Link text="{rebateModel>agreementNo}"/>
-              <Label text="{rebateModel>currency}" class="sapUiTinyMarginTop"/>
+              <Label text="{rebateModel>currency}"/>
             </VBox>
 
             <!-- Description -->
             <Text text="{rebateModel>description}" wrapping="true"/>
 
-            <!-- Type -->
-            <Text text="{rebateModel>type}"/>
-
             <!-- Partner -->
-            <VBox>
-              <Text text="{rebateModel>partner}"/>
-              <Label text="{rebateModel>partnerId}" class="sapUiTinyMarginTop"/>
-            </VBox>
+            <Text text="{rebateModel>partner}"/>
 
             <!-- Validity -->
             <Text
               text="{= ${rebateModel>validFrom} + ' - ' + ${rebateModel>validTo} }"/>
 
-            <!-- Accrued -->
-            <VBox >
-              <ObjectNumber
-                number="{rebateModel>accrued}"
-                unit="₹"/>
-              <Label text="{rebateModel>accruedDate}" class="sapUiTinyMarginTop"/>
-            </VBox>
-
-            <!-- Pending -->
+            <!-- Total Accrued -->
             <ObjectNumber
-              number="{rebateModel>pending}"
+              number="{rebateModel>totalAccrued}"
+              unit="₹"/>
+
+            <!-- Pending Settlement -->
+            <ObjectNumber
+              number="{rebateModel>pendingSettlement}"
               unit="₹"
               state="Warning"/>
 
             <!-- Last Run -->
-            <Link text="{rebateModel>lastRun}"/>
+            <Text
+              text="{= ${rebateModel>lastRun} ? ${rebateModel>lastRun} : '-' }"/>
 
           </cells>
         </ColumnListItem>
@@ -96,5 +94,5 @@
 
     </Table>
 
-</VBox>
+  </VBox>
 </mvc:View>

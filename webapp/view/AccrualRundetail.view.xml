@@ -1,0 +1,371 @@
+<mvc:View controllerName="com.cy.rbm.controller.AccrualRundetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout" displayBlock="true">
+
+    <Page showNavButton="true" navButtonPress=".onNavBack" class="sapUiResponsiveContentPadding">
+
+        <customHeader>
+            <Toolbar design="Solid">
+                <Button icon="sap-icon://nav-back" text="Back to List" press=".onNavBack" type="Transparent"/>
+
+                <ToolbarSpacer/>
+                <Text text="Accrual Runs / {accrualRunsModel>/runDetail/runId}"/>
+            </Toolbar>
+        </customHeader>
+
+        <content>
+            <!-- Header Section -->
+            <VBox class="sapUiSmallMarginBottom QuickAccess">
+                <HBox alignItems="Center" justifyContent="SpaceBetween">
+                    <VBox>
+                        <HBox alignItems="Center">
+                            <core:Icon src="sap-icon://settings" size="3rem" color="#fcecfcff" class="sapUiTinyMarginEnd"/>
+                            <Title text="{accrualRunsModel>/runDetail/runId}" level="H2" />
+                            <ObjectStatus text="Processing" state="Information" class="sapUiTinyMarginBegin"/>
+                        </HBox>
+                        <Text text="Regular Accrual Run for Period 2025-03" />
+                    </VBox>
+                    <ToolbarSpacer/>
+                    <HBox rowGap="2rem">
+                        <Button text="Refresh" icon="sap-icon://refresh" class="sapUiTinyMarginEnd" press=".onRefresh"/>
+
+                        <Button text="Cancel Run" icon="sap-icon://decline" type="Reject" press=".onCancelRun"/>
+                    </HBox>
+                </HBox>
+
+                <!-- Run Info Grid -->
+                <layout:HorizontalLayout class="sapUiSmallMarginTop">
+                    <VBox class="sapUiMediumMarginEnd">
+                        <Label text="FISCAL PERIOD" />
+                        <Text text="{accrualRunsModel>/runDetail/fiscalPeriod}" />
+                    </VBox>
+                    <VBox class="sapUiMediumMarginEnd">
+                        <Label text="RUN TYPE" />
+                        <Text text="{accrualRunsModel>/runDetail/runType}" />
+                    </VBox>
+                    <VBox class="sapUiMediumMarginEnd">
+                        <Label text="STARTED" />
+                        <Text text="{accrualRunsModel>/runDetail/started}" />
+                    </VBox>
+                    <VBox>
+                        <Label text="INITIATED BY" />
+                        <Text text="{accrualRunsModel>/runDetail/initiatedBy}" />
+                    </VBox>
+                </layout:HorizontalLayout>
+
+                <ProgressIndicator percentValue="{accrualRunsModel>/runDetail/progress}" displayValue="{accrualRunsModel>/runDetail/progressText}" state="Information" class="sapUiSmallMarginTop"/>
+            </VBox>
+
+
+
+            <!-- Status Banner -->
+            <MessageStrip text="Period 2025-03 locked during run execution" type="Warning" showIcon="true" showCloseButton="false" class="sapUiSmallMarginBottom"/>
+            <!-- <Text text="Transactions frozen during execution" class="sapUiSmallMarginBottom"/> -->
+
+            <!-- Icon Tab Bar -->
+            <IconTabBar id="runDetailTabs" select=".onTabSelect" backgroundDesign="Solid" class="sapUiSmallMarginTop">
+
+                <items>
+                    <!-- Overview Tab -->
+                    <IconTabFilter text="Overview" key="overview">
+
+                        <VBox class="sapUiSmallMarginTop">
+                            <!-- KPI Cards -->
+                            <layout:HorizontalLayout class="sapUiSmallMarginBottom">
+                                <GenericTile header="Total Agreements" frameType="TwoByHalf" width="11rem" class="sapUiTinyMarginEnd">
+                                    <TileContent>
+                                        <NumericContent value="{accrualRunsModel>/runDetail/totalAgreements}" valueColor="Neutral"/>
+                                    </TileContent>
+                                </GenericTile>
+
+                                <GenericTile header="Processed" frameType="TwoByHalf" width="9rem" class="sapUiTinyMarginEnd">
+                                    <TileContent>
+                                        <NumericContent value="{accrualRunsModel>/runDetail/processed}" valueColor="Good"/>
+                                    </TileContent>
+                                </GenericTile>
+
+                                <GenericTile header="Failed" frameType="TwoByHalf" width="9rem" class="sapUiTinyMarginEnd">
+                                    <TileContent>
+                                        <NumericContent value="{accrualRunsModel>/runDetail/failed}" valueColor="Error"/>
+                                    </TileContent>
+                                </GenericTile>
+
+                                <GenericTile header="Transactions" frameType="TwoByHalf" width="9rem" class="sapUiTinyMarginEnd">
+                                    <TileContent>
+                                        <NumericContent value="{
+                path: 'accrualRunsModel>/runDetail/transactions',
+                formatter: '.formatNumber'
+            }" valueColor="Neutral"/>
+                                    </TileContent>
+                                </GenericTile>
+
+                                <GenericTile header="Incremental Accrual" frameType="TwoByHalf" width="11rem">
+                                    <TileContent>
+                                        <NumericContent value="{
+                path: 'accrualRunsModel>/runDetail/incrementalAccrual',
+                formatter: '.formatCurrency'
+            }" scale="₹" valueColor="Good"/>
+                                    </TileContent>
+                                </GenericTile>
+
+                            </layout:HorizontalLayout>
+
+                            <!-- Quick Access -->
+                            <VBox class="sapUiSmallMarginTop QuickAccess" backgroundDesign="Solid">
+                                <Label text="Quick Access:" class="sapUiTinyMarginBottom"/>
+                                <HBox>
+                                    <Link text="Agreements (48)" press=".onShowAgreements" class="sapUiSmallMarginEnd"/>
+                                    <Text text=" → " class="sapUiSmallMarginEnd"/>
+                                    <Link text="FI Documents (0)" press=".onShowFIDocuments" class="sapUiSmallMarginEnd"/>
+                                    <Text text=" → " class="sapUiSmallMarginEnd"/>
+                                    <Link text="Qualified Transactions (10,234)" press=".onShowTransactions" class="sapUiSmallMarginEnd"/>
+                                    <Text text=" → " class="sapUiSmallMarginEnd"/>
+                                    <Link text="Rejected (89)" press=".onShowRejected"/>
+                                </HBox>
+                            </VBox>
+                        </VBox>
+                    </IconTabFilter>
+
+                    <!-- Finance Details Tab -->
+                    <IconTabFilter text="Finance Details" key="financeDetails">
+                        <HBox width="100%">
+                            <!-- Accounting Impact -->
+                            <VBox class="sapUiTinyMarginEnd QuickAccess" backgroundDesign="Solid">
+                                <layoutData>
+                                    <FlexItemData growFactor="1"/>
+                                </layoutData>
+                                <Title text="ACCOUNTING IMPACT" level="H5" class="sapUiTinyMarginBottom"/>
+                                <VBox class="sapUiSmallMargin">
+                                    <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                                        <Text text="Debit:"/>
+                                        <ObjectNumber number="{
+                                                    path: 'accrualRunsModel>/runDetail/debitAmount',
+                                                    formatter: '.formatCurrency'
+                                                }" unit="₹" state="Error"/>
+                                    </HBox>
+                                    <Text text="{accrualRunsModel>/runDetail/debitAccount}" class="sapUiTinyMarginBottom"/>
+
+                                    <HBox justifyContent="SpaceBetween" class="sapUiSmallMarginTop">
+                                        <Text text="Credit:"/>
+                                        <ObjectNumber number="{
+                                                    path: 'accrualRunsModel>/runDetail/creditAmount',
+                                                    formatter: '.formatCurrency'
+                                                }" unit="₹" state="Success"/>
+                                    </HBox>
+                                    <Text text="{accrualRunsModel>/runDetail/creditAccount}"/>
+                                </VBox>
+
+                                <VBox class="sapUiSmallMarginTop">
+
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="FI Documents:"/>
+                                        <Text text="{accrualRunsModel>/runDetail/fiDocuments}"/>
+                                    </HBox>
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="Posting Date:"/>
+                                        <Text text="{accrualRunsModel>/runDetail/postingDate}"/>
+                                    </HBox>
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="Ledger / CoCode:"/>
+                                        <Text text="{accrualRunsModel>/runDetail/ledgerCoCode}"/>
+                                    </HBox>
+                                </VBox>
+                            </VBox>
+                            <!-- Accrual Calculation -->
+                            <VBox class="sapUiTinyMarginEnd QuickAccess" backgroundDesign="Solid">
+                                <layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </layoutData>
+                                <Title text="ACCRUAL CALCULATION" level="H5" class="sapUiTinyMarginBottom"/>
+                                <VBox class="sapUiSmallMargin">
+                                    <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                                        <Text text="Prior Period Accrual:"/>
+                                        <Text text="₹{
+                                                path: 'accrualRunsModel>/runDetail/priorPeriodAccrual',
+                                                formatter: '.formatCurrency'
+                                            }"/>
+                                    </HBox>
+                                    <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                                        <Text text="Current Period Accrual:"/>
+                                        <Text text="₹{
+                                                path: 'accrualRunsModel>/runDetail/currentPeriodAccrual',
+                                                formatter: '.formatCurrency'
+                                            }"/>
+                                    </HBox>
+                                    <HBox justifyContent="SpaceBetween" class="sapUiSmallMarginTop">
+                                        <Text text="Incremental Accrual:" />
+                                        <ObjectNumber number="{
+                                                    path: 'accrualRunsModel>/runDetail/incrementalAccrual',
+                                                    formatter: '.formatCurrency'
+                                                }" unit="₹" emphasized="true" state="Success"/>
+                                    </HBox>
+                                    <Text text="Additional liability recognized this period" class="sapUiTinyMarginTop"/>
+                                </VBox>
+                            </VBox>
+                            <!-- Change Drivers -->
+                            <VBox class=" QuickAccess" backgroundDesign="Solid">
+                                <layoutData>
+                                    <FlexItemData growFactor="1" class="QuickAccess"/>
+                                </layoutData>
+                                <Title text="CHANGE DRIVERS" level="H5" class="sapUiTinyMarginBottom"/>
+                                <VBox class="sapUiSmallMargin">
+                                    <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                                        <core:Icon src="sap-icon://arrow-top" color="#107E3E" class="sapUiTinyMarginEnd"/>
+                                        <Text text="+{accrualRunsModel>/runDetail/newTransactions}"/>
+                                        <Text text="New qualifying transactions" class="sapUiTinyMarginBegin"/>
+                                    </HBox>
+                                    <HBox alignItems="Center">
+                                        <core:Icon src="sap-icon://resize-horizontal" color="#0854A0" class="sapUiTinyMarginEnd"/>
+                                        <Text text="+{accrualRunsModel>/runDetail/rateAdjustments}"/>
+                                        <Text text="Agreement rate adjustments" class="sapUiTinyMarginBegin"/>
+                                    </HBox>
+                                </VBox>
+
+                                <Link text="View Full Audit Trail →" press=".onViewAuditTrail" class="sapUiSmallMarginTop"/>
+                            </VBox>
+                        </HBox>
+                    </IconTabFilter>
+
+                    <!-- Agreements Tab -->
+                    <IconTabFilter text="Agreements (48)" key="agreements" class="QuickAccess">
+
+                        <VBox class="sapUiSmallMarginTop">
+                            <HBox class="sapUiSmallMarginBottom">
+                                <GenericTag text="32 Processed" status="Success" class="sapUiTinyMarginEnd"/>
+                                <GenericTag text="1 Failed" status="Error" class="sapUiTinyMarginEnd"/>
+                                <GenericTag text="1 Processing" status="Information" class="sapUiTinyMarginEnd"/>
+                                <GenericTag text="14 Pending" status="None"/>
+                            </HBox>
+
+                            <Table items="{accrualRunsModel>/agreements}" growing="true" growingThreshold="20">
+
+                                <columns>
+                                    <Column width="12%">
+                                        <Text text="STATUS"/>
+                                    </Column>
+                                    <Column width="18%">
+                                        <Text text="AGREEMENT"/>
+                                    </Column>
+                                    <Column width="15%">
+                                        <Text text="PARTNER"/>
+                                    </Column>
+                                    <Column width="8%">
+                                        <Text text="TXNS"/>
+                                    </Column>
+                                    <Column width="12%">
+                                        <Text text="PRIOR ACCRUAL"/>
+                                    </Column>
+                                    <Column width="12%">
+                                        <Text text="CURRENT ACCRUAL"/>
+                                    </Column>
+                                    <Column width="12%">
+                                        <Text text="INCREMENTAL"/>
+                                    </Column>
+                                    <Column width="8%">
+                                        <Text text="TIME"/>
+                                    </Column>
+                                </columns>
+
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <ObjectStatus text="{accrualRunsModel>status}" state="{accrualRunsModel>statusState}" icon="{accrualRunsModel>statusIcon}"/>
+                                            <VBox>
+                                                <Link text="{accrualRunsModel>agreementId}" press=".onAgreementPress"/>
+                                                <Text text="{accrualRunsModel>agreementName}"/>
+                                                <Text text="{accrualRunsModel>errorMessage}" visible="{= ${accrualRunsModel>errorMessage} !== undefined}"/>
+                                            </VBox>
+                                            <Text text="{accrualRunsModel>partner}"/>
+                                            <Text text="{accrualRunsModel>txns}"/>
+                                            <Text text="₹{
+                                                path: 'accrualRunsModel>priorAccrual',
+                                                formatter: '.formatCurrency'
+                                            }"/>
+                                            <Text text="{
+                                                parts: ['accrualRunsModel>currentAccrual'],
+                                                formatter: '.formatCurrencyOrDash'
+                                            }"/>
+                                            <ObjectNumber number="{
+                                                    path: 'accrualRunsModel>incremental',
+                                                    formatter: '.formatCurrency'
+                                                }" unit="₹" state="Success" visible="{= ${accrualRunsModel>incremental} !== null}"/>
+                                            <Text text="-" visible="{= ${accrualRunsModel>incremental} === null}"/>
+                                            <Text text="{accrualRunsModel>time}"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </VBox>
+                    </IconTabFilter>
+
+                    <!-- Audit Trail Tab -->
+                    <IconTabFilter text="Audit Trail" key="auditTrail">
+
+                        <HBox >
+                            <VBox class="sapUiMediumMarginEnd QuickAccess">
+                                <layoutData>
+                                    <FlexItemData growFactor="1"/>
+                                </layoutData>
+                                <Title text="RUN TIMELINE" level="H5" class="sapUiTinyMarginBottom"/>
+                                <VBox class="sapUiSmallMargin">
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="Scheduled:"/>
+                                        <Text text="{accrualRunsModel>/runDetail/scheduled}"/>
+                                    </HBox>
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="Started:"/>
+                                        <Text text="{accrualRunsModel>/runDetail/started}"/>
+                                    </HBox>
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="Est. Completion:"/>
+                                        <Text text="{accrualRunsModel>/runDetail/estCompletion}"/>
+                                    </HBox>
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="Duration:"/>
+                                        <Text text="{accrualRunsModel>/runDetail/duration}"/>
+                                    </HBox>
+                                </VBox>
+                            </VBox>
+
+                            <VBox class="QuickAccess">
+                                <layoutData>
+                                    <FlexItemData growFactor="1"/>
+                                </layoutData>
+                                <Title text="RUN CONFIGURATION" level="H5" class="sapUiTinyMarginBottom"/>
+                                <VBox class="sapUiSmallMargin">
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="Mode:"/>
+                                        <Text text="{accrualRunsModel>/runDetail/mode}"/>
+                                    </HBox>
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="Period Lock:"/>
+                                        <Text text="{accrualRunsModel>/runDetail/periodLock}"/>
+                                    </HBox>
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="Email Notification:"/>
+                                        <Text text="{accrualRunsModel>/runDetail/emailNotification}"/>
+                                    </HBox>
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="Zero-Value:"/>
+                                        <Text text="{accrualRunsModel>/runDetail/zeroValue}"/>
+                                    </HBox>
+                                </VBox>
+                            </VBox>
+                        </HBox>
+
+
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </content>
+        <footer>
+            <Toolbar >
+                <Text text="Run ID: {accrualRunsModel>/runDetail/runId} | Fiscal Period: {accrualRunsModel>/runDetail/fiscalPeriod}" />
+                <ToolbarSpacer ></ToolbarSpacer>
+                <Text text="Last Refreshed: {accrualRunsModel>/runDetail/lastRefreshed}"/>
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

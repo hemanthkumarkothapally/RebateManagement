@@ -1,0 +1,65 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form">
+
+    <Dialog title="Schedule New Accrual Run" contentWidth="600px" afterClose=".onDialogClose">
+
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <!-- Info Message -->
+                <MessageStrip text="An accrual run will evaluate all qualifying transactions for the selected period and create FI posting documents." type="Information" showIcon="true" class="sapUiTinyMarginBottom"/>
+
+                <!-- Form -->
+                <f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="true">
+
+                    <f:content>
+                        <Label text="Fiscal Period" required="true"/>
+                        <Select id="fiscalPeriodSelect" selectedKey="2025-03" width="100%">
+                            <items>
+                                <core:Item key="2025-03" text="2025-03 (Current)"/>
+                                <core:Item key="2025-02" text="2025-02"/>
+                                <core:Item key="2025-01" text="2025-01"/>
+                            </items>
+                        </Select>
+
+                        <Label text="Run Type" required="true"/>
+                        <Select id="runTypeSelect" selectedKey="regular" width="100%">
+                            <items>
+                                <core:Item key="regular" text="Regular Run"/>
+                                <core:Item key="test" text="Test Run"/>
+                                <core:Item key="simulation" text="Simulation"/>
+                            </items>
+                        </Select>
+
+                        <Label text="Schedule Date"/>
+                        <DatePicker id="scheduleDate" value="31-03-2025" valueFormat="dd-MM-yyyy" displayFormat="dd-MM-yyyy" width="100%"/>
+
+                        <Label text="Schedule Time"/>
+                        <TimePicker id="scheduleTime" value="18:00" valueFormat="HH:mm" displayFormat="HH:mm" width="100%"/>
+
+                        <Label text=""/>
+                        <Text text=""/>
+                        <Title text="OPTIONS"></Title>
+
+                        <Label text=""/>
+                        <CheckBox id="lockPeriodCheckbox" text="Lock period during execution" selected="true"/>
+
+                        <Label text=""/>
+                        <CheckBox id="emailNotificationCheckbox" text="Send email notification on completion" selected="true"/>
+
+                        <Label text=""/>
+                        <CheckBox id="zeroValueCheckbox" text="Include zero-value agreements" selected="false"/>
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+
+        <beginButton>
+            <Button text="Schedule Run" type="Emphasized" icon="sap-icon://add" press=".onScheduleRun"/>
+        </beginButton>
+
+        <endButton>
+            <Button text="Cancel" press=".onCancelSchedule"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,277 @@
+<core:FragmentDefinition
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:unified="sap.ui.unified"
+>
+    <Dialog
+        showHeader="false"
+        contentWidth="70rem"
+    >
+        <!-- ================= HEADER ================= -->
+        <customHeader>
+            <Toolbar height="3rem">
+                <VBox>
+                    <Title
+                        text="{= ${createAgreementModel>/mode} === 'EDIT'
+              ? 'Edit Agreement'
+              : 'Create New Agreement'}"
+                    />
+                    <Text text="Fill in the agreement details" />
+                </VBox>
+
+                <ToolbarSpacer />
+
+                <Button
+                    text="Cancel"
+                    press=".onCancel"
+                />
+                <Button
+                    text="Save as Draft"
+                    press=".onSaveDraft"
+                    class="sapUiSmallMarginBegin"
+                />
+                <Button
+                    text="Save Agreement"
+                    type="Emphasized"
+                    icon="sap-icon://save"
+                    press=".onSave"
+                    class="sapUiSmallMarginBegin"
+                    enabled="{= 
+        !!${createAgreementModel>/description} &amp;&amp; 
+        ${createAgreementModel>/description}.length > 0 &amp;&amp;
+        !!${createAgreementModel>/validFrom} &amp;&amp; 
+        !!${createAgreementModel>/validTo} 
+    }"
+                />
+            </Toolbar>
+        </customHeader>
+
+        <VBox class="sapUiLargeMargin">
+            <!-- ================= BASIC INFORMATION ================= -->
+            <form:SimpleForm
+                layout="ResponsiveGridLayout"
+                title="Basic Information"
+                editable="true"
+            >
+                <Label text="Agreement ID " />
+                <Input
+                    value="{createAgreementModel>/agreementId}"
+                    enabled="false"
+                />
+                <Text text="Auto-generated" />
+
+                <Label
+                    text="Agreement Type"
+                    required="true"
+                />
+                <Select selectedKey="{createAgreementModel>/agreementType}">
+                    <items>
+                        <core:Item
+                            key="Customer"
+                            text="Customer"
+                        />
+                        <core:Item
+                            key="Supplier"
+                            text="Supplier"
+                        />
+                    </items>
+                </Select>
+
+                <Label
+                    text="Currency"
+                    required="true"
+                />
+                <Select selectedKey="{createAgreementModel>/currency}">
+                    <items>
+                        <core:Item
+                            key="INR"
+                            text="INR - Indian Rupee"
+                        />
+                        <core:Item
+                            key="USD"
+                            text="USD - US Dollar"
+                        />
+                    </items>
+                </Select>
+
+                <Label
+                    text="Description"
+                    required="true"
+                />
+                <Input
+                    value="{createAgreementModel>/description}"
+                    valueLiveUpdate="true"
+                    maxLength="100"
+                    placeholder="e.g. Annual Volume Rebate - Beverages"
+                    valueState="{= ${createAgreementModel>/description}.length > 0 ? 'None' : 'Error' }"
+                    valueStateText="Description is required"
+                />
+
+                <Label
+                    text="Settlement Frequency"
+                    required="true"
+                />
+                <Select
+                    selectedKey="{createAgreementModel>/settlementFrequency}"
+                >
+                    <items>
+                        <core:Item
+                            key="Monthly"
+                            text="Monthly"
+                        />
+                        <core:Item
+                            key="Quarterly"
+                            text="Quarterly"
+                        />
+                        <core:Item
+                            key="Yearly"
+                            text="Yearly"
+                        />
+                    </items>
+                </Select>
+            </form:SimpleForm>
+
+            <!-- ================= PARTNER INFORMATION ================= -->
+            <form:SimpleForm
+                layout="ResponsiveGridLayout"
+                title="Partner Information"
+                editable="true"
+                class="sapUiMediumMarginTop"
+            >
+                <Label
+                    text="Partner"
+                    required="true"
+                />
+                <Select selectedKey="{createAgreementModel>/partner}">
+                    <items>
+                        <core:Item
+                            key="CUST-001"
+                            text="ABC Retail Pvt Ltd"
+                        />
+                        <core:Item
+                            key="CUST-002"
+                            text="XYZ Stores India Ltd"
+                        />
+                    </items>
+                </Select>
+
+                <Label
+                    text="Valid From"
+                    required="true"
+                />
+                <DatePicker
+                    value="{createAgreementModel>/validFrom}"
+                    valueState="{= ${createAgreementModel>/validFrom} ? 'None' : 'Error' }"
+                    valueStateText="Start date is required"
+                />
+
+                <Label
+                    text="Valid To"
+                    required="true"
+                />
+                <DatePicker value="{createAgreementModel>/validTo}" 
+                    valueState="{= ${createAgreementModel>/validTo} ? 'None' : 'Error' }"
+                    valueStateText="End date is required"/>
+            </form:SimpleForm>
+
+            <!-- ================= REBATE RULES ================= -->
+            <VBox class="sapUiMediumMarginTop">
+                <Title
+                    text="Rebate Rules"
+                    level="H4"
+                    class="sapUiTinyMarginBottom"
+                />
+
+                <!-- Existing Rules -->
+                <List
+                    items="{createAgreementModel>/rules}"
+                    showSeparators="Inner"
+                    class="sapUiSmallMarginBottom"
+                >
+                    <CustomListItem>
+                        <HBox
+                            alignItems="Center"
+                            justifyContent="SpaceBetween"
+                            width="100%"
+                        >
+                            <!-- LEFT: Checkbox + Rule Info -->
+                            <HBox alignItems="Start">
+                                <CheckBox
+                                    selected="{createAgreementModel>enabled}"
+                                    class="sapUiTinyMarginEnd"
+                                />
+
+                                <VBox>
+                                    <Text
+                                        text="{= ${createAgreementModel>ruleId} + ' - ' + ${createAgreementModel>ruleName} }"
+                                        class="sapUiSmallMarginBottom"
+                                        wrapping="true"
+                                    />
+
+                                    <Text
+                                        text="{= ${createAgreementModel>ruleType}
+                + ' \u2022 '
+                + ${createAgreementModel>calculationBasis}
+                + ' \u2022 '
+                + ${createAgreementModel>rateSummary} }"
+                                    />
+                                </VBox>
+                            </HBox>
+
+                            <!-- RIGHT: Actions -->
+                            <HBox>
+                                <Button
+                                    icon="sap-icon://edit"
+                                    type="Transparent"
+                                    press=".onEditRule"
+                                />
+
+                                <Button
+                                    icon="sap-icon://delete"
+                                    type="Transparent"
+                                    press=".onDeleteRule"
+                                />
+                            </HBox>
+                        </HBox>
+                    </CustomListItem>
+                </List>
+
+                <!-- Add Rule CTA -->
+                <HBox
+                    alignItems="Center"
+                    justifyContent="Center"
+                    class="sapUiMediumMarginTop"
+                >
+                    <Button
+                        icon="sap-icon://add"
+                        text="Add Rebate Rule"
+                        type="Transparent"
+                        press=".onAddRule"
+                    />
+                </HBox>
+            </VBox>
+
+            <!-- ================= ADDITIONAL INFORMATION ================= -->
+            <form:SimpleForm
+                layout="ResponsiveGridLayout"
+                title="Additional Information"
+                editable="true"
+                class="sapUiMediumMarginTop"
+            >
+                <Label text="Internal Notes" />
+                <TextArea
+                    value="{createAgreementModel>/notes}"
+                    maxLength="500"
+                    placeholder="Add any internal notes about this agreement..."
+                />
+
+                <Label text="Attachments" />
+                <unified:FileUploader
+                    placeholder="Drop files here or click to upload"
+                />
+            </form:SimpleForm>
+        </VBox>
+    </Dialog>
+</core:FragmentDefinition>

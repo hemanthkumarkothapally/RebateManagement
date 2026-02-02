@@ -10,3 +10,7 @@
 .largeStatText .sapMObjStatusIcon {
     font-size: 1.5rem;
 }
+.QuickAccess{
+    padding: 6px;
+background-color: rgb(255, 255, 255);
+}

@@ -15,7 +15,7 @@
                 </f:heading>
 
                 <f:actions>
-                    <Label text="Period: 2025-01"/>
+                    <Label text="Period: {/filter/period}"/>
                     <ToolbarSeparator />
 
                     <Button icon="sap-icon://bell" tooltip="Notifications"/>
@@ -34,12 +34,12 @@
                             <fb:filterGroupItems>
                                 <fb:FilterGroupItem groupName="G1" name="Search" label="Search" visibleInFilterBar="true">
                                     <fb:control>
-                                        <SearchField placeholder="Search transaction, invoice..."/>
+                                        <SearchField value="{/filter/search}" placeholder="Search transaction, invoice..."/>
                                     </fb:control>
                                 </fb:FilterGroupItem>
                                 <fb:FilterGroupItem groupName="G1" name="Period" label="Period" visibleInFilterBar="true">
                                     <fb:control>
-                                        <Select selectedKey="2025-01">
+                                        <Select selectedKey="{/filter/period}">
                                             <core:Item key="2025-01" text="2025-01"/>
                                             <core:Item key="2024-12" text="2024-12"/>
                                         </Select>
@@ -47,7 +47,7 @@
                                 </fb:FilterGroupItem>
                                 <fb:FilterGroupItem groupName="G1" name="Status" label="Status" visibleInFilterBar="true">
                                     <fb:control>
-                                        <ComboBox>
+                                        <ComboBox selectedKey="{/filter/status}">
                                             <core:Item key="ALL" text="All Statuses"/>
                                             <core:Item key="QUALIFIED" text="Qualified"/>
                                             <core:Item key="REJECTED" text="Rejected"/>
@@ -65,31 +65,31 @@
                             <HBox alignItems="Center" class="sapUiSmallMargin">
 
                                 <VBox alignItems="Center" class="sapUiMediumMarginEnd">
-                                    <ObjectStatus text="Total : {= ${transaction>/}.length }" active="true" inverted="true" state="Indication19" />
+                                    <ObjectStatus text="Total : {/ui/countTotal}" active="true" inverted="true" state="Indication19" />
                                 </VBox>
 
 
 
                                 <VBox alignItems="Center" class="sapUiMediumMarginBeginEnd">
-                                    <ObjectStatus text="Qualified : {= ${transaction>/}.length }" active="true" inverted="true" state="Indication14" />
+                                    <ObjectStatus text="Qualified : {/ui/countQualified}" active="true" inverted="true" state="Indication14" />
                                 </VBox>
 
 
 
                                 <VBox alignItems="Center" class="sapUiMediumMarginBeginEnd">
-                                    <ObjectStatus text="Rejected : {= ${transaction>/}.length }" active="true" inverted="true" state="Indication12" />
+                                    <ObjectStatus text="Rejected : {/ui/countRejected}" active="true" inverted="true" state="Indication12" />
                                 </VBox>
 
 
 
                                 <VBox alignItems="Center" class="sapUiMediumMarginBeginEnd">
-                                    <ObjectStatus text="Disputed : {= ${transaction>/}.length }" active="true" inverted="true" state="Indication13" />
+                                    <ObjectStatus text="Disputed : {/ui/countDisputed}" active="true" inverted="true" state="Indication13" />
                                 </VBox>
 
 
 
                                 <VBox alignItems="Center" class="sapUiMediumMarginBegin">
-                                    <ObjectStatus text="Accrued : {= ${transaction>/}.length }" active="true" inverted="true" state="Indication15" />
+                                    <ObjectStatus text="Accrued : {/ui/countAccrued}" active="true" inverted="true" state="Indication15" />
                                 </VBox>
 
                             </HBox>
@@ -97,19 +97,18 @@
                             <HBox alignItems="Center">
                                 <VBox alignItems="Center" class="sapUiSmallMargin">
                                     <Text text="Eligible Amount"></Text>
-                                    <ObjectStatus class="largeStatText" text="₹19,47,500"></ObjectStatus>
-
+                                    <ObjectStatus class="largeStatText" text="₹{path: '/ui/eligibleAmount', type: 'sap.ui.model.type.Float', formatOptions: { groupingEnabled: true, minFractionDigits: 2, maxFractionDigits: 2 }}"></ObjectStatus>
                                 </VBox>
                                 <ToolbarSeparator />
                                 <VBox alignItems="Center" class="sapUiSmallMargin">
                                     <Text text="Total Rebate"></Text>
-                                    <ObjectStatus class="largeStatText" text="₹41,837.5" state="Success"></ObjectStatus>
+                                    <ObjectStatus class="largeStatText" text="₹{path: '/ui/totalRebate', type: 'sap.ui.model.type.Float', formatOptions: { groupingEnabled: true, minFractionDigits: 2, maxFractionDigits: 2 }}" state="Success"></ObjectStatus>
 
                                 </VBox>
                                 <ToolbarSeparator />
                                 <VBox alignItems="Center" class="sapUiSmallMargin">
                                     <Text text="Avg Rate"></Text>
-                                    <ObjectStatus class="largeStatText" text="2.15%"></ObjectStatus>
+                                    <ObjectStatus class="largeStatText" text="{/ui/avgRate}%"></ObjectStatus>
 
                                 </VBox>
                             </HBox>
@@ -122,13 +121,13 @@
         </f:header>
 
         <f:content>
-            <Table id="transactionsTable" mode="MultiSelect" autoPopinMode="false" sticky="ColumnHeaders,HeaderToolbar" inset="false" items="{/transactions}" class="" growing="true" growingThreshold="20">
+            <Table id="transactionsTable" mode="MultiSelect" autoPopinMode="false" updateFinished="onTableUpdateFinished" sticky="ColumnHeaders,HeaderToolbar" inset="false" items="{/transactions}" class="" growing="true" growingThreshold="20">
 
                 <headerToolbar>
                     <OverflowToolbar>
                         <Title text="Transactions (10)" level="H3"/>
                         <ToolbarSpacer/>
-                        <Button text="Recalculate" icon="sap-icon://refresh" type="Emphasized"/>
+                        <Button text="Recalculate" icon="sap-icon://refresh" press="reCal" type="Emphasized"/>
                         <Button text="Flag" icon="sap-icon://flag"/>
                         <Button text="Export" icon="sap-icon://excel-attachment" press="onExport"/>
                         <Button icon="sap-icon://sort" tooltip="Sort"/>
@@ -203,7 +202,7 @@
 
                             <HBox justifyContent="Center">
                                 <Button icon="sap-icon://show" type="Transparent" tooltip="View Details / Trace" press="onViewDetails"/>
-                                <Button icon="sap-icon://alert" type="Transparent" visible="{= ${status} === 'QUALIFIED'}" tooltip="Raise Dispute" press="onDispute"/>
+                                <Button icon="sap-icon://alert" type="Transparent" visible="{= ${status} === 'QUALIFIED'}" tooltip="Raise Dispute" press=".onRaiseDispute"/>
                             </HBox>
                         </cells>
                     </ColumnListItem>

@@ -1,0 +1,174 @@
+<mvc:View controllerName="com.cy.rbm.controller.AccrualRuns"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout" displayBlock="true">
+
+    <Page title="Accrual Runs" showNavButton="false" class="sapUiResponsiveContentPadding">
+
+        <subHeader>
+            <Toolbar>
+                <Text text="Monitor and manage periodic accrual calculation runs"/>
+            </Toolbar>
+        </subHeader>
+
+        <content>
+            <layout:HorizontalLayout class="sapUiSmallMarginTop sapUiSmallMarginBottom">
+                <GenericTile header="Total Runs (2025)" frameType="TwoByHalf" width="10rem" class="sapUiMediumMarginEnd">
+                    <TileContent>
+                        <NumericContent value="{accrualRunsModel>/kpi/totalRuns}" valueColor="Neutral"/>
+                    </TileContent>
+                </GenericTile>
+
+                <GenericTile header="Processing" frameType="TwoByHalf" width="9rem" class="sapUiMediumMarginEnd">
+                    <TileContent>
+                        <NumericContent value="{accrualRunsModel>/kpi/processing}" valueColor="Critical"/>
+                    </TileContent>
+                </GenericTile>
+
+                <GenericTile header="Completed" frameType="TwoByHalf" width="9rem" class="sapUiMediumMarginEnd">
+                    <TileContent>
+                        <NumericContent value="{accrualRunsModel>/kpi/completed}" valueColor="Good"/>
+                    </TileContent>
+                </GenericTile>
+
+                <GenericTile header="Failed" frameType="TwoByHalf" width="9rem" class="sapUiMediumMarginEnd">
+                    <TileContent>
+                        <NumericContent value="{accrualRunsModel>/kpi/failed}" valueColor="Error"/>
+                    </TileContent>
+                </GenericTile>
+
+                <GenericTile header="Total Accrued (YTD)" frameType="TwoByHalf" width="11rem">
+                    <TileContent>
+                        <NumericContent value="{
+                path: 'accrualRunsModel>/kpi/totalAccrued',
+                formatter: '.formatter.formatCurrency'
+            }" scale="₹" valueColor="Good"/>
+                    </TileContent>
+                </GenericTile>
+
+            </layout:HorizontalLayout>
+
+
+
+            <!-- <Toolbar class="sapUiSmallMarginTop">
+                <Label text="Period:"/>
+                <Select width="150px" change=".onPeriodChange">
+                    <items>
+                        <core:Item key="all" text="All Periods"/>
+                        <core:Item key="2025-03" text="2025-03"/>
+                        <core:Item key="2025-02" text="2025-02"/>
+                        <core:Item key="2025-01" text="2025-01"/>
+                    </items>
+                </Select>
+
+                <Label text="Status:" class="sapUiSmallMarginBegin"/>
+                <Select width="150px" change=".onStatusChange">
+                    <items>
+                        <core:Item key="all" text="All Status"/>
+                        <core:Item key="processing" text="Processing"/>
+                        <core:Item key="completed" text="Completed"/>
+                        <core:Item key="failed" text="Failed"/>
+                    </items>
+                </Select>
+
+                <Label text="Type:" class="sapUiSmallMarginBegin"/>
+                <Select width="150px" change=".onTypeChange">
+                    <items>
+                        <core:Item key="all" text="All Types"/>
+                        <core:Item key="Regular" text="Regular"/>
+                        <core:Item key="Reprocess" text="Reprocess"/>
+                    </items>
+                </Select>
+
+                <ToolbarSpacer/>
+
+                <SearchField width="250px" placeholder="Search runs..." search=".onSearch"/>
+            </Toolbar> -->
+
+            <Table id="accrualRunsTable" backgroundDesign="Solid" autoPopinMode="true" items="{accrualRunsModel>/accrualRuns}" class="sapUiSmallMarginTop">
+                <headerToolbar >
+                    <Toolbar class="sapUiTinyMarginTop" design="Solid">
+                        <Button text="Schedule New Run" icon="sap-icon://add" type="Emphasized" press=".onScheduleNewRun"/>
+                        <Button text="Reprocess Period" icon="sap-icon://refresh" press=".onReprocessPeriod" class="sapUiTinyMarginBegin"/>
+                        <Button text="Export" icon="sap-icon://excel-attachment" press=".onExport" class="sapUiTinyMarginBegin"/>
+                        <ToolbarSpacer/>
+                        <Button text="Refresh" icon="sap-icon://refresh" press=".onRefresh"/>
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column width="15%">
+                        <Text text="RUN ID"/>
+                    </Column>
+                    <Column width="10%">
+                        <Text text="FISCAL PERIOD"/>
+                    </Column>
+                    <Column width="8%">
+                        <Text text="TYPE"/>
+                    </Column>
+                    <Column width="10%">
+                        <Text text="STATUS"/>
+                    </Column>
+                    <Column width="15%">
+                        <Text text="STARTED"/>
+                    </Column>
+                    <Column width="10%">
+                        <Text text="DURATION"/>
+                    </Column>
+                    <Column width="10%">
+                        <Text text="AGREEMENTS"/>
+                    </Column>
+                    <Column width="10%">
+                        <Text text="TRANSACTIONS"/>
+                    </Column>
+                    <Column width="12%">
+                        <Text text="INCREMENTAL ACCRUAL"/>
+                    </Column>
+                    <Column width="10%">
+                        <Text text="INITIATED BY"/>
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem type="Navigation" press=".onItemPress">
+                        <cells>
+                            <HBox alignItems="Center">
+                                <Link text="{accrualRunsModel>runId}" press=".onRunIdPress"/>
+                                <core:Icon src="sap-icon://locked" visible="{accrualRunsModel>isLocked}" class="sapUiTinyMarginBegin"/>
+                            </HBox>
+
+                            <Text text="{accrualRunsModel>fiscalPeriod}"/>
+                            <Text text="{accrualRunsModel>type}"/>
+
+                            <ObjectStatus text="{accrualRunsModel>statusText}" state="{accrualRunsModel>statusState}" icon="{accrualRunsModel>statusIcon}"/>
+
+                            <Text text="{accrualRunsModel>started}"/>
+                            <Text text="{accrualRunsModel>duration}"/>
+                            <Text text="{accrualRunsModel>agreements}"/>
+
+                            <Text text="{
+                                path: 'accrualRunsModel>transactions',
+                                formatter: '.formatter.formatNumber'
+                            }"/>
+
+                            <ObjectNumber number="{
+                                    path: 'accrualRunsModel>incrementalAccrual',
+                                    formatter: '.formatter.formatCurrency'
+                                }" unit="₹" state="{= ${accrualRunsModel>incrementalAccrual} > 0 ? 'Success' : 'None'}"/>
+
+                            <Text text="{accrualRunsModel>initiatedBy}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+
+            <!-- <Toolbar class="sapUiSmallMarginTop">
+                <Text text="Showing 5 of 12 runs"/>
+                <ToolbarSpacer/>
+                <Button text="← Previous" enabled="false"/>
+                <Text text="Page 1 of 3" class="sapUiSmallMarginBegin sapUiSmallMarginEnd"/>
+                <Button text="Next →" press=".onNext"/>
+            </Toolbar> -->
+        </content>
+    </Page>
+</mvc:View>
