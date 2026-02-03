@@ -4,11 +4,12 @@ sap.ui.define([
     "sap/ui/core/Fragment",
     "sap/m/MessageToast",
     "sap/ui/core/routing/History",
+    "com/cy/rbm/controller/BaseController",
     "sap/ui/core/format/DateFormat"
-], function (Controller, JSONModel, Fragment, MessageToast, History, DateFormat) {
+], function (Controller, JSONModel, Fragment, MessageToast, History, BaseController, DateFormat) {
     "use strict";
 
-    return Controller.extend("com.cy.rbm.controller.SettlementWorkbenchDetail", {
+    return BaseController.extend("com.cy.rbm.controller.SettlementWorkbenchDetail", {
 
         onInit: function () {
             // 1. Initialize Mock Data matching the XML bindings
@@ -259,7 +260,53 @@ sap.ui.define([
              // Close
              // this.pRejectSettlement.then(function(oDialog){ oDialog.close(); });
              MessageToast.show("Settlement Rejected.");
-        }
+        },
+        onOpenAdjustmentDialog() {
+      if (!this._AdjustmentDialog) {
+        this._AdjustmentDialog = this.loadFragment("com.cy.rbm.view.settlementFragments.AddAdjustment")
+      }
+      this._AdjustmentDialog.then(function (oDialog) {
+        oDialog.open();
+      });
+    },
+    onCloseAdjustmentDialog: function () {
+
+      this._AdjustmentDialog.then(function (oDialog) {
+        oDialog.close();
+      });
+    },
+    onSaveAdjustment(){
+      this._AdjustmentDialog.then(function (oDialog) {
+        oDialog.close();
+      });
+      MessageToast.show("Adjustment Saved");
+    },
+    onSaveDraft(){
+      this._AgreementDialog.then(function (oDialog) {
+        oDialog.close();
+      });
+      MessageToast.show("Draft Saved");
+    },
+    onOpenPostSettlementDialog() {
+      if (!this._PostSettlementDialog) {
+        this._PostSettlementDialog = this.loadFragment("com.cy.rbm.view.settlementFragments.PostSettlement")
+      }
+      this._PostSettlementDialog.then(function (oDialog) {
+        oDialog.open();
+      });
+    },
+    onClosePostSettlementDialog: function () {
+
+      this._PostSettlementDialog.then(function (oDialog) {
+        oDialog.close();
+      });
+    },
+    onSavePostSettlement(){
+      this._PostSettlementDialog.then(function (oDialog) {
+        oDialog.close();
+      });
+      MessageToast.show("Post Settlement Saved");
+    },
 
     });
 });

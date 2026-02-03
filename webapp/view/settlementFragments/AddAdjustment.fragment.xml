@@ -1,0 +1,55 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form">
+    <Dialog title="Add Adjustment" contentWidth="450px" type="Message">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <MessageStrip
+                    text="Adjustments modify the final settlement amount. All adjustments require documentation and will be included in the audit trail."
+                    type="Warning"
+                    showIcon="true"
+                    class="sapUiSmallMarginBottom" />
+
+                <f:SimpleForm editable="true" layout="ResponsiveGridLayout">
+                    <f:content>
+                        <Label text="Adjustment Type" required="true" />
+                        <Select width="100%">
+                            <items>
+                                <core:Item key="none" text="Select type..." />
+                                <core:Item key="retro" text="Retroactive Rate Correction" />
+                                <core:Item key="dispute" text="Dispute Resolution" />
+                                <core:Item key="missing" text="Missing Transaction" />
+                                <core:Item key="credit" text="Credit Note Adjustment" />
+                                <core:Item key="manual" text="Manual Adjustment" />
+                            </items>
+                        </Select>
+
+                        <Label text="Amount" required="true" />
+                        <Input placeholder="Enter amount" type="Number" />
+
+                        <Label text="Direction" />
+                        <SegmentedButton selectedKey="increase" width="100%">
+                            <items>
+                                <SegmentedButtonItem key="increase" text="Increase (+)" />
+                                <SegmentedButtonItem key="decrease" text="Decrease (-)" />
+                            </items>
+                        </SegmentedButton>
+
+                        <Label text="Reference Document" />
+                        <Input placeholder="Upload or enter reference #" />
+
+                        <Label text="Reason / Justification" required="true" />
+                        <TextArea rows="3" placeholder="Provide detailed reasoning..." width="100%" />
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Submit" type="Emphasized" press="onSaveAdjustment" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" press="onCloseAdjustmentDialog" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

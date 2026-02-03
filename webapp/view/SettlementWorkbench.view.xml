@@ -27,23 +27,28 @@
         <f:header>
             <f:DynamicPageHeader pinnable="true">
                 <f:content>
-                    <HBox wrap="Wrap" displayInline="true" alignItems="Stretch">
-                        <GenericTile header="Total Settlements" subheader="All Status" class="sapUiTinyMarginBegin">
+                    <HBox wrap="Wrap" displayInline="true" justifyContent="SpaceAround">
+                        <GenericTile frameType="OneByHalf" header="Total Settlements" subheader="All Status" class="sapUiTinyMarginBegin">
                             <TileContent>
                                 <NumericContent value="8" icon="sap-icon://crm-service-manager" />
                             </TileContent>
                         </GenericTile>
-                        <GenericTile header="Pending" subheader="Action Required" class="sapUiTinyMarginBegin">
+                        <GenericTile frameType="OneByHalf" header="Pending" subheader="Action Required" class="sapUiTinyMarginBegin">
                             <TileContent>
                                 <NumericContent value="4" valueColor="Critical" icon="sap-icon://pending" />
                             </TileContent>
                         </GenericTile>
-                        <GenericTile header="Approved" subheader="Ready to Post" class="sapUiTinyMarginBegin">
+                        <GenericTile frameType="OneByHalf" header="Approved" subheader="Ready to Post" class="sapUiTinyMarginBegin">
                             <TileContent>
                                 <NumericContent value="2" valueColor="Good" icon="sap-icon://accept" />
                             </TileContent>
                         </GenericTile>
-                        <GenericTile header="Ready for Payment" subheader="INR" class="sapUiTinyMarginBegin">
+                        <GenericTile frameType="OneByHalf" header="Posted" subheader="Ready to Post" class="sapUiTinyMarginBegin">
+                            <TileContent>
+                                <NumericContent value="1" valueColor="Neutral" icon="sap-icon://upload" />
+                            </TileContent>
+                        </GenericTile>
+                        <GenericTile frameType="OneByHalf" header="Ready for Payment" subheader="INR" class="sapUiTinyMarginBegin">
                             <TileContent>
                                 <NumericContent value="45.6L" scale="INR" valueColor="Neutral" />
                             </TileContent>
@@ -67,10 +72,17 @@
                                 <core:Item key="All" text="All Partners"/>
                                 <core:Item key="abc" text="ABC Retail"/>
                             </Select>
+                            <Select forceSelection="true">
+                                <core:Item key="All" text="All Agreements"/>
+                                <core:Item key="a1" text="AGR-2025-001"/>
+                                <core:Item key="a2" text="AGR-2025-002"/>
+                            </Select>
                             <ToolbarSpacer/>
                             <SearchField width="20%" placeholder="Search settlements..."/>
-                            <Button icon="sap-icon://sort" />
-                            <Button icon="sap-icon://filter" />
+                            <Button icon="sap-icon://sort" type="Ghost"/>
+                            <Button icon="sap-icon://calendar" type="Ghost" text="Schedule"/>
+                            <Button icon="sap-icon://accept" type="Ghost" text="Bulk Approve" />
+                            <Button icon="sap-icon://synchronize" type="Ghost"/>
                         </content>
                     </OverflowToolbar>
                 </headerToolbar>
@@ -84,7 +96,7 @@
                     <Column hAlign="End"><Text text="Adjustments"/></Column>
                     <Column hAlign="End"><Text text="Settlement Amt"/></Column>
                     <Column><Text text="Due Date"/></Column>
-                    <Column hAlign="Center"><Text text="Actions"/></Column>
+                    <Column hAlign="Center" minScreenWidth="Tablet"><Text text="Actions"/></Column>
                 </columns>
                 <items>
                     <ColumnListItem type="Navigation">
@@ -98,9 +110,13 @@
                             <ObjectNumber number="{adjustments}" state="{adjustmentState}" />
                             <ObjectNumber number="{amount}" unit="INR" state="Success" />
                             <Text text="{dueDate}" />
-                            <HBox justifyContent="Center">
-                                <Button icon="sap-icon://accept" type="Transparent" press="onQuickApprove" tooltip="Approve"/>
-                            </HBox>
+                            <VBox justifyContent="Center">
+                                <Button icon="sap-icon://accept" type="Success"  press="onQuickApprove" tooltip="Approve"/>
+                                <Button icon="sap-icon://show" type="Ghost" press="onQuickApprove" tooltip="View"/>
+                                <Button icon="sap-icon://upload" type="Ghost" press="onQuickApprove" tooltip="Post"/>
+                                <Button icon="sap-icon://edit" type="Ghost" press="onQuickApprove" tooltip="Edit"/>
+                                <Button icon="sap-icon://credit-card" type="Ghost" press="onQuickApprove" tooltip="Payment"/>
+                            </VBox>
                         </cells>
                     </ColumnListItem>
                 </items>

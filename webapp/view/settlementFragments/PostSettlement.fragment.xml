@@ -1,0 +1,91 @@
+<core:FragmentDefinition xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout">
+    <Dialog title="Post Settlement to Finance" contentWidth="600px" type="Message">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <MessageStrip text="This will create FI documents and initiate the payment process. This action cannot be undone." type="Information" showIcon="true" class="sapUiSmallMarginBottom" />
+
+                <form:SimpleForm title="Credit Memo Preview" editable="false" layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="4" columnsL="1" columnsM="1">
+                    <form:content>
+                        <HBox justifyContent="SpaceBetween">
+                            <Label text="Document Type :" design="Bold" />
+                            <Text text="Credit Memo" />
+                        </HBox>
+
+                        <HBox justifyContent="SpaceBetween">
+
+                            <Label text="Customer :" design="Bold" />
+                            <Text text="ABC Retail Pvt Ltd (CUST-001)" />
+                        </HBox>
+
+                        <HBox justifyContent="SpaceBetween">
+
+                            <Label text="Amount :" design="Bold" />
+                            <Text text="₹1,56,000" />
+                        </HBox>
+
+                        <HBox justifyContent="SpaceBetween">
+                            <Label text="Posting Date :" design="Bold" />
+                            <Text text="31-Mar-2025" />
+                        </HBox>
+
+                        <HBox justifyContent="SpaceBetween">
+                            <Label text="Reference :" design="Bold" />
+                            <Text text="STL-2025-Q1-001" />
+                        </HBox>
+
+                        <HBox justifyContent="SpaceBetween">
+                            <Label text="Company Code :" design="Bold" />
+                            <Text text="1000 (India Operations)" />
+                        </HBox>
+
+                    </form:content>
+                </form:SimpleForm>
+
+                <!-- <HorizontalDivider class="sapUiMediumMarginTopBottom" /> -->
+
+                <Title text="Journal Entry Preview" level="H4" class="sapUiSmallMarginBottom" />
+
+                <Table sticky="ColumnHeaders" class="sapUiSizeCompact">
+                    <columns>
+                        <Column>
+                            <Text text="Account" />
+                        </Column>
+                        <Column hAlign="End">
+                            <Text text="Debit" />
+                        </Column>
+                        <Column hAlign="End">
+                            <Text text="Credit" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <VBox>
+                                <Text text="2100500" />
+                                <Text text="Accrued Rebate Liability" />
+                            </VBox>
+                            <Text text="₹1,56,000" />
+                            <Text text="" />
+                        </ColumnListItem>
+                        <ColumnListItem>
+                            <VBox>
+                                <Text text="2000100" />
+                                <Text text="Accounts Payable - Partner"/>
+                            </VBox>
+                            <Text text="" />
+                            <Text text="₹1,56,000" />
+                        </ColumnListItem>
+                    </items>
+                </Table>
+
+                <CheckBox text="I confirm that this posting is accurate and authorized. I understand that this action will create FI documents and cannot be reversed without a separate reversal posting." wrapping="true" class="sapUiMediumMarginTop" />
+            </VBox>
+        </content>
+        <buttons>
+            <Button text="Cancel" press="onCloseDialog" />
+            <Button text="Confirm &amp; Post to FI" icon="sap-icon://upload-to-cloud" type="Emphasized" press="onConfirmPost" />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>
