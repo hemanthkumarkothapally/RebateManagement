@@ -12,32 +12,33 @@
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:expandedHeading>
-                    <Title text="STL-2025-Q1-001" wrapping="true" />
+                    <Title text="{settlement>id}" wrapping="true" />
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
-                    <Title text="STL-2025-Q1-001" wrapping="true" />
+                    <Title text="{settlement>id}" wrapping="true" />
                 </uxap:snappedHeading>
                 <uxap:breadcrumbs>
                     <Breadcrumbs>
                         <Link text="Settlement Workbench" press="onNavBack" />
-                        <Link text="STL-2025-Q1-001" />
+                        <Link text="{settlement>id}" />
                     </Breadcrumbs>
                 </uxap:breadcrumbs>
                 <uxap:actions>
-                    <Button text="Post to FI" type="Ghost" icon="sap-icon://upload" press="onOpenPostSettlementDialog" />
+                    <Button text="Post to FI" visible="{settlement>p}" type="Ghost" icon="sap-icon://upload" press="onOpenPostSettlementDialog" />
                     <Button text="Add Adjustment" type="Ghost" icon="sap-icon://add" press="onOpenAdjustmentDialog" />
-                    <Button text="Approve" type="Success" icon="sap-icon://accept" press="onOpenApproveDialog" />
-                    <Button text="Reject" type="Reject" icon="sap-icon://decline" press="onOpenRejectDialog" />
+                    <Button text="Approve" visible="{settlement>a}" type="Success" icon="sap-icon://accept" press="onOpenApproveSettlementDialog" />
+                    <Button text="Reject" visible="{settlement>a}" type="Reject" icon="sap-icon://decline" press="onOpenRejectSettlementDialog" />
                 </uxap:actions>
+                
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
 
         <uxap:headerContent>
             <FlexBox wrap="Wrap" fitContainer="true" alignItems="Stretch">
-                <Avatar src="sap-icon://sales-order" displaySize="L" class="sapUiTinyMarginEnd" />
+                <Avatar src="{settlement>statusIcon}" backgroundColor="{path: 'settlement>statusText',formatter: '.formatAvatarColor'}"  displaySize="L" class="sapUiTinyMarginEnd" />
                 <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
                     <Label text="Partner" />
-                    <ObjectAttribute title="ABC Retail Pvt Ltd" text="CUST-001" />
+                    <ObjectAttribute title="{settlement>partner}" text="CUST-001" />
                 </layout:VerticalLayout>
                 <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
                     <Label text="Period" />
@@ -45,7 +46,7 @@
                 </layout:VerticalLayout>
                 <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
                     <Label text="Status" />
-                    <ObjectStatus text="Pending Approval" state="Warning" icon="sap-icon://pending" inverted="true" />
+                    <ObjectStatus text="{settlement>statusText}" state="{settlement>statusState}" inverted="true" />
                 </layout:VerticalLayout>
                 <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
                     <Label text="Total Amount" />
@@ -211,7 +212,6 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
                         <uxap:blocks>
-
                             <VBox justifyContent="SpaceBetween" width = "100%" alignItems="Start">
                                 <HBox justifyContent="SpaceBetween" width = "100%" class="sapUiSmallMarginTopBottom cardGreen">
                                     <VBox alignItems="Start">
@@ -321,7 +321,7 @@
                     <uxap:ObjectPageSubSection>
                         <uxap:blocks>
                             <VBox >
-                                <Table items="{detailModel>/lineItems}">
+                                <Table items="{settlement>/lineItems}">
                                     <columns>
                                         <Column>
                                             <Text text="Period" />
@@ -344,12 +344,12 @@
                                     </columns>
                                     <items>
                                         <ColumnListItem>
-                                            <Text text="{detailModel>period}" />
-                                            <Text text="{detailModel>desc}" />
-                                            <Text text="{detailModel>desc}" />
-                                            <Text text="{detailModel>base}" />
-                                            <Text text="{detailModel>rate}" />
-                                            <Text text="{detailModel>amount}" />
+                                            <Text text="{settlement>period}" />
+                                            <Text text="{settlement>desc}" />
+                                            <Text text="{settlement>desc}" />
+                                            <Text text="{settlement>base}" />
+                                            <Text text="{settlement>rate}" />
+                                            <Text text="{settlement>amount}" />
                                         </ColumnListItem>
                                     </items>
                                 </Table>
@@ -366,9 +366,9 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
                         <uxap:blocks>
-                            <suite:Timeline content="{detailModel>/history}">
+                            <suite:Timeline content="{settlement>/history}">
                                 <suite:content>
-                                    <suite:TimelineItem dateTime="{detailModel>dateTime}" title="{detailModel>title}" userName="{detailModel>user}" icon="{detailModel>icon}" status="{detailModel>status}" />
+                                    <suite:TimelineItem dateTime="{settlement>dateTime}" title="{settlement>title}" userName="{settlement>user}" icon="{settlement>icon}" status="{settlement>status}" />
                                 </suite:content>
                             </suite:Timeline>
                         </uxap:blocks>

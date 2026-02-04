@@ -14,19 +14,18 @@
                 <f:SimpleForm editable="true" layout="ResponsiveGridLayout">
                     <f:content>
                         <Label text="Adjustment Type" required="true" />
-                        <Select width="100%">
+                        <ComboBox placeholder="Select type..." width="100%" value="{newRule>/Adjustment}">
                             <items>
-                                <core:Item key="none" text="Select type..." />
                                 <core:Item key="retro" text="Retroactive Rate Correction" />
                                 <core:Item key="dispute" text="Dispute Resolution" />
                                 <core:Item key="missing" text="Missing Transaction" />
                                 <core:Item key="credit" text="Credit Note Adjustment" />
                                 <core:Item key="manual" text="Manual Adjustment" />
                             </items>
-                        </Select>
+                        </ComboBox>
 
-                        <Label text="Amount" required="true" />
-                        <Input placeholder="Enter amount" type="Number" />
+                        <Label text="Amount" required="true"/>
+                        <Input value="{newRule>/Amount}" valueLiveUpdate="true" placeholder="Enter amount" type="Number" />
 
                         <Label text="Direction" />
                         <SegmentedButton selectedKey="increase" width="100%">
@@ -40,13 +39,13 @@
                         <Input placeholder="Upload or enter reference #" />
 
                         <Label text="Reason / Justification" required="true" />
-                        <TextArea rows="3" placeholder="Provide detailed reasoning..." width="100%" />
+                        <TextArea value="{newRule>/Reason}" valueLiveUpdate="true" rows="3" placeholder="Provide detailed reasoning..." width="100%" />
                     </f:content>
                 </f:SimpleForm>
             </VBox>
         </content>
         <beginButton>
-            <Button text="Submit" type="Emphasized" press="onSaveAdjustment" />
+            <Button text="Submit" type="Emphasized" press="onSaveAdjustment" enabled="{= !!${newRule>/Reason} &amp;&amp; !!${newRule>/Amount} &amp;&amp; !!${newRule>/Adjustment} }" />
         </beginButton>
         <endButton>
             <Button text="Cancel" press="onCloseAdjustmentDialog" />

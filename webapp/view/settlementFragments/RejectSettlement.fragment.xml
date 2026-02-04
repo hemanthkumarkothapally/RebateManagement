@@ -1,0 +1,48 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form">
+    <Dialog title="Reject Settlement" contentWidth="450px" type="Message">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <MessageStrip
+                    text="Rejecting will send this settlement back to the creator for revision. Please provide a clear reason."
+                    type="Warning"
+                    showIcon="true"
+                    class="sapUiSmallMarginBottom" />
+
+                <f:SimpleForm editable="true" layout="ResponsiveGridLayout">
+                    <f:content>
+                        <Label text="Rejection Reason" required="true" />
+                        <ComboBox placeholder="Select reason..." value="{newRule>/Reason}" width="100%">
+                            <items>
+                                <core:Item key="amount" text="Incorrect Amount" />
+                                <core:Item key="docs" text="Missing Documentation" />
+                                <core:Item key="adj" text="Unapproved Adjustment" />
+                                <core:Item key="policy" text="Policy Violation" />
+                                <core:Item key="other" text="Other" />
+                            </items>
+                        </ComboBox>
+
+                        <Label text="Comments" required="true" />
+                        <TextArea 
+                            valueLiveUpdate="true"
+                            value="{newRule>/Comments}"
+                            rows="4" 
+                            placeholder="Please provide specific details for the rejection..." 
+                            width="100%" />
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <buttons>
+            <Button text="Cancel" press="onCloseRejectSettlementDialog" />
+            <Button 
+                enabled="{= !!${newRule>/Reason} &amp;&amp; !!${newRule>/Comments}}"
+                text="Reject Settlement" 
+                type="Reject" 
+                icon="sap-icon://decline" 
+                press="onSaveRejectSettlement" />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

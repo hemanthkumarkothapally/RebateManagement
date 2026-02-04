@@ -52,9 +52,9 @@
           "bundleName": "com.cy.rbm.i18n.i18n"
         }
       },
-      "transaction": {
+      "settlement": {
             "type": "sap.ui.model.json.JSONModel",
-            "uri": "model/transaction.json"
+            "uri": "model/settlement.json"
       },
       "dashboard": {
             "type": "sap.ui.model.json.JSONModel",
@@ -135,7 +135,7 @@
           "target": ["SettlementWorkbench"]
         },
         {
-          "pattern": "SettlementWorkbenchDetail/{runId}",
+          "pattern": "SettlementWorkbenchDetail/{setId}",
           "name": "SettlementWorkbenchDetail",
           "target": "SettlementWorkbenchDetail"
         }

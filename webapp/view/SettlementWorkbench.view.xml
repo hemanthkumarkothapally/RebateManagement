@@ -19,7 +19,7 @@
                 <f:actions>
                     <Button text="Refresh" icon="sap-icon://refresh" press="onRefresh"/>
                     <Button text="Export" icon="sap-icon://excel-attachment" press="onExport"/>
-                    <Button text="Create Settlement" type="Emphasized" icon="sap-icon://add" press="onOpenCreateDialog"/>
+                    <Button text="Create Settlement" type="Emphasized" icon="sap-icon://add" press="onOpenCreateSettlementDialog"/>
                 </f:actions>
             </f:DynamicPageTitle>
         </f:title>
@@ -59,7 +59,7 @@
         </f:header>
 
         <f:content>
-            <Table id="settlementTable" inset="false" items="{/settlements}" mode="SingleSelectMaster" itemPress="onNavToDetail">
+            <Table id="settlementTable" inset="false" items="{settlement>/settlements}" mode="SingleSelectMaster" itemPress="onNavToDetail">
                 <headerToolbar>
                     <OverflowToolbar>
                         <content>
@@ -80,9 +80,9 @@
                             <ToolbarSpacer/>
                             <SearchField width="20%" placeholder="Search settlements..."/>
                             <Button icon="sap-icon://sort" type="Ghost"/>
-                            <Button icon="sap-icon://calendar" type="Ghost" text="Schedule"/>
-                            <Button icon="sap-icon://accept" type="Ghost" text="Bulk Approve" />
-                            <Button icon="sap-icon://synchronize" type="Ghost"/>
+                            <Button icon="sap-icon://calendar" type="Ghost" text="Schedule" press="onOpenScheduleSettlementDialog"/>
+                            <Button icon="sap-icon://accept" type="Ghost" text="Bulk Approve" press="onBulkApprove"/>
+                            <Button icon="sap-icon://synchronize" type="Ghost" press="onRefresh"/>
                         </content>
                     </OverflowToolbar>
                 </headerToolbar>
@@ -99,24 +99,24 @@
                     <Column hAlign="Center" minScreenWidth="Tablet"><Text text="Actions"/></Column>
                 </columns>
                 <items>
-                    <ColumnListItem type="Navigation">
+                    <ColumnListItem>
                         <cells>
-                            <ObjectIdentifier title="{id}"/>
-                            <Text text="{period}" />
-                            <Text text="{partner}" />
-                            <Text text="{agreement}" />
-                            <ObjectStatus text="{statusText}" state="{statusState}" icon="{statusIcon}" />
-                            <Text text="{accrued}" />
-                            <ObjectNumber number="{adjustments}" state="{adjustmentState}" />
-                            <ObjectNumber number="{amount}" unit="INR" state="Success" />
-                            <Text text="{dueDate}" />
-                            <VBox justifyContent="Center">
-                                <Button icon="sap-icon://accept" type="Success"  press="onQuickApprove" tooltip="Approve"/>
-                                <Button icon="sap-icon://show" type="Ghost" press="onQuickApprove" tooltip="View"/>
-                                <Button icon="sap-icon://upload" type="Ghost" press="onQuickApprove" tooltip="Post"/>
-                                <Button icon="sap-icon://edit" type="Ghost" press="onQuickApprove" tooltip="Edit"/>
-                                <Button icon="sap-icon://credit-card" type="Ghost" press="onQuickApprove" tooltip="Payment"/>
-                            </VBox>
+                            <ObjectIdentifier title="{settlement>id}"/>
+                            <Text text="{settlement>period}" />
+                            <Text text="{settlement>partner}" />
+                            <Text text="{settlement>agreement}" />
+                            <ObjectStatus text="{settlement>statusText}" state="{settlement>statusState}" icon="{settlement>statusIcon}" />
+                            <Text text="{settlement>accrued}" />
+                            <ObjectNumber number="{settlement>adjustments}" state="{settlement>adjustmentState}" />
+                            <ObjectNumber number="{settlement>amount}" unit="INR" state="Success" />
+                            <Text text="{settlement>dueDate}" />
+                            <HBox justifyContent="Center">
+                                <Button icon="sap-icon://show" visible="{settlement>e}" type="Ghost" press="onNavToDetail" tooltip="View"/>
+                                <Button icon="sap-icon://accept" visible="{settlement>a}" type="Success"  press="onOpenApproveSettlementDialog" tooltip="Approve"/>
+                                <Button icon="sap-icon://upload" visible="{settlement>p}" type="Ghost" press="onOpenPostSettlementDialog" tooltip="Post"/>
+                                <Button icon="sap-icon://edit" visible="{settlement>r}" type="Ghost" press="onPayment" tooltip="Review"/>
+                                <Button icon="sap-icon://credit-card" visible="{settlement>c}" type="Ghost" press="onReview" tooltip="Payment"/>
+                            </HBox>
                         </cells>
                     </ColumnListItem>
                 </items>

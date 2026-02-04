@@ -1,0 +1,46 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form">
+    <Dialog title="Create New Settlement" contentWidth="450px">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <MessageStrip text="A settlement will aggregate all accrued amounts for the ComboBoxed agreement and period, ready for approval and payment." type="Information" showIcon="true" class="sapUiSmallMarginBottom" />
+
+                <f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="4" columnsL="1" columnsM="1">
+                    <f:content>
+                        <Label text="Agreement" required="true" />
+                        <ComboBox width="100%" placeholder="Select agreement..." value="{newRule>/Agreement}">
+                            <items>
+                                <core:Item key="AGR001" text="AGR-2025-001 - Annual Volume Rebate (ABC Retail)" />
+                                <core:Item key="AGR002" text="AGR-2025-002 - Growth Incentive (XYZ Stores)" />
+                                <core:Item key="AGR004" text="AGR-2025-004 - Quarterly Target (LMN Distributors)" />
+                            </items>
+                        </ComboBox>
+
+                        <Label text="Settlement Period" required="true" />
+                        <ComboBox width="100%" placeholder="Select agreement..." value="{newRule>/Period}">
+                            <items>
+                                <core:Item key="2025Q1" text="2025-Q1 (Jan-Mar)" />
+                                <core:Item key="2025Q2" text="2025-Q2 (Apr-Jun)" />
+                            </items>
+                        </ComboBox>
+
+                        <Label text="Due Date" required="true"/>
+                        <DatePicker  placeholder="Select due date..." value="{newRule>/DueDate}"/>
+
+                        <Label text="Notes" />
+                        <TextArea rows="3" placeholder="Add any internal notes here..." width="100%" />
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <buttons>
+            <Button text="Cancel" press="onCloseCreateSettlementDialog" />
+            <Button text="Create Settlement" type="Emphasized" icon="sap-icon://add" press="onSaveCreateSettlement" enabled="{= 
+    ${newRule>/Agreement} !== null &amp;&amp;
+    ${newRule>/Period} !== null &amp;&amp;
+    ${newRule>/DueDate} !== null 
+}"/>
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

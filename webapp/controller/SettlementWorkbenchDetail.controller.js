@@ -13,86 +13,42 @@ sap.ui.define([
 
         onInit: function () {
             // 1. Initialize Mock Data matching the XML bindings
-            var oData = {
-                // Header Data
-                header: {
-                    id: "STL-2025-Q1-001",
-                    partner: "ABC Retail Pvt Ltd",
-                    partnerId: "CUST-001",
-                    period: "2025-Q1",
-                    status: "Pending Approval",
-                    statusState: "Warning",
-                    statusIcon: "sap-icon://pending",
-                    totalAmount: "1,56,000",
-                    currency: "INR"
-                },
-                // Summary & Reconciliation Cards
-                reconciliation: {
-                    accrued: "1,00,000",
-                    adjustments: "56,000",
-                    finalAmount: "1,56,000",
-                    deltaPercent: "+56%",
-                    accrualPeriods: 3,
-                    adjCount: 2
-                },
-                // Adjustments List
-                adjustments: [
-                    { 
-                        type: "Retroactive Rate Correction", 
-                        reason: "Tier 3 rate applied from Jan", 
-                        date: "03-Apr-2025", 
-                        amount: "45,000", 
-                        state: "Success" 
-                    },
-                    { 
-                        type: "Dispute Resolution", 
-                        reason: "Missing invoice added (INV-2025-00234)", 
-                        date: "04-Apr-2025", 
-                        amount: "11,000", 
-                        state: "Success" 
-                    }
-                ],
-                // Dispute Summary
-                disputes: {
-                    included: { count: 1, amount: "11,000" },
-                    excluded: { count: 2, amount: "7,200" },
-                    deferred: { count: 0, amount: "0" },
-                    items: [
-                        { title: "Rate Disagreement (DSP-2025-0043)", desc: "Under Review", amount: "4,500", state: "Warning" },
-                        { title: "Missing Credit Note (DSP-2025-0044)", desc: "Awaiting Docs", amount: "2,700", state: "Warning" }
-                    ]
-                },
-                // Line Items (Accruals)
-                lineItems: [
-                    { period: "2025-01", desc: "Monthly Accrual - Volume Tier", base: "16,00,000", rate: "2.0%", amount: "32,000" },
-                    { period: "2025-02", desc: "Monthly Accrual - Volume Tier", base: "17,50,000", rate: "2.0%", amount: "35,000" },
-                    { period: "2025-03", desc: "Monthly Accrual - Volume Tier", base: "16,50,000", rate: "2.0%", amount: "33,000" }
-                ],
-                // Approval Timeline
-                history: [
-                    { dateTime: "01/04/2025 10:30", title: "Settlement Created", user: "Rahul Kumar", icon: "sap-icon://create", status: "Success" },
-                    { dateTime: "03/04/2025", title: "Adjustments Added", user: "Priya Sharma", icon: "sap-icon://edit", status: "Success" },
-                    { dateTime: "05/04/2025 14:22", title: "Submitted for Approval", user: "Rahul Kumar", icon: "sap-icon://paper-plane", status: "Success" },
-                    { dateTime: "Pending", title: "Pending Finance Manager Approval", user: "Finance Manager", icon: "sap-icon://pending", status: "Warning" }
-                ],
-                // Temporary Form Data for Dialogs
-                forms: {
-                    newAdjustment: {
-                        type: "Retroactive Rate Correction",
-                        amount: "",
-                        direction: "inc",
-                        reason: ""
-                    },
-                    rejection: {
-                        reason: "",
-                        comments: ""
-                    },
-                    approvalConfirmed: false
-                }
-            };
+            // var oData = {
 
-            var oModel = new JSONModel(oData);
-            this.getView().setModel(oModel, "detailModel");
+            //     history: [
+            //         { dateTime: "01/04/2025 10:30", title: "Settlement Created", user: "Rahul Kumar", icon: "sap-icon://create", status: "Success" },
+            //         { dateTime: "03/04/2025", title: "Adjustments Added", user: "Priya Sharma", icon: "sap-icon://edit", status: "Success" },
+            //         { dateTime: "05/04/2025 14:22", title: "Submitted for Approval", user: "Rahul Kumar", icon: "sap-icon://paper-plane", status: "Success" },
+            //         { dateTime: "Pending", title: "Pending Finance Manager Approval", user: "Finance Manager", icon: "sap-icon://pending", status: "Warning" }
+            //     ],
+
+            // };
+
+            // var oModel = new JSONModel(oData);
+            // this.getView().setModel(oModel, "detailModel");
+
+            var oRouter = this.getOwnerComponent().getRouter();
+            // Attach to the route matched event
+            oRouter.getRoute("SettlementWorkbenchDetail").attachPatternMatched(this._onObjectMatched, this);
+        },
+
+        _onObjectMatched: function (oEvent) {
+            var sSetId = oEvent.getParameter("arguments").setId;
+            console.log(sSetId, this._getRecordIndex(sSetId))
+            var oView = this.getView();
+
+            oView.bindElement({
+                path: "/settlements/" + this._getRecordIndex(sSetId),
+                model: "settlement"
+            });
+        },
+
+        _getRecordIndex: function (sId) {
+            // Helper to find the array index based on the STL ID
+            var aData = this.getView().getModel("settlement").getProperty("/settlements");
+            return aData.findIndex(function (item) {
+                return item.id === sId;
+            });
         },
 
         /* =========================================================== */
@@ -173,7 +129,7 @@ sap.ui.define([
                 reason: oFormData.reason,
                 date: DateFormat.getDateInstance({ pattern: "dd-MMM-yyyy" }).format(new Date()),
                 amount: oFormData.amount, // In real app, format currency properly
-                state: "Success" 
+                state: "Success"
             };
 
             // Update Model (add to list)
@@ -186,12 +142,12 @@ sap.ui.define([
             var iNewAdj = parseInt(oFormData.amount);
             var iTotal = iCurrentAdj + iNewAdj;
             oModel.setProperty("/reconciliation/adjustments", iTotal.toLocaleString());
-            
+
             // Close and Toast
             this.byId("addAdjustmentDialog").close(); // Assuming ID in fragment, or use helper
             // Note: If using the generic _openDialog helper, use:
-            this.pAddAdjustment.then(function(oDialog){ oDialog.close(); });
-            
+            this.pAddAdjustment.then(function (oDialog) { oDialog.close(); });
+
             MessageToast.show("Adjustment added successfully.");
         },
 
@@ -206,7 +162,7 @@ sap.ui.define([
 
         onApproveConfirm: function () {
             var oModel = this.getView().getModel("detailModel");
-            
+
             // Update Status in Header
             oModel.setProperty("/header/status", "Approved");
             oModel.setProperty("/header/statusState", "Success");
@@ -215,7 +171,7 @@ sap.ui.define([
             // Update Timeline
             var aHistory = oModel.getProperty("/history");
             // Remove 'Pending' item
-            aHistory.pop(); 
+            aHistory.pop();
             // Add 'Approved' item
             aHistory.push({
                 dateTime: DateFormat.getDateTimeInstance().format(new Date()),
@@ -235,7 +191,7 @@ sap.ui.define([
             oModel.setProperty("/history", aHistory);
 
             // Close
-            this.pApproveSettlement.then(function(oDialog){ oDialog.close(); });
+            this.pApproveSettlement.then(function (oDialog) { oDialog.close(); });
             MessageToast.show("Settlement Approved for Payment.");
         },
 
@@ -244,69 +200,168 @@ sap.ui.define([
         /* =========================================================== */
 
         onOpenRejectDialog: function () {
-             var oModel = this.getView().getModel("detailModel");
-             oModel.setProperty("/forms/rejection", { reason: "", comments: "" });
-             this._openDialog("RejectSettlement"); // You need to create this fragment similarly
+            var oModel = this.getView().getModel("detailModel");
+            oModel.setProperty("/forms/rejection", { reason: "", comments: "" });
+            this._openDialog("RejectSettlement"); // You need to create this fragment similarly
         },
 
         onRejectConfirm: function () {
-             var oModel = this.getView().getModel("detailModel");
-             
-             // Update Status
-             oModel.setProperty("/header/status", "Rejected");
-             oModel.setProperty("/header/statusState", "Error");
-             oModel.setProperty("/header/statusIcon", "sap-icon://decline");
+            var oModel = this.getView().getModel("detailModel");
 
-             // Close
-             // this.pRejectSettlement.then(function(oDialog){ oDialog.close(); });
-             MessageToast.show("Settlement Rejected.");
+            // Update Status
+            oModel.setProperty("/header/status", "Rejected");
+            oModel.setProperty("/header/statusState", "Error");
+            oModel.setProperty("/header/statusIcon", "sap-icon://decline");
+
+            // Close
+            // this.pRejectSettlement.then(function(oDialog){ oDialog.close(); });
+            MessageToast.show("Settlement Rejected.");
         },
+
+        // OpenAdjustment
         onOpenAdjustmentDialog() {
-      if (!this._AdjustmentDialog) {
-        this._AdjustmentDialog = this.loadFragment("com.cy.rbm.view.settlementFragments.AddAdjustment")
-      }
-      this._AdjustmentDialog.then(function (oDialog) {
-        oDialog.open();
-      });
-    },
-    onCloseAdjustmentDialog: function () {
+            if (!this._AdjustmentDialog) {
+                this._AdjustmentDialog = this.loadFragment("com.cy.rbm.view.settlementFragments.AddAdjustment")
+            }
+            this._AdjustmentDialog.then(function (oDialog) {
+                
+                var oNewRuleModel = new sap.ui.model.json.JSONModel({
+                    Adjustment: null,
+                    Amount:null,
+                    Reason:null
+                });
 
-      this._AdjustmentDialog.then(function (oDialog) {
-        oDialog.close();
-      });
-    },
-    onSaveAdjustment(){
-      this._AdjustmentDialog.then(function (oDialog) {
-        oDialog.close();
-      });
-      MessageToast.show("Adjustment Saved");
-    },
-    onSaveDraft(){
-      this._AgreementDialog.then(function (oDialog) {
-        oDialog.close();
-      });
-      MessageToast.show("Draft Saved");
-    },
-    onOpenPostSettlementDialog() {
-      if (!this._PostSettlementDialog) {
-        this._PostSettlementDialog = this.loadFragment("com.cy.rbm.view.settlementFragments.PostSettlement")
-      }
-      this._PostSettlementDialog.then(function (oDialog) {
-        oDialog.open();
-      });
-    },
-    onClosePostSettlementDialog: function () {
+                oDialog.setModel(oNewRuleModel, "newRule");
 
-      this._PostSettlementDialog.then(function (oDialog) {
-        oDialog.close();
-      });
-    },
-    onSavePostSettlement(){
-      this._PostSettlementDialog.then(function (oDialog) {
-        oDialog.close();
-      });
-      MessageToast.show("Post Settlement Saved");
-    },
+                // 3. Open the Dialog
+                oDialog.open();
+            }.bind(this));
+        },
+        onCloseAdjustmentDialog: function () {
+
+            this._AdjustmentDialog.then(function (oDialog) {
+                oDialog.close();
+            });
+        },
+        onSaveAdjustment() {
+            this._AdjustmentDialog.then(function (oDialog) {
+                oDialog.close();
+            });
+            MessageToast.show("Adjustment Saved");
+        },
+        onSaveDraft() {
+            this._AgreementDialog.then(function (oDialog) {
+                oDialog.close();
+            });
+            MessageToast.show("Draft Saved");
+        },
+
+        // PostSettlementDialog
+        onOpenPostSettlementDialog() {
+            if (!this._PostSettlementDialog) {
+                this._PostSettlementDialog = this.loadFragment("com.cy.rbm.view.settlementFragments.PostSettlement")
+            }
+            this._PostSettlementDialog.then(function (oDialog) {
+                var oNewRuleModel = new sap.ui.model.json.JSONModel({
+                    Agreement: null
+                });
+
+                oDialog.setModel(oNewRuleModel, "newRule");
+
+                // 3. Open the Dialog
+                oDialog.open();
+            }.bind(this));
+        },
+        onClosePostSettlementDialog: function () {
+
+            this._PostSettlementDialog.then(function (oDialog) {
+                oDialog.close();
+            });
+        },
+        onSavePostSettlement() {
+            this._PostSettlementDialog.then(function (oDialog) {
+                oDialog.close();
+            });
+            MessageToast.show("✓ Settlement posted to FI - Document #1000005678 created");
+
+        },
+        // ApproveSettlement
+        onOpenApproveSettlementDialog() {
+            if (!this._ApproveSettlementDialog) {
+                this._ApproveSettlementDialog = this.loadFragment("com.cy.rbm.view.settlementFragments.ApproveSettlement")
+            }
+            this._ApproveSettlementDialog.then(function (oDialog) {
+                var oNewRuleModel = new sap.ui.model.json.JSONModel({
+                    Agreement: false
+                });
+
+                oDialog.setModel(oNewRuleModel, "newRule");
+
+                // 3. Open the Dialog
+                oDialog.open();
+            }.bind(this));
+        },
+        onCloseApproveSettlementDialog: function () {
+
+            this._ApproveSettlementDialog.then(function (oDialog) {
+                oDialog.close();
+            });
+        },
+        onSaveApproveSettlement() {
+            this._ApproveSettlementDialog.then(function (oDialog) {
+                oDialog.close();
+            });
+            MessageToast.show("✓ Settlement approved successfully");
+
+        },
+
+        // RejectSettlement
+        onOpenRejectSettlementDialog() {
+            if (!this._RejectSettlementDialog) {
+                this._RejectSettlementDialog = this.loadFragment("com.cy.rbm.view.settlementFragments.RejectSettlement")
+            }
+            this._RejectSettlementDialog.then(function (oDialog) {
+                
+                var oNewRuleModel = new sap.ui.model.json.JSONModel({
+                    Reason: null,
+                    Comments:null
+                });
+
+                oDialog.setModel(oNewRuleModel, "newRule");
+
+                // 3. Open the Dialog
+                oDialog.open();
+            }.bind(this));
+        },
+        onCloseRejectSettlementDialog: function () {
+
+            this._RejectSettlementDialog.then(function (oDialog) {
+                oDialog.close();
+            });
+        },
+        onSaveRejectSettlement() {
+            this._RejectSettlementDialog.then(function (oDialog) {
+                oDialog.close();
+            });
+            MessageToast.show("✗ Settlement rejected and sent back for revision");
+
+        },
+
+        formatAvatarColor: function (sStatus) {
+            switch (sStatus) {
+                case "Approved":
+                    return "Accent8"; // Green (Success)
+                case "Pending":
+                    return "Accent1"; // Purple/Blue (Warning-ish)
+                case "Rejected":
+                    return "Accent2"; // Red (Error)
+                case "Posted":
+                    return "Accent5"; // Light Blue (Information)
+                default:
+                    return "Accent6"; // Grey (Default)
+            }
+        }
+
 
     });
 });

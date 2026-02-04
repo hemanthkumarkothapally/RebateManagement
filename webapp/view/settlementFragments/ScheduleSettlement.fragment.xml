@@ -1,0 +1,57 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form">
+    <Dialog title="Schedule Settlement Run" contentWidth="450px">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <f:SimpleForm
+                    editable="true"
+                    layout="ResponsiveGridLayout"
+                    labelSpanL="4"
+                    labelSpanM="4"
+                    columnsL="1"
+                    columnsM="1">
+                    <f:content>
+                        <Label text="Settlement Period" required="true" />
+                        <ComboBox width="100%" placeholder="Select period..." value="{newRule>/period}">
+                            <items>
+                                <core:Item key="2025Q2" text="2025-Q2 (Apr-Jun)" />
+                                <core:Item key="2025Q3" text="2025-Q3 (Jul-Sep)" />
+                            </items>
+                        </ComboBox>
+
+                        <Label text="Schedule Date" />
+                        <DatePicker
+                            placeholder="Enter Date..." 
+                            displayFormat="long" />
+
+                        <Label text="Schedule Time" />
+                        <TimePicker 
+                            placeholder="Enter Time..." 
+                            displayFormat="HH:mm:ss" />
+
+                        <Label text="Scope" />
+                        <Select width="100%">
+                            <items>
+                                <core:Item key="all" text="All Active Agreements" />
+                                <core:Item key="selected" text="Selected Agreements" />
+                            </items>
+                        </Select>
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <buttons>
+            <Button text="Cancel" press="onCloseScheduleSettlementDialog {newRule>/period}" />
+            <Button 
+                text="Schedule Run" 
+                type="Emphasized" 
+                icon="sap-icon://future" 
+                press="onSaveScheduleSettlement" 
+                enabled="{= 
+    ${newRule>/period} !== null
+}"/>
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

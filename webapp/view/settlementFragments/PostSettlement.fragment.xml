@@ -45,47 +45,37 @@
                 </form:SimpleForm>
 
                 <!-- <HorizontalDivider class="sapUiMediumMarginTopBottom" /> -->
-
-                <Title text="Journal Entry Preview" level="H4" class="sapUiSmallMarginBottom" />
-
-                <Table sticky="ColumnHeaders" class="sapUiSizeCompact">
-                    <columns>
-                        <Column>
-                            <Text text="Account" />
-                        </Column>
-                        <Column hAlign="End">
-                            <Text text="Debit" />
-                        </Column>
-                        <Column hAlign="End">
-                            <Text text="Credit" />
-                        </Column>
-                    </columns>
-                    <items>
-                        <ColumnListItem>
-                            <VBox>
-                                <Text text="2100500" />
-                                <Text text="Accrued Rebate Liability" />
+                <Panel headerText="Journal Entry Preview">
+                    <VBox justifyContent="SpaceBetween" width = "100%" alignItems="Start">
+                        <HBox justifyContent="SpaceBetween" width = "100%" class="sapUiSmallMarginTopBottom cardRed">
+                            <VBox alignItems="Start">
+                                <Text text="Debit" />
+                                <Label text="2100500 - Accrued Rebate Liability" />
                             </VBox>
-                            <Text text="₹1,56,000" />
-                            <Text text="" />
-                        </ColumnListItem>
-                        <ColumnListItem>
-                            <VBox>
-                                <Text text="2000100" />
-                                <Text text="Accounts Payable - Partner"/>
+                            <VBox alignItems="End">
+                                <Title text="₹1,56,000" level="H3" />
                             </VBox>
-                            <Text text="" />
-                            <Text text="₹1,56,000" />
-                        </ColumnListItem>
-                    </items>
-                </Table>
+                        </HBox>
+                        <HBox justifyContent="SpaceBetween" width = "100%" class="sapUiSmallMarginTopBottom cardGreen">
+                            <VBox alignItems="Start">
+                                <Text text="Credit" />
+                                <Label text="2000100 - Accounts Payable - Partner" />
+                            </VBox>
+                            <VBox alignItems="End">
+                                <Title text="₹1,56,000" level="H3" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </Panel>
 
-                <CheckBox text="I confirm that this posting is accurate and authorized. I understand that this action will create FI documents and cannot be reversed without a separate reversal posting." wrapping="true" class="sapUiMediumMarginTop" />
+
+
+                <CheckBox required="true" selected="{newRule>/Agreement}" text="I confirm that this posting is accurate and authorized. I understand that this action will create FI documents and cannot be reversed without a separate reversal posting." wrapping="true" class="sapUiMediumMarginTop" />
             </VBox>
         </content>
         <buttons>
-            <Button text="Cancel" press="onCloseDialog" />
-            <Button text="Confirm &amp; Post to FI" icon="sap-icon://upload-to-cloud" type="Emphasized" press="onConfirmPost" />
+            <Button text="Cancel" press="onClosePostSettlementDialog" />
+            <Button text="Confirm &amp; Post to FI" icon="sap-icon://upload-to-cloud" type="Emphasized" enabled="{= !!${newRule>/Agreement}}" press="onSavePostSettlement" />
         </buttons>
     </Dialog>
 </core:FragmentDefinition>
