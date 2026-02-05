@@ -36,6 +36,7 @@
       "icon": "sap-icon://time-account",
       "expanded": false,
       "key": "pagePeriodCloseCockpit"},
+    {
       "title": "Dispute Management",
       "icon": "sap-icon://warning2",
       "expanded": false,
