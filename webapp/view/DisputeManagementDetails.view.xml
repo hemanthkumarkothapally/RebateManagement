@@ -1,0 +1,218 @@
+<mvc:View controllerName="com.cy.rbm.controller.DisputeManagementDetails."
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:uxap="sap.uxap"
+    xmlns:f="sap.f"
+    xmlns:card="sap.f.cards"
+    xmlns:layout="sap.ui.layout"
+    xmlns:suite="sap.suite.ui.commons"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form">
+    <uxap:ObjectPageLayout id="ObjectPageLayoutDMD" showTitleInHeaderContent="true" showHeaderContent="true"  >
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <Title text="{detail>/description}" wrapping="true" />
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <Title text="{detail>/description}" wrapping="true" />
+                </uxap:snappedHeading>
+                <uxap:breadcrumbs>
+                    <Breadcrumbs>
+                        <Link text="Back" press="onNavBack" />
+                        <Link text="{detail>/disputeId}" />
+                    </Breadcrumbs>
+                </uxap:breadcrumbs>
+                <uxap:actions>
+                   <Text text="{detail>/status}"></Text>
+                </uxap:actions>
+                <uxap:expandedContent>
+                  <FlexBox wrap="Wrap" fitContainer="true" alignItems="Stretch">
+                <!-- <Avatar src="{settlement>statusIcon}" backgroundColor="{path: 'settlement>statusText',formatter: '.formatAvatarColor'}"  displaySize="L" class="sapUiTinyMarginEnd" /> -->
+                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                    <Label text="Partner" />
+                    <ObjectAttribute text="{detail>/disputeId}" />
+                </layout:VerticalLayout>
+                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                    <Label text="Related Settlement" />
+                    <ObjectAttribute text="{detail>/Related Settlement}" />
+                </layout:VerticalLayout>
+                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                    <Label text="Raised Date" />
+                    <ObjectAttribute text="{detail>/raisedDate}" />
+                </layout:VerticalLayout>
+                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                    <Label text="Assigned To" />
+                     <ObjectAttribute text="{detail>/assignedTo}" />
+                </layout:VerticalLayout>
+                 <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                    <Label text="Priority" />
+                    <ObjectStatus text="{detail>/Priority}" state="Success" />
+                </layout:VerticalLayout>
+            </FlexBox>
+      
+                </uxap:expandedContent>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+
+        <uxap:headerContent>
+        <FlexBox >
+        <GenericTile frameType="OneByHalf" header="Partner Claimed" subheader="As per partner records" class="sapUiTinyMarginBegin">
+        <TileContent>
+                                <NumericContent  value="166500"  scale="K"/>
+                            </TileContent>
+        </GenericTile>
+        <GenericTile frameType="OneByHalf" header="System Calculated" subheader="As per rebate engine" class="sapUiTinyMarginBegin">
+        <TileContent>
+                                <NumericContent value="15600"  scale="K"/>
+                            </TileContent>
+        </GenericTile>
+        <GenericTile frameType="OneByHalf"  header="Variance" subheader="6.7% difference" class="sapUiTinyMarginBegin">
+        <TileContent>
+                                <NumericContent value="10500"  scale="K"/>
+                            </TileContent>
+        </GenericTile>
+        </FlexBox>
+            </uxap:headerContent>
+
+
+        <uxap:sections>
+            <uxap:ObjectPageSection title="Summary">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Dispute Details">
+                        <uxap:blocks>
+                            <VBox justifyContent="SpaceAround" width = "100%" alignItems="Center">
+                                <HBox justifyContent="SpaceAround" width = "100%" alignItems="Center" class="sapUiMediumMargin">
+                                    <VBox alignItems="Center" class="cardWhite">
+                                        <Label text="Total Accrued" />
+                                        <Title text="₹1,00,000" level="H3" />
+                                        <Text text="3 Periods" class="sapUiTinyMarginTop" />
+                                    </VBox>
+                                    <core:Icon src="sap-icon://arrow-right" size="2rem" color="#888" />
+                                    <VBox alignItems="Center" class="cardWhite">
+                                        <Label text="Adjustments" />
+                                        <Title text="+₹56,000" level="H3" class="sapUiPositiveText" />
+                                        <Text text="2 Entries" class="sapUiTinyMarginTop" />
+                                    </VBox>
+                                    <core:Icon src="sap-icon://arrow-right" size="2rem" color="#888" />
+                                    <VBox alignItems="Center" class="cardWhite">
+                                        <Label text="Final Settlement" />
+                                        <Title text="₹1,56,000" level="H1" />
+                                        <ObjectStatus text="Delta +56%" state="Success" class="sapUiTinyMarginTop" />
+                                    </VBox>
+                                </HBox>
+                                <!-- <ToolbarSeparator ></ToolbarSeparator> -->
+                                <ToolbarSpacer ></ToolbarSpacer>
+                                <HBox alignItems="Center">
+                                    <Text text="📈 Delta: +₹56,000 (+56% vs accrued)"></Text>
+                                </HBox>
+
+                            </VBox>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                   
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection title="">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Amount Comparison">
+                        <uxap:blocks>
+                            <VBox justifyContent="SpaceAround" width = "100%" alignItems="Center">
+                                <HBox justifyContent="SpaceAround" width = "100%" alignItems="Center">
+                                    <VBox alignItems="Start" width = "100%" class="cardPurple sapUiMediumMarginStartEnd ">
+                                        <Label text="January 2025" />
+                                        <Title text="₹32,000" level="H3" />
+                                        <Text text="RUN-2025-01-001" class="sapUiTinyMarginTop" />
+                                    </VBox>
+                                    <VBox alignItems="Start" width = "100%" class="cardPurple sapUiMediumMarginStartEnd">
+                                        <Label text="February 2025" />
+                                        <Title text="₹35,000" level="H3" />
+                                        <Text text="RUN-2025-02-001" class="sapUiTinyMarginTop" />
+                                    </VBox>
+                                    <VBox alignItems="Start" width = "100%" class="cardPurple sapUiMediumMarginStartEnd">
+                                        <Label text="March 2025" />
+                                        <Title text="₹33,000" level="H3" />
+                                        <Text text="RUN-2025-03-001" class="sapUiTinyMarginTop" />
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                    
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection title="">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Activity Timeline">
+                        <uxap:blocks>
+                            <VBox justifyContent="SpaceBetween" width = "100%" alignItems="Start">
+                                <HBox justifyContent="SpaceBetween" width = "100%" class="sapUiSmallMarginTopBottom cardGreen">
+                                    <VBox alignItems="Start">
+                                        <Text text="Retroactive Rate Correction" />
+                                        <Label text="Added by Priya Sharma • 03-Apr-2025 • Reason: Tier 3 rate applied from Jan" />
+                                    </VBox>
+                                    <VBox alignItems="End">
+                                        <Title text="+₹45,000" level="H3" />
+                                    </VBox>
+                                </HBox>
+                                <HBox justifyContent="SpaceBetween" width = "100%" class="sapUiSmallMarginTopBottom cardGreen">
+                                    <VBox alignItems="Start">
+                                        <Text text="Dispute Resolution - INV-2025-00234" />
+                                        <Label text="Added by Rahul Kumar • 04-Apr-2025 • Reason: Missing invoice added" />
+                                    </VBox>
+                                    <VBox alignItems="End">
+                                        <Title text="+₹11,000" level="H3" />
+                                    </VBox>
+                                </HBox>
+                                <HBox justifyContent="SpaceBetween" width = "100%" class="sapUiSmallMarginTopBottom">
+                                    <VBox alignItems="Start">
+                                        <Text text="Total Adjustments" />
+                                    </VBox>
+                                    <VBox alignItems="End">
+                                        <Title text="+₹56,000" level="H3" />
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection title="Attachments">
+                <uxap:subSections >
+                    <uxap:ObjectPageSubSection title="Attachments">
+                        <uxap:blocks>
+                            <VBox justifyContent="SpaceAround" width = "100%" alignItems="Center">
+                                <HBox justifyContent="SpaceAround" width="100%">
+                                    <VBox alignItems="Center" class="sapUiMediumMargin cardWhite">
+                                        <Title text="1" level="H1" class="sapUiPositiveText" />
+                                        <Label text="Included in Settlement" />
+                                        <Text text="₹{detailModel>/disputes/included/amount}" />
+                                    </VBox>
+                                    <VBox alignItems="Center" class="sapUiMediumMargin cardWhite">
+                                        <Title text="2" level="H1" class="sapUiCriticalText" />
+                                        <Label text="Excluded (Pending)" />
+                                        <Text text="₹{detailModel>/disputes/excluded/amount}" />
+                                    </VBox>
+                                    <VBox alignItems="Center" class="sapUiMediumMargin cardWhite">
+                                        <Title text="0" level="H1" />
+                                        <Label text="Deferred" />
+                                        <Text text="₹{detailModel>/disputes/deferred/amount}" />
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+
+                </uxap:subSections>
+
+            </uxap:ObjectPageSection>
+
+         
+               
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

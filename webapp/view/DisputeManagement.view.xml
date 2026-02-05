@@ -1,0 +1,126 @@
+<mvc:View
+    controllerName="com.cy.rbm.controller.DisputeManagement"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout">
+   <f:DynamicPage  headerExpanded="true">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Dispute Management"/>
+                </f:heading>
+                <f:expandedContent>
+                    <Label text="Track and resolve partner disputes"/>
+                </f:expandedContent>
+                <f:actions>
+                    <Button text="Export" icon="sap-icon://excel-attachment" press="onDMExport"/>
+                    <Button text="Refresh" icon="sap-icon://refresh" press="onDMRefresh"/>
+                    <Button text="New Dispute" type="Emphasized" icon="sap-icon://add" press="onCreateDMDialog"/>
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+         <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <f:content>
+                    <HBox wrap="Wrap" displayInline="true" justifyContent="SpaceAround">
+                        <GenericTile frameType="OneByHalf" header="Total Disputes" subheader="This quarter" class="sapUiTinyMarginBegin">
+                            <TileContent>
+                                <NumericContent value="12" icon="sap-icon://crm-service-manager" />
+                            </TileContent>
+                        </GenericTile>
+                        <GenericTile frameType="OneByHalf" header="Open" subheader="Require action" class="sapUiTinyMarginBegin">
+                            <TileContent>
+                                <NumericContent value="5" valueColor="Critical" icon="sap-icon://pending" />
+                            </TileContent>
+                        </GenericTile>
+                        <GenericTile frameType="OneByHalf" header="SLA Breached" subheader="Overdue" class="sapUiTinyMarginBegin">
+                            <TileContent>
+                                <NumericContent value="3" valueColor="Good" icon="sap-icon://accept" />
+                            </TileContent>
+                        </GenericTile>
+                        <GenericTile frameType="OneByHalf" header="Total Value" subheader="Disputed amount" class="sapUiTinyMarginBegin">
+                            <TileContent>
+                                <NumericContent value="2.1L" valueColor="Neutral" icon="sap-icon://upload" />
+                            </TileContent>
+                        </GenericTile>
+                    </HBox>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <Table id="disputeTable" inset="false" items="{disputeManagementModel>/disputes}" >
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <content>
+                            <Select forceSelection="true" selectedKey="All Partners">
+                                <core:Item key="All Partners" text="All Partners"/>
+                                <core:Item key="Metro-Q1" text="Metro Corporation"/>
+                                <core:Item key="Global-Q4" text="Global Trade Inc"/>
+                                 <core:Item key="Prime-Q4" text="Prime Distributors"/>
+                            </Select>
+                            <Select forceSelection="true" selectedKey="All Types">
+                                <core:Item key="All Types" text="All Types"/>
+                                <core:Item key="Missing" text="Missing Transaction"/>
+                                 <core:Item key="Rate" text="Rate Discrepancy"/>
+                                   <core:Item key="Tier" text="Tier Error"/>
+                            </Select>
+                            <Select forceSelection="true" selectedKey="All SLA">
+                                <core:Item key="All SLA" text="All SLA"/>
+                                <core:Item key="Track" text="On Track"/>
+                                <core:Item key="Risk" text="At Risk"/>
+                                 <core:Item key="Breached" text="Breached"/>
+                            </Select>
+                            <ToolbarSpacer/>
+                            <SearchField width="20%" placeholder="Search disputes..."/>
+                            <Button text="Clear Filters" type="Ghost" press="onClrFilter"/>
+                        </content>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns >
+                    <Column><Text text="Dispute ID"/></Column>
+                    <Column><Text text="Partner"/></Column>
+                    <Column><Text text="Type"/></Column>
+                    <Column><Text text="Status"/></Column>
+                    <Column><Text text="Claimed"/></Column>
+                    <Column hAlign="End"><Text text="Variance"/></Column>
+                    <Column hAlign="End"><Text text="SLA"/></Column>
+                    <Column hAlign="End"><Text text="Assigned To"/></Column>
+                    <Column><Text text="Raised Date"/></Column>
+                    <!-- <Column hAlign="Center" minScreenWidth="Tablet"><Text text="Actions"/></Column> -->
+                </columns>
+                <items>
+                    <ColumnListItem type="Navigation" press=".onNavToDMDDetail">
+                        <cells>
+                            <ObjectIdentifier title="{disputeManagementModel>disputeId}"/>
+                            <ObjectIdentifier title="{disputeManagementModel>partner}" text="{disputeManagementModel>description}"/>
+                            <Text text="{disputeManagementModel>type}" />
+                            <!-- <ObjectStatus text="{disputeManagementModel>status}" state="{disputeManagementModel>statusState}" icon="{disputeManagementModel>statusIcon}" /> -->
+                            <ObjectStatus
+  text="{disputeManagementModel>status}"
+  state="{disputeManagementModel>statusState}" />
+ 
+
+                            <ObjectNumber state="Error" number="₹{disputeManagementModel>claimedAmount}" />
+                            <ObjectNumber number="₹{disputeManagementModel>varianceAmount}" state="Warning" />
+                            <!-- <ObjectNumber number="{disputeManagementModel>slaStatus}" unit="INR" state="Success" /> -->
+                            <!-- <Text text="{disputeManagementModel>slaText}" /> -->
+                             <ObjectStatus
+  text="{disputeManagementModel>slaText}"
+  state="{disputeManagementModel>slaState}"
+  icon="{disputeManagementModel>slaIcon}" />
+
+                            <!-- <ObjectStatus title="{disputeManagementModel>slaText}" text="{disputeManagementModel>slaStatus}" state="{disputeManagementModel>statusState}" icon="{disputeManagementModel>statusIcon}" /> -->
+                            <Text text="{disputeManagementModel>assignedTo}" />
+                            <Text text="{disputeManagementModel>raisedDate}" />
+                           
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+         </f:DynamicPage>
+
+</mvc:View>

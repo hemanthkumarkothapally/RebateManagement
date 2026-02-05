@@ -53,12 +53,12 @@
         }
       },
       "settlement": {
-            "type": "sap.ui.model.json.JSONModel",
-            "uri": "model/settlement.json"
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/settlement.json"
       },
       "dashboard": {
-            "type": "sap.ui.model.json.JSONModel",
-            "uri": "model/dashboard.json"
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/dashboard.json"
       },
       "navItemsModel": {
         "uri": "model/navItems.json",
@@ -68,7 +68,7 @@
         "type": "sap.ui.model.json.JSONModel",
         "uri": "model/rebateAgreements.json"
       },
-       "createAgreementModel": {
+      "createAgreementModel": {
         "type": "sap.ui.model.json.JSONModel",
         "uri": "model/createAgreement.json"
       },
@@ -79,6 +79,9 @@
       "PeriodCloseCockpit": {
         "type": "sap.ui.model.json.JSONModel",
         "uri": "model/PeriodCloseCockpit.json"
+      "disputeManagementModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/disputeManagement.json"
       }
     },
     "resources": {
@@ -111,22 +114,30 @@
         {
           "pattern": "rebates",
           "name": "rebateList",
-          "target": ["rebateList"]
+          "target": [
+            "rebateList"
+          ]
         },
         {
           "pattern": "rebate",
           "name": "rebateTransaction",
-          "target": ["rebateTransaction"]
+          "target": [
+            "rebateTransaction"
+          ]
         },
         {
           "pattern": "rebates/{agreementNo}",
           "name": "rebateDetails",
-          "target": ["rebateDetails"]
+          "target": [
+            "rebateDetails"
+          ]
         },
         {
           "pattern": "accrualRuns",
           "name": "accrualRuns",
-          "target": ["accrualRuns"]
+          "target": [
+            "accrualRuns"
+          ]
         },
         {
           "pattern": "AccrualRundetail/{runId}",
@@ -136,7 +147,9 @@
         {
           "pattern": "SettlementWorkbench",
           "name": "SettlementWorkbench",
-          "target": ["SettlementWorkbench"]
+          "target": [
+            "SettlementWorkbench"
+          ]
         },
         {
           "pattern": "SettlementWorkbenchDetail/{setId}",
@@ -147,6 +160,14 @@
           "pattern": "PeriodCloseCockpit",
           "name": "PeriodCloseCockpit",
           "target": ["PeriodCloseCockpit"]
+          "pattern": "DisputeManagement",
+          "name": "DisputeManagement",
+          "target": "DisputeManagement"
+        },
+        {
+          "pattern": "DisputeManagementDetails/{disputeId}",
+          "name": "DisputeManagementDetails",
+          "target": "DisputeManagementDetails"
         }
       ],
       "targets": {
@@ -154,7 +175,7 @@
           "id": "Dashboard",
           "name": "Dashboard"
         },
-         "rebateList": {
+        "rebateList": {
           "id": "RebateAgreements",
           "name": "RebateAgreements"
         },
@@ -166,15 +187,15 @@
           "id": "RebateAgreementDetails",
           "name": "RebateAgreementDetails"
         },
-         "accrualRuns": {
+        "accrualRuns": {
           "id": "AccrualRuns",
           "name": "AccrualRuns"
         },
         "AccrualRundetail": {
-           "id": "AccrualRundetail",
-          "name": "AccrualRundetail" 
+          "id": "AccrualRundetail",
+          "name": "AccrualRundetail"
         },
-         "SettlementWorkbench": {
+        "SettlementWorkbench": {
           "id": "SettlementWorkbench",
           "name": "SettlementWorkbench"
         },
@@ -185,6 +206,16 @@
         "PeriodCloseCockpit": {
            "id": "PeriodCloseCockpit",
           "name": "PeriodCloseCockpit" 
+          "id": "SettlementWorkbenchDetail",
+          "name": "SettlementWorkbenchDetail"
+        },
+        "DisputeManagement": {
+          "id": "DisputeManagement",
+          "name": "DisputeManagement"
+        },
+         "DisputeManagementDetails": {
+          "id": "DisputeManagementDetails",
+          "name": "DisputeManagementDetails"
         }
       }
     },
