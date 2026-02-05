@@ -1,7 +1,7 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageToast"
-], (Controller,MessageToast) => {
+], (Controller, MessageToast) => {
     return Controller.extend("com.cy.rbm.controller.DisputeManagementDetails", {
         onInit: function () {
 
@@ -36,13 +36,16 @@ sap.ui.define([
             }
 
         },
+        onNavBack: function () {
+            this.getOwnerComponent().getRouter().navTo("DisputeManagement");
+        },
 
         onClickEscalate: function (oEvent) {
             let msg = 'Escalating...';
             MessageToast.show(msg);
         },
 
-        onDownload:function (oEvent) {
+        onDownload: function (oEvent) {
             let msg = 'File Downloaded Successfully..';
             MessageToast.show(msg);
         },
@@ -100,18 +103,18 @@ sap.ui.define([
         onCloseRejectDM: function () {
             this._oCreateDialogg.close();
         },
-        onReassigntDispute:function(){
-              let msg = 'Reassigned Successfully..';
+        onReassigntDispute: function () {
+            let msg = 'Reassigned Successfully..';
             MessageToast.show(msg);
             this.onCloseReassignDM();
         },
-         onResolveDispute:function(){
-              let msg = 'Resolved Successfully..';
+        onResolveDispute: function () {
+            let msg = 'Resolved Successfully..';
             MessageToast.show(msg);
             this.onCloseResolveDM();
         },
-          onRejectDispute:function(){
-              let msg = 'Rejected Successfully..';
+        onRejectDispute: function () {
+            let msg = 'Rejected Successfully..';
             MessageToast.show(msg);
             this.onCloseRejectDM();
         }

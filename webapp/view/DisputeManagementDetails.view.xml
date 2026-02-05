@@ -172,7 +172,7 @@
                             <VBox width="100%">
                                 <Table
                                     width="100%"
-                                    items="{detail>/AmountComparison}"
+                                    items="{disputeManagementModel>/AmountComparison}"
                                 >
                                     <columns>
                                         <Column>
@@ -209,18 +209,18 @@
                                         <ColumnListItem>
                                             <cells>
                                                 <Text
-                                                    text="{detail>lineItem}"
+                                                    text="{disputeManagementModel>lineItem}"
                                                 />
 
                                                 <Text
-                                                    text="{detail>partnerAmount}"
+                                                    text="{disputeManagementModel>partnerAmount}"
                                                 />
 
                                                 <Text
-                                                    text="{detail>systemAmount}"
+                                                    text="{disputeManagementModel>systemAmount}"
                                                 />
                                                 <ObjectStatus
-                                                    text="{detail>variance}"
+                                                    text="{disputeManagementModel>variance}"
                                                    
                                                 />
                                             </cells>
@@ -247,16 +247,16 @@
                                 <suite:Timeline
                                     showHeaderBar="true"
                                     width="100%"
-                                    content="{detail>/activityTimeline}"
+                                    content="{disputeManagementModel>/activityTimeline}"
                                 >
                                     <suite:content>
                                         <suite:TimelineItem
-                                            dateTime="{detail>dateTime}"
-                                            title="{detail>user}"
-                                            userName="{detail>title}"
-                                            icon="{detail>icon}"
-                                            status="{detail>status}"
-                                            text="{detail>description}"
+                                            dateTime="{disputeManagementModel>dateTime}"
+                                            title="{disputeManagementModel>user}"
+                                            userName="{disputeManagementModel>title}"
+                                            icon="{disputeManagementModel>icon}"
+                                            status="{disputeManagementModel>status}"
+                                            text="{disputeManagementModel>description}"
                                         />
                                     </suite:content>
                                 </suite:Timeline>
@@ -280,7 +280,7 @@
                             <VBox width="100%">
                                 <!-- Attachment List -->
                                 <List
-                                    items="{detail>/attachments}"
+                                    items="{disputeManagementModel>/attachments}"
                                     class="sapUiNoMargin"
                                     showSeparators="None"
                                 >
@@ -301,11 +301,11 @@
 
                                                     <VBox>
                                                         <Link
-                                                            text="{detail>fileName}"
+                                                            text="{disputeManagementModel>fileName}"
                                                             press=".onPreview"
                                                         />
                                                         <Text
-                                                            text="{detail>info}"
+                                                            text="{disputeManagementModel>info}"
                                                             class="sapUiTinyMarginTop sapUiTextColorSecondary"
                                                         />
                                                     </VBox>
