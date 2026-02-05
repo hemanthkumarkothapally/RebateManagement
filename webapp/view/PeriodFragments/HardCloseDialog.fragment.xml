@@ -1,0 +1,66 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog
+        id="hardCloseDialog"
+        title="Execute Hard Close"
+        type="Message"
+        state="Error"
+        icon="sap-icon://locked">
+        <content>
+            <MessageStrip
+                text="HARD CLOSE IS PERMANENT. No further changes can be made."
+                type="Error"
+                showIcon="true"
+                class="sapUiSmallMarginBottom" />
+
+            <VBox class="sapUiSmallMargin">
+                <HBox class="sapUiTinyMarginBottom">
+                    <Label text="Period:" width="140px" />
+                    <Text text="March 2025 (2025-03)" />
+                </HBox>
+                
+                <HBox class="sapUiTinyMarginBottom">
+                    <Label text="Soft Close Date:" width="140px" />
+                    <Text text="05-Apr-2025" />
+                </HBox>
+
+                <HBox class="sapUiTinyMarginBottom">
+                    <Label text="Final Transactions:" width="140px" />
+                    <Text text="12,456" />
+                </HBox>
+
+                <HBox class="sapUiTinyMarginBottom">
+                    <Label text="Final Accrued:" width="140px" />
+                    <Text text="₹45,67,890" />
+                </HBox>
+
+                <HBox class="sapUiSmallMarginBottom">
+                    <Label text="All Items Complete:" width="140px" />
+                    <ObjectStatus text="Yes ✓" state="Success" />
+                </HBox>
+
+                <VBox class="sapUiSmallMarginTop" >
+                    <CheckBox 
+                        id="hardCloseCheck" 
+                        text="I confirm this action CANNOT BE UNDONE and authorize permanent closure of March 2025." 
+                        wrapping="true"
+                        useEntireWidth="true"
+                        selected="{newRule>/Agreement}" />
+                </VBox>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button 
+                id="confirmHardCloseBtn"
+                text="Execute Hard Close" 
+                type="Negative" 
+                enabled="{= !!${newRule>/Agreement}}"
+                icon="sap-icon://locked"
+                press=".onConfirmHardClose" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" press=".onCloseHardCloseDialog" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
