@@ -1,0 +1,73 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+>
+    <Dialog title="✗ Reject Dispute">
+        <content>
+            <VBox class="sapUiSmallMargin">
+
+  <MessageStrip 	type="Error"  text="This will close the dispute as rejected |
+Partner will be notified of the rejection."/>
+            
+                <f:SimpleForm
+                    layout="ResponsiveGridLayout"
+                    editable="true"
+                    labelSpanXL="3"
+                    labelSpanL="3"
+                    labelSpanM="3"
+                    labelSpanS="12"
+                >
+                    
+                    <Label
+                        text="Resolution Type "
+                        required="true"
+                    />
+                    <ComboBox
+                        placeholder="Select Reason"
+                        width="100%"
+                    >
+                        <core:Item
+                            key="Invalid Claim"
+                            text="Invalid Claim"
+                        />
+                        <core:Item
+                            key="Dispute"
+                            text="Duplicate Dispute"
+                        />
+                        <core:Item
+                            key="Amit"
+                            text="Outside Agreement"
+                        />
+                    </ComboBox>
+
+                  
+
+
+                    <Label
+                        text="Rejection Notes "
+                        required="true"
+                    />
+                    <TextArea
+                        value="{view>/disputeComment}"
+                        rows="4"
+                        placeholder="Provide Detailed Explanation.."
+                    />
+                </f:SimpleForm>
+            </VBox>
+        </content>
+
+        <buttons>
+            <Button
+                text="Cancel"
+                press="onCloseRejectDM"
+            />
+            <Button
+                text="Rejection Confirm"
+                type="Emphasized"
+                press="onRejectDispute"
+            />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

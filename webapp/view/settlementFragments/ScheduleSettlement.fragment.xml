@@ -43,7 +43,7 @@
             </VBox>
         </content>
         <buttons>
-            <Button text="Cancel" press="onCloseScheduleSettlementDialog {newRule>/period}" />
+            <Button text="Cancel" press="onCloseScheduleSettlementDialog" />
             <Button 
                 text="Schedule Run" 
                 type="Emphasized" 
