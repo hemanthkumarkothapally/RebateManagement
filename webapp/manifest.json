@@ -78,7 +78,7 @@
       },
       "PeriodCloseCockpit": {
         "type": "sap.ui.model.json.JSONModel",
-        "uri": "model/PeriodCloseCockpit.json"
+        "uri": "model/PeriodCloseCockpit.json"},
       "disputeManagementModel": {
         "type": "sap.ui.model.json.JSONModel",
         "uri": "model/disputeManagement.json"
@@ -160,6 +160,7 @@
           "pattern": "PeriodCloseCockpit",
           "name": "PeriodCloseCockpit",
           "target": ["PeriodCloseCockpit"]
+        },{
           "pattern": "DisputeManagement",
           "name": "DisputeManagement",
           "target": "DisputeManagement"
@@ -206,8 +207,6 @@
         "PeriodCloseCockpit": {
            "id": "PeriodCloseCockpit",
           "name": "PeriodCloseCockpit" 
-          "id": "SettlementWorkbenchDetail",
-          "name": "SettlementWorkbenchDetail"
         },
         "DisputeManagement": {
           "id": "DisputeManagement",
