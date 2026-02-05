@@ -1,0 +1,339 @@
+<mvc:View xmlns:core="sap.ui.core" controllerName="com.cy.rbm.controller.PeriodCloseCockpit"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:card="sap.f.cards"
+    xmlns:layout="sap.ui.layout"
+    xmlns:suite="sap.suite.ui.commons"
+    xmlns:mc="sap.suite.ui.microchart">
+    <f:DynamicPage headerExpanded="true">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Period Close Cockpit"/>
+                </f:heading>
+                <f:actions>
+                    <Select id="periodSelect" items="{PeriodCloseCockpit>/period_summaries}" change="onPeriodChange" selectedKey="2025-03">
+                        <core:Item xmlns:core="sap.ui.core" key="{PeriodCloseCockpit>period_id}" text="{PeriodCloseCockpit>period_name}"/>
+                    </Select>
+                    <Button icon="sap-icon://refresh" type="Transparent" press="onRefresh"/>
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <f:header>
+            <f:DynamicPageHeader>
+                <layout:HorizontalLayout allowWrapping="true">
+                    <ObjectStatus class="sapUiSmallMargin" title="Company Code" text="{PeriodCloseCockpit>/cockpit_metadata/company_code}"/>
+                    <ObjectStatus class="sapUiSmallMargin" title="Period" text="{PeriodCloseCockpit>/current_period_summary/period_name}" />
+                    <ObjectStatus class="sapUiSmallMargin" title="Fiscal Year" text="{PeriodCloseCockpit>/cockpit_metadata/fiscal_year}"/>
+                    <ObjectStatus class="sapUiSmallMargin" title="Readiness" text="{PeriodCloseCockpit>/current_period_summary/readiness_percent}%" icon="sap-icon://bar-chart"/>
+                    <ObjectStatus class="sapUiSmallMargin" title="Blocking" text="{PeriodCloseCockpit>/current_period_summary/blocking_items_count} item" icon="sap-icon://cancel"/>
+                    <ObjectStatus class="sapUiSmallMargin " title="Status" text="{PeriodCloseCockpit>/current_period_summary/status}" inverted="true" state="{= ${PeriodCloseCockpit>/current_period_summary/status} === 'Open' ? 'Success' : ${PeriodCloseCockpit>/current_period_summary/status} === 'Soft Close' ? 'Warning' : 'Error' }"/>
+                </layout:HorizontalLayout>
+            </f:DynamicPageHeader>
+        </f:header>
+
+        <f:content>
+            <VBox>
+                <f:Card class="sapUiMediumMarginBottom">
+
+                    <f:header>
+                        <card:Header title="Period Overview" />
+                    </f:header>
+
+                    <f:content>
+                        <HBox class="sapUiSmallMargin" width="100%" justifyContent="SpaceAround">
+
+                            <GenericTile frameType="Auto" class="sapUiSmallMargin" header="Agreements" subheader="Active this period" press=".onActionPress">
+                                <TileContent>
+                                    <content>
+                                        <NumericContent value="{PeriodCloseCockpit>/current_period_summary/kpis/active_agreements}" icon="sap-icon://document"/>
+                                    </content>
+                                </TileContent>
+                            </GenericTile>
+
+                            <GenericTile frameType="Auto" class="sapUiSmallMargin" header="Transactions" subheader="Processed" press=".onActionPress">
+                                <TileContent>
+                                    <content>
+                                        <NumericContent value="{PeriodCloseCockpit>/current_period_summary/kpis/transactions_display}" scale="K" icon="sap-icon://sales-document"/>
+                                    </content>
+                                </TileContent>
+                            </GenericTile>
+
+                            <GenericTile frameType="Auto" class="sapUiSmallMargin" header="Total Accrued" subheader="This period" press=".onActionPress">
+                                <TileContent>
+                                    <content>
+                                        <NumericContent value="{PeriodCloseCockpit>/current_period_summary/kpis/total_accrued_display}" scale="L" valueColor="Good" icon="sap-icon://loan"/>
+                                    </content>
+                                </TileContent>
+                            </GenericTile>
+
+                            <GenericTile frameType="Auto" class="sapUiSmallMargin" header="Settled" subheader="Amount paid" press=".onActionPress">
+                                <TileContent>
+                                    <content>
+                                        <NumericContent value="{PeriodCloseCockpit>/current_period_summary/kpis/settled_display}" scale="L" valueColor="Good" icon="sap-icon://credit-card"/>
+                                    </content>
+                                </TileContent>
+                            </GenericTile>
+                        </HBox>
+
+                    </f:content>
+                </f:Card>
+
+                <Panel width = "100%" class="sapUiMediumMarginBottom">
+                    <headerToolbar>
+                        <OverflowToolbar>
+                            <Title text="My Panel Title" />
+                            <ToolbarSpacer />
+                            <Button text="Initiate Soft Close" icon="sap-icon://private" type="Critical" press="onOpenSoftClose" enabled="{= ${PeriodCloseCockpit>/current_period_summary/comparison_vs_prior/accruals_change_percent} > 0 }" />
+                            <Button text="Execute Hard Close" icon="sap-icon://key" type="Reject" press="onOpenHardClose" enabled="{= ${PeriodCloseCockpit>/current_period_summary/comparison_vs_prior/disputes_change_percent} > 0 }"/>
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <content>
+                        <HBox width="100%" justifyContent="SpaceAround">
+                            <VBox justifyContent="Center">
+                                <mc:RadialMicroChart size="L" percentage="{PeriodCloseCockpit>/current_period_summary/readiness_percent}" valueColor="Good"/>
+                            </VBox>
+                            <VBox width="100%">
+                                <Title text="Close Readiness Assessment" titleStyle="H3" />
+                                <ObjectStatus text="---3 items require attention before this period can be closed." />
+                                <HBox justifyContent="SpaceBetween">
+                                    <GenericTile frameType="OneByHalf" header="Completed" subheader="Active">
+                                        <TileContent>
+                                            <NumericContent value="{PeriodCloseCockpit>/current_period_summary/comparison_vs_prior/transactions_change_percent}"/>
+                                        </TileContent>
+                                    </GenericTile>
+
+                                    <GenericTile frameType="OneByHalf" header="Pending" subheader="Active">
+                                        <TileContent>
+                                            <NumericContent value="{PeriodCloseCockpit>/current_period_summary/comparison_vs_prior/accruals_change_percent}"/>
+                                        </TileContent>
+                                    </GenericTile>
+
+                                    <GenericTile frameType="OneByHalf" header="Blocking" subheader="Active">
+                                        <TileContent>
+                                            <NumericContent value="{PeriodCloseCockpit>/current_period_summary/comparison_vs_prior/disputes_change_percent}"/>
+                                        </TileContent>
+                                    </GenericTile>
+                                </HBox>
+                            </VBox>
+                        </HBox>
+
+                    </content>
+                </Panel>
+
+
+
+
+                <HBox width="auto" class="sapUiMediumMarginBottom" alignItems="Start">
+                    <f:Card height="300px" class="sapUiSmallMarginEnd">
+                        <f:layoutData>
+                            <FlexItemData growFactor=".5" baseSize="0" />
+                        </f:layoutData>
+                        <f:header>
+                            <card:Header title="Close Checklist" subtitle="7/10 Complete" />
+
+                        </f:header>
+
+                        <f:content>
+                            <ScrollContainer height="300px" vertical="true" horizontal="false" width ="100%" focusable="true">
+                                <List items="{PeriodCloseCockpit>/close_checklist}">
+                                    <StandardListItem title="{PeriodCloseCockpit>task}" description="{PeriodCloseCockpit>details}" icon="{PeriodCloseCockpit>icon}" info="{PeriodCloseCockpit>status}" infoState="{PeriodCloseCockpit>infoState}"/>
+                                </List>
+                            </ScrollContainer>
+                        </f:content>
+                    </f:Card>
+
+                    <f:Card height="300px" class="sapUiSmallMarginBegin">
+                        <f:layoutData>
+                            <FlexItemData growFactor=".5" baseSize="0" />
+                        </f:layoutData>
+                        <f:header>
+                            <card:Header title="Blocking Items" subtitle="3 Items" />
+
+                        </f:header>
+
+                        <f:content>
+                            <List items="{PeriodCloseCockpit>/blocking_items}">
+                                <CustomListItem >
+                                    <HBox width="100%" justifyContent="SpaceBetween">
+                                        <HBox class="sapUiSmallMarginBegin">
+                                            <Avatar src="{PeriodCloseCockpit>Avatar}" backgroundColor="{PeriodCloseCockpit>Color}"></Avatar>
+                                            <VBox class="sapUiSmallMarginBegin">
+                                                <Title text="{= ${PeriodCloseCockpit>type} + ' - ' + ${PeriodCloseCockpit>id} }"></Title>
+                                                <Label text="{PeriodCloseCockpit>entity}•{PeriodCloseCockpit>status}"></Label>
+                                            </VBox>
+                                        </HBox>
+                                        <HBox alignContent="End" class="sapUiSmallMarginEnd">
+                                            <VBox alignItems="Center" class="sapUiSmallMarginEnd">
+                                                <ObjectStatus text="₹{path: 'PeriodCloseCockpit>amount', type: 'sap.ui.model.type.Float', formatOptions: { groupingEnabled: true, minFractionDigits: 0, maxFractionDigits: 0 }}" class="largeStatText" state="{= ${PeriodCloseCockpit>severity} === 'High' ? 'Error' : 'Warning' }"></ObjectStatus>
+                                            </VBox>
+                                            <VBox alignItems="Center">
+                                                <Button text="Resolve" visible="{= ${PeriodCloseCockpit>severity} === 'High'}" type = "Negative"></Button>
+                                                <Button text="Review" visible="{= ${PeriodCloseCockpit>severity} === 'Warning'}" type="Critical"></Button>
+                                            </VBox>
+                                        </HBox>
+                                    </HBox>
+                                </CustomListItem>
+                            </List>
+                        </f:content>
+                    </f:Card>
+                </HBox>
+
+                <HBox width="auto" class="sapUiMediumMarginBottom" alignItems="Start">
+                    <f:Card height="400px" class="sapUiSmallMarginEnd">
+                        <f:layoutData>
+                            <FlexItemData growFactor=".5" baseSize="0" />
+                        </f:layoutData>
+                        <f:header>
+                            <card:Header title="Close Checklist" subtitle="7/10 Complete" />
+
+                        </f:header>
+
+                        <f:content>
+                            <suite:Timeline content="{PeriodCloseCockpit>/history}" showHeaderBar="false">
+                                <suite:content>
+                                    <suite:TimelineItem dateTime="{PeriodCloseCockpit>dateTime}" title="{PeriodCloseCockpit>title}" userName="{PeriodCloseCockpit>user}" icon="{PeriodCloseCockpit>icon}" status="{PeriodCloseCockpit>status}" />
+                                </suite:content>
+                            </suite:Timeline>
+                        </f:content>
+                    </f:Card>
+
+                    <f:Card height="400px" class="sapUiSmallMarginBegin">
+                        <f:layoutData>
+                            <FlexItemData growFactor=".5" baseSize="0" />
+                        </f:layoutData>
+                        <f:header>
+                            <card:Header title="Period Summary" />
+
+                        </f:header>
+
+                        <f:content>
+                            <VBox>
+                                <HBox >
+                                    <VBox >
+                                        <GenericTile frameType="OneByHalf" class="sapUiSmallMargin" header="Agreements" subheader="Active this period" press=".onActionPress">
+                                            <TileContent>
+                                                <content>
+                                                    <NumericContent value="{PeriodCloseCockpit>/current_period_summary/kpis/active_agreements}" icon="sap-icon://document"/>
+                                                </content>
+                                            </TileContent>
+                                        </GenericTile>
+
+                                        <GenericTile frameType="OneByHalf" class="sapUiSmallMargin" header="Transactions" subheader="Processed" press=".onActionPress">
+                                            <TileContent>
+                                                <content>
+                                                    <NumericContent value="{PeriodCloseCockpit>/current_period_summary/kpis/transactions_display}" scale="K" icon="sap-icon://sales-document"/>
+                                                </content>
+                                            </TileContent>
+                                        </GenericTile>
+                                    </VBox>
+                                    <VBox >
+                                        <GenericTile frameType="OneByHalf" class="sapUiSmallMargin" header="Total Accrued" subheader="This period" press=".onActionPress">
+                                            <TileContent>
+                                                <content>
+                                                    <NumericContent value="{PeriodCloseCockpit>/current_period_summary/kpis/total_accrued_display}" scale="L" valueColor="Good" icon="sap-icon://loan"/>
+                                                </content>
+                                            </TileContent>
+                                        </GenericTile>
+
+                                        <GenericTile frameType="OneByHalf" class="sapUiSmallMargin" header="Settled" subheader="Amount paid" press=".onActionPress">
+                                            <TileContent>
+                                                <content>
+                                                    <NumericContent value="{PeriodCloseCockpit>/current_period_summary/kpis/settled_display}" scale="L" valueColor="Good" icon="sap-icon://credit-card"/>
+                                                </content>
+                                            </TileContent>
+                                        </GenericTile>
+                                    </VBox>
+                                </HBox>
+                                <HBox >
+                                    <Panel headerText="Comparison vs Prior Period" width="100%">
+                                        <HBox alignItems="Center" class="sapUiSmallMargin">
+
+
+
+                                            <VBox alignItems="Center" class="sapUiMediumMarginBeginEnd">
+                                                <ObjectStatus text="Qualified: {PeriodCloseCockpit>/current_period_summary/comparison_vs_prior/transactions_change_percent}" active="true" inverted="true" state="Indication14" />
+                                            </VBox>
+
+
+
+                                            <VBox alignItems="Center" class="sapUiMediumMarginBeginEnd">
+                                                <ObjectStatus text="Rejected: {PeriodCloseCockpit>/current_period_summary/comparison_vs_prior/accruals_change_percent}" active="true" inverted="true" state="Indication14" />
+                                            </VBox>
+
+
+
+                                            <VBox alignItems="Center" class="sapUiMediumMarginBeginEnd">
+                                                <ObjectStatus text="Disputed: {PeriodCloseCockpit>/current_period_summary/comparison_vs_prior/disputes_change_percent}" active="true" inverted="true" state="Indication12" />
+                                            </VBox>
+
+                                        </HBox>
+                                    </Panel>
+                                </HBox>
+                            </VBox>
+                        </f:content>
+                    </f:Card>
+
+                </HBox>
+
+                <f:Card class="sapUiSmallMarginEnd">
+
+                    <f:header>
+                        <card:Header title="Period History" subtitle="7/10 Complete" />
+
+                    </f:header>
+
+                    <f:content>
+                        <ScrollContainer height="200px" vertical="true" horizontal="false" focusable="true">
+                            <Table items="{PeriodCloseCockpit>/period_history}" sticky="ColumnHeaders">
+                                <headerToolbar>
+                                    <OverflowToolbar>
+                                        <Title text="Period History" />
+                                    </OverflowToolbar>
+                                </headerToolbar>
+                                <columns>
+                                    <Column>
+                                        <Text text="Period" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="Status" />
+                                    </Column>
+                                    <Column minScreenWidth="Tablet" demandPopin="true">
+                                        <Text text="Soft Close" />
+                                    </Column>
+                                    <Column minScreenWidth="Tablet" demandPopin="true">
+                                        <Text text="Hard Close" />
+                                    </Column>
+                                    <Column minScreenWidth="Desktop" demandPopin="true">
+                                        <Text text="Closed By" />
+                                    </Column>
+                                    <Column hAlign="End">
+                                        <Text text="Transactions" />
+                                    </Column>
+                                    <Column hAlign="End">
+                                        <Text text="Accrued" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <ObjectIdentifier title="{PeriodCloseCockpit>period}" />
+                                            <ObjectStatus text=" •{PeriodCloseCockpit>status}" state="{= ${PeriodCloseCockpit>status} === 'Hard Close' ? 'Error' : (${PeriodCloseCockpit>status} === 'Soft Close' ? 'Warning' : 'Success') }" />
+                                            <Text text="{= ${PeriodCloseCockpit>soft_close_date}||'-'}" />
+                                            <Text text="{= ${PeriodCloseCockpit>hard_close_date}||'-'}" />
+                                            <Text text="{= ${PeriodCloseCockpit>closed_by}||'-'}" />
+                                            <Text text="{path: 'PeriodCloseCockpit>transactions', type: 'sap.ui.model.type.Integer'}" />
+                                            <Text text="{PeriodCloseCockpit>accrued}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </ScrollContainer>
+                    </f:content>
+                </f:Card>
+            </VBox>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

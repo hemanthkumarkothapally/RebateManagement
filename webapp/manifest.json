@@ -75,6 +75,10 @@
       "accrualRunsModel": {
         "type": "sap.ui.model.json.JSONModel",
         "uri": "model/accrualRuns.json"
+      },
+      "PeriodCloseCockpit": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/PeriodCloseCockpit.json"
       }
     },
     "resources": {
@@ -138,6 +142,11 @@
           "pattern": "SettlementWorkbenchDetail/{setId}",
           "name": "SettlementWorkbenchDetail",
           "target": "SettlementWorkbenchDetail"
+        },
+        {
+          "pattern": "PeriodCloseCockpit",
+          "name": "PeriodCloseCockpit",
+          "target": ["PeriodCloseCockpit"]
         }
       ],
       "targets": {
@@ -172,6 +181,10 @@
         "SettlementWorkbenchDetail": {
            "id": "SettlementWorkbenchDetail",
           "name": "SettlementWorkbenchDetail" 
+        },
+        "PeriodCloseCockpit": {
+           "id": "PeriodCloseCockpit",
+          "name": "PeriodCloseCockpit" 
         }
       }
     },

@@ -1,0 +1,283 @@
+{
+  "cockpit_metadata": {
+    "app_title": "Period Close Cockpit",
+    "company_code": "1000 - India Operations",
+    "fiscal_year": 2025,
+    "last_updated": "Thursday, February 5, 2026"
+  },
+  "period_summaries": [
+    {
+      "period_id": "2025-03",
+      "period_name": "March 2025",
+      "status": "Open",
+      "readiness_percent": 70,
+      "blocking_items_count": 1,
+      "kpis": {
+        "active_agreements": 45,
+        "transactions_processed": 12456,
+        "transactions_display": "12.45",
+        "total_accrued_amount": 4570000,
+        "total_accrued_display": "45.7L",
+        "settled_amount": 3820000,
+        "settled_display": "38.2L"
+      },
+      "comparison_vs_prior": {
+        "transactions_change_percent": 7,
+        "accruals_change_percent": 2,
+        "disputes_change_percent": 1
+      }
+    },
+    {
+      "period_id": "2025-02",
+      "period_name": "February 2025",
+      "status": "Soft Close",
+      "readiness_percent": 90,
+      "blocking_items_count": 0,
+      "kpis": {
+        "active_agreements": 42,
+        "transactions_processed": 11234,
+        "transactions_display": "11.23",
+        "total_accrued_amount": 4230000,
+        "total_accrued_display": "42.3L",
+        "settled_amount": 4100000,
+        "settled_display": "41.0L"
+      },
+      "comparison_vs_prior": {
+        "transactions_change_percent": 9,
+        "accruals_change_percent": 1,
+        "disputes_change_percent": 0
+      }
+    },
+    {
+      "period_id": "2025-01",
+      "period_name": "January 2025",
+      "status": "Hard Close",
+      "readiness_percent": 100,
+      "blocking_items_count": 0,
+      "kpis": {
+        "active_agreements": 40,
+        "transactions_processed": 10890,
+        "transactions_display": "10.89",
+        "total_accrued_amount": 3890000,
+        "total_accrued_display": "38.9L",
+        "settled_amount": 3890000,
+        "settled_display": "38.9L"
+      },
+      "comparison_vs_prior": {
+        "transactions_change_percent": 10,
+        "accruals_change_percent":0,
+        "disputes_change_percent": 0
+      }
+    },
+    {
+      "period_id": "2024-12",
+      "period_name": "December 2024",
+      "status": "Hard Close",
+      "readiness_percent": 100,
+      "blocking_items_count": 0,
+      "kpis": {
+        "active_agreements": 48,
+        "transactions_processed": 14567,
+        "transactions_display": "14.56",
+        "total_accrued_amount": 5210000,
+        "total_accrued_display": "52.1L",
+        "settled_amount": 5210000,
+        "settled_display": "52.1L"
+      },
+      "comparison_vs_prior": {
+        "transactions_change_percent": 15,
+        "accruals_change_percent": 0,
+        "disputes_change_percent": 0
+      }
+    }
+  ],
+  "current_period_summary": {
+    "period_id": "2025-03",
+    "period_name": "March 2025",
+    "status": "Open",
+    "readiness_percent": 70,
+    "blocking_items_count": 1,
+    "kpis": {
+      "active_agreements": 45,
+      "transactions_processed": 12456,
+      "transactions_display": "12.45",
+      "total_accrued_amount": 4570000,
+      "total_accrued_display": "45.7L",
+      "settled_amount": 3820000,
+      "settled_display": "38.2L"
+    },
+    "comparison_vs_prior": {
+      "transactions_change_percent": 7,
+      "accruals_change_percent": 2,
+      "disputes_change_percent": 1
+    }
+  },
+  "readiness_assessment": {
+    "completed_tasks": 7,
+    "pending_tasks": 2,
+    "blocking_tasks": 1,
+    "description": "3 items require attention before this period can be closed."
+  },
+  "close_checklist": [
+    {
+      "task": "All transactions processed",
+      "details": "12,456 transactions • Completed 28-Mar",
+      "status": "Complete",
+      "icon": "sap-icon://accept",
+      "infoState": "Success"
+    },
+    {
+      "task": "Accrual run completed",
+      "details": "RUN-2025-03-001 • ₹45.7L accrued",
+      "status": "Complete",
+      "icon": "sap-icon://accept",
+      "infoState": "Success"
+    },
+    {
+      "task": "Accruals posted to FI",
+      "details": "45 documents created • 31-Mar",
+      "status": "Complete",
+      "icon": "sap-icon://accept",
+      "infoState": "Success"
+    },
+    {
+      "task": "Settlements approved",
+      "details": "2 settlements pending approval",
+      "status": "2 Pending",
+      "icon": "sap-icon://history",
+      "infoState": "Warning"
+    },
+    {
+      "task": "Disputes resolved",
+      "details": "1 open dispute blocking close",
+      "status": "1 Blocking",
+      "icon": "sap-icon://decline",
+      "infoState": "Error"
+    },
+    {
+      "task": "Reconciliation reviewed",
+      "details": "Reviewed by S. Controller",
+      "status": "Complete",
+      "icon": "sap-icon://accept",
+      "infoState": "Success"
+    }
+  ],
+  "blocking_items": [
+    {
+      "id": "DSP-2025-0042",
+      "type": "Dispute",
+      "entity": "ABC Retail",
+      "status": "SLA: 2 days overdue",
+      "amount": 10500,
+      "severity": "High",
+      "State": "Error",
+      "Avatar": "sap-icon://compare",
+      "Action": "Resolve",
+      "Color": "Accent2"
+    },
+    {
+      "id": "STL-2025-Q1-001",
+      "type": "Settlement",
+      "entity": "ABC Retail",
+      "status": "Awaiting approval",
+      "amount": 156000,
+      "severity": "Warning",
+      "State": "Warning",
+      "Avatar": "sap-icon://credit-card",
+      "Action": "Review",
+      "Color": "Accent1"
+    },
+    {
+      "id": "STL-2025-Q1-002",
+      "type": "Settlement",
+      "entity": "XYZ Stores",
+      "status": "Awaiting approval",
+      "amount": 85000,
+      "severity": "Warning",
+      "State": "Warning",
+      "Avatar": "sap-icon://credit-card",
+      "Action": "Review",
+      "Color": "Accent1"
+    }
+  ],
+  "period_history": [
+    {
+      "period": "2025-03",
+      "status": "Open",
+      "soft_close_date": null,
+      "hard_close_date": null,
+      "closed_by": null,
+      "transactions": 12456,
+      "accrued": "₹45.7L"
+    },
+    {
+      "period": "2025-02",
+      "status": "Soft Close",
+      "soft_close_date": "10-Mar-2025",
+      "hard_close_date": null,
+      "closed_by": "Finance Mgr",
+      "transactions": 11234,
+      "accrued": "₹42.3L"
+    },
+    {
+      "period": "2025-01",
+      "status": "Hard Close",
+      "soft_close_date": "08-Feb-2025",
+      "hard_close_date": "15-Feb-2025",
+      "closed_by": "Controller",
+      "transactions": 10890,
+      "accrued": "₹38.9L"
+    },
+    {
+      "period": "2024-12",
+      "status": "Hard Close",
+      "soft_close_date": "05-Jan-2025",
+      "hard_close_date": "10-Jan-2025",
+      "closed_by": "Controller",
+      "transactions": 14567,
+      "accrued": "₹52.1L"
+    }
+  ],
+  "history": [
+  {
+    "title": "Period Opened",
+    "dateTime": "01-Mar-2025",
+    "user": "System",
+    "icon": "sap-icon://accept",
+    "status": "Success",
+    "description": "Automatically opened"
+  },
+  {
+    "title": "Transactions Processed",
+    "dateTime": "01-31 Mar",
+    "user": "System",
+    "icon": "sap-icon://accept",
+    "status": "Success",
+    "description": "12,456 transactions"
+  },
+  {
+    "title": "Accrual Run Completed",
+    "dateTime": "31-Mar 18:00",
+    "user": "Batch Job",
+    "icon": "sap-icon://accept",
+    "status": "Success",
+    "description": "RUN-2025-03-001"
+  },
+  {
+    "title": "Soft Close",
+    "dateTime": "Pending",
+    "user": "Action Required",
+    "icon": "sap-icon://private",
+    "status": "None",
+    "description": "Blocks new transactions"
+  },
+  {
+    "title": "Hard Close",
+    "dateTime": "Pending",
+    "user": "Final Step",
+    "icon": "sap-icon://key",
+    "status": "None",
+    "description": "Locks period permanently"
+  }
+]
+}

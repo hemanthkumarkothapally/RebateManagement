@@ -30,6 +30,12 @@
       "icon": "sap-icon://currency",
       "expanded": false,
       "key": "pageSettlementWorkbench"
+    },
+    {
+      "title": "Period Close Cockpit",
+      "icon": "sap-icon://time-account",
+      "expanded": false,
+      "key": "pagePeriodCloseCockpit"
     }
   ]
 }

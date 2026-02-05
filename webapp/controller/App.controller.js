@@ -34,6 +34,9 @@ sap.ui.define([
       if (oItem.getKey() === "pageSettlementWorkbench") {
         oRouter.navTo("SettlementWorkbench");
       }
+      if (oItem.getKey() === "pagePeriodCloseCockpit") {
+        oRouter.navTo("PeriodCloseCockpit");
+      }
     }
   });
 });

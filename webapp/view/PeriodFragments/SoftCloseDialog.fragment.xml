@@ -1,0 +1,45 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout">
+    <Dialog id="softCloseDialog" title="Initiate Soft Close" type="Message" state="Warning" icon="sap-icon://private">
+        <content>
+            <MessageStrip text="Soft Close will prevent new transactions. Settlements can still be processed." type="Warning" showIcon="true" class="sapUiSmallMarginBottom" />
+
+            <VBox class="sapUiSmallMargin">
+                <HBox class="sapUiTinyMarginBottom">
+                    <Label text="Period:" width="140px" />
+                    <Text text="{PeriodCloseCockpit>/current_period_summary/period_name} ({PeriodCloseCockpit>/current_period_summary/period_id})" />
+                </HBox>
+
+                <HBox class="sapUiTinyMarginBottom">
+                    <Label text="Total Transactions:" width="140px" />
+                    <Text text="{path: 'PeriodCloseCockpit>/current_period_summary/kpis/transactions_processed', type: 'sap.ui.model.type.Integer'}" />
+                </HBox>
+
+                <HBox class="sapUiTinyMarginBottom">
+                    <Label text="Total Accrued:" width="140px" />
+                    <Text text="₹45,67,890" />
+                </HBox>
+
+                <HBox class="sapUiSmallMarginBottom">
+                    <Label text="Pending Items:" width="140px" />
+                    <HBox>
+                        <ObjectStatus text="2 Settlements" state="Warning" />
+                        <Text text=" • " class="sapUiTinyMarginBeginEnd" />
+                        <ObjectStatus text="1 Dispute" state="Error" />
+                    </HBox>
+                </HBox>
+
+                <VBox class="sapUiSmallMarginTop">
+                    <CheckBox id="softCloseCheck" text="I understand that Soft Close will block new transaction postings for March 2025." wrapping="true" selected="{newRule>/Agreement}" />
+                </VBox>
+            </VBox>
+        </content>
+        <endButton>
+            <Button id="confirmSoftCloseBtn" text="Confirm Soft Close" type="Critical" enabled="{= !!${newRule>/Agreement}}" icon="sap-icon://private" press=".onConfirmSoftClose" />
+        </endButton>
+        <beginButton>
+            <Button text="Cancel" press=".onCloseSoftCloseDialog" />
+        </beginButton>
+    </Dialog>
+</core:FragmentDefinition>
