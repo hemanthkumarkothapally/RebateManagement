@@ -1,0 +1,83 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+
+  <Dialog
+    id="createDisputeDialog"
+    title="+ Create New Dispute"
+    draggable="true"
+    resizable="true"
+    contentWidth="25rem">
+
+    <VBox class="sapUiSmallMargin">
+
+     <Label text="Partner" required="true"/>
+<ComboBox
+  width="300px"
+  
+  placeholder="Select partner">
+  <items>
+    <core:Item key="ABC" text="ABC Retail Pvt Ltd" />
+    <core:Item key="XYZ" text="XYZ Stores Ltd" />
+    <core:Item key="METRO" text="Metro Corporation" />
+    <core:Item key="GLOBAL" text="Global Trade Inc" />
+  </items>
+</ComboBox>
+
+<!-- Dispute Type -->
+<Label text="Dispute Type" required="true"/>
+<ComboBox
+  width="300px"
+ 
+  placeholder="Select dispute type">
+  <items>
+    <core:Item key="MISSING" text="Missing Transaction" />
+    <core:Item key="RATE" text="Rate Discrepancy" />
+    <core:Item key="TIER" text="Tier Error" />
+    <core:Item key="OTHER" text="Other" />
+  </items>
+</ComboBox>
+
+<!-- Related Settlement -->
+<Label text="Related Settlement" />
+<ComboBox
+  width="300px"
+ 
+  placeholder="Select settlement">
+  <items>
+    <core:Item key="SETT-001" text="STL-2025-Q1-001" />
+    <core:Item key="SETT-002" text="STL-2025-Q1-002" />
+    <core:Item key="SETT-003" text="STL-2025-Q1-003" />
+  </items>
+</ComboBox>
+
+<!-- Claimed Amount -->
+<Label text="Claimed Amount" required="true"/>
+<Input
+  width="300px"
+  type="Number"
+  placeholder="Enter amount in ₹" />
+
+<!-- Description -->
+<Label text="Description" required="true"/>
+<TextArea
+  width="300px"
+  placeholder="Describe the dispute in detail..."
+  rows="3" />
+
+
+    </VBox>
+
+    <beginButton>
+      <Button text="Cancel" press="onCancelCreateDispute" />
+    </beginButton>
+
+    <endButton>
+      <Button
+        text="Create Dispute"
+        type="Emphasized"
+        press="onConfirmCreateDispute" />
+    </endButton>
+
+  </Dialog>
+</core:FragmentDefinition>
