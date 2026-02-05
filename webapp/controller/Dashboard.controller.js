@@ -96,7 +96,6 @@ sap.ui.define([
         },
         onAccrualTrendPress: function(oEvent) {
             sap.m.MessageToast.show("Opening Accrual Trend Details...");
-            // Example: sap.m.URLHelper.redirect("https://google.com/search?q=Accruals", true);
         },
 
         // 2. Header Press: Agreement Status
@@ -126,23 +125,30 @@ sap.ui.define([
 
         // Function 1: Total Accrued
         onAccruedPress: function() {
-            sap.m.URLHelper.redirect("https://www.google.com", true);
+            this.getOwnerComponent()
+                .getRouter()
+                .navTo("accrualRuns");
         },
 
         // Function 2: Pending Settlement
         onSettlementPress: function() {
-            // Example: You could change this to google.com/search?q=settlements
-            sap.m.URLHelper.redirect("https://www.google.com", true);
+            this.getOwnerComponent()
+                .getRouter()
+                .navTo("SettlementWorkbench");
         },
 
         // Function 3: Open Disputes
         onDisputesPress: function() {
-            sap.m.URLHelper.redirect("https://www.google.com", true);
+            this.getOwnerComponent()
+                .getRouter()
+                .navTo("DisputeManagement");
         },
 
         // Function 4: Active Agreements
         onAgreementsPress: function() {
-            sap.m.URLHelper.redirect("https://www.google.com", true);
+            this.getOwnerComponent()
+                .getRouter()
+                .navTo("rebateTransaction");
         },
 
         onActionPress: function(oEvent) {
@@ -151,6 +157,17 @@ sap.ui.define([
             
             if(bEnabled) {
                 var sAction = oEvent.getSource().getHeader();
+                var a = "accrualRuns";
+                
+                if(sAction == "Close Period"){
+                    a = "PeriodCloseCockpit";
+                }
+                if(sAction == "Settlements"){
+                    a = "SettlementWorkbench";
+                }
+                this.getOwnerComponent()
+                .getRouter()
+                .navTo(a);
                 MessageToast.show("Action triggered: " + sAction);
             }
         },

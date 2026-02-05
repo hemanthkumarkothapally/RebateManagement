@@ -14,9 +14,9 @@ sap.ui.define([
             //         { key: "2025-02", name: "February 2025", readiness: 100, status: "Soft Close", statusState: "Warning" }
             //     ],
             //     selectedPeriod: {},
-                
+
             // };
-            
+
             // const oModel = new JSONModel(oData);
             // this.getView().setModel(oModel);
             // this._updateSelection("2025-03");
@@ -77,7 +77,7 @@ sap.ui.define([
             console.log(dif)
             console.log(percent)
             this.getOwnerComponent().getModel("PeriodCloseCockpit").setProperty("/current_period_summary/comparison_vs_prior/accruals_change_percent", 0);
-            this.getOwnerComponent().getModel("PeriodCloseCockpit").setProperty("/current_period_summary/readiness_percent", percent+dif*10);
+            this.getOwnerComponent().getModel("PeriodCloseCockpit").setProperty("/current_period_summary/readiness_percent", percent + dif * 10);
             MessageToast.show("Soft Close initiated");
 
         },
@@ -113,14 +113,38 @@ sap.ui.define([
             console.log(dif)
             console.log(percent)
             this.getOwnerComponent().getModel("PeriodCloseCockpit").setProperty("/current_period_summary/comparison_vs_prior/disputes_change_percent", 0);
-            this.getOwnerComponent().getModel("PeriodCloseCockpit").setProperty("/current_period_summary/readiness_percent", percent+dif*10);
-            
+            this.getOwnerComponent().getModel("PeriodCloseCockpit").setProperty("/current_period_summary/readiness_percent", percent + dif * 10);
+
             MessageToast.show("Hard Close executed - Period is now locked");
 
         },
 
         onRefresh: function () {
             MessageToast.show("Data Refreshed");
-        }
+        },
+
+        onSettlementPress: function (oEvent) {
+            var oItem = oEvent.getSource().getBindingContext("PeriodCloseCockpit").getProperty("id");
+            console.log("Selected ID:", oItem);
+
+            sap.m.MessageToast.show(`Opening View of ${oItem}`);
+            this.getOwnerComponent()
+                .getRouter()
+                .navTo("SettlementWorkbenchDetail", {
+                    setId: oItem
+                });
+        },
+        onDisputePress: function (oEvent) {
+            var oItem = oEvent.getSource().getBindingContext("PeriodCloseCockpit").getProperty("id");
+            console.log("Selected ID:", oItem);
+
+            sap.m.MessageToast.show(`Opening View of ${oItem}`);
+            this.getOwnerComponent()
+                .getRouter()
+                .navTo("DisputeManagementDetails", {
+                    disputeId: oItem
+                });
+        },
+
     });
 });
