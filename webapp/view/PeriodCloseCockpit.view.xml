@@ -170,8 +170,8 @@
                                                 <ObjectStatus text="₹{path: 'PeriodCloseCockpit>amount', type: 'sap.ui.model.type.Float', formatOptions: { groupingEnabled: true, minFractionDigits: 0, maxFractionDigits: 0 }}" class="largeStatText" state="{= ${PeriodCloseCockpit>severity} === 'High' ? 'Error' : 'Warning' }"></ObjectStatus>
                                             </VBox>
                                             <VBox alignItems="Center">
-                                                <Button text="Resolve" visible="{= ${PeriodCloseCockpit>severity} === 'High'}" type = "Negative"></Button>
-                                                <Button text="Review" visible="{= ${PeriodCloseCockpit>severity} === 'Warning'}" type="Critical"></Button>
+                                                <Button text="Resolve" press="onDisputePress" visible="{= ${PeriodCloseCockpit>severity} === 'High'}" type = "Negative"></Button>
+                                                <Button text="Review" press="onSettlementPress" visible="{= ${PeriodCloseCockpit>severity} === 'Warning'}" type="Critical"></Button>
                                             </VBox>
                                         </HBox>
                                     </HBox>

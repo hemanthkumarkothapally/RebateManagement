@@ -36,6 +36,7 @@ sap.ui.define([
       }
       if (oItem.getKey() === "pagePeriodCloseCockpit") {
         oRouter.navTo("PeriodCloseCockpit");
+      }
        if (oItem.getKey() === "pageDisputeManagement") {
         oRouter.navTo("DisputeManagement");
       }
