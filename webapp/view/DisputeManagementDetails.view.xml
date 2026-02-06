@@ -1,4 +1,6 @@
-<mvc:View controllerName="com.cy.rbm.controller.DisputeManagementDetails."
+<mvc:View
+    xmlns:unified="sap.ui.unified"
+    controllerName="com.cy.rbm.controller.DisputeManagementDetails."
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:uxap="sap.uxap"
@@ -7,110 +9,159 @@
     xmlns:layout="sap.ui.layout"
     xmlns:suite="sap.suite.ui.commons"
     xmlns:core="sap.ui.core"
-    xmlns:form="sap.ui.layout.form">
-    <uxap:ObjectPageLayout id="ObjectPageLayoutDMD" showTitleInHeaderContent="true" showHeaderContent="true"  >
+    xmlns:form="sap.ui.layout.form"
+>
+    <uxap:ObjectPageLayout
+        id="ObjectPageLayoutDMD"
+        showTitleInHeaderContent="true"
+        showHeaderContent="true"
+        showFooter="true"
+    >
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:expandedHeading>
-                    <Title text="{detail>/description}" wrapping="true" />
+                    <Title
+                        text="{detail>/description}"
+                        wrapping="true"
+                    />
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
-                    <Title text="{detail>/description}" wrapping="true" />
+                    <Title
+                        text="{detail>/description}"
+                        wrapping="true"
+                    />
                 </uxap:snappedHeading>
                 <uxap:breadcrumbs>
                     <Breadcrumbs>
-                        <Link text="Back" press="onNavBack" />
+                        <Link
+                            text="Back"
+                            press="onNavBack"
+                        />
                         <Link text="{detail>/disputeId}" />
                     </Breadcrumbs>
                 </uxap:breadcrumbs>
                 <uxap:actions>
-                   <Text text="{detail>/status}"></Text>
+                    <Text text="{detail>/status}" />
                 </uxap:actions>
                 <uxap:expandedContent>
-                  <FlexBox wrap="Wrap" fitContainer="true" alignItems="Stretch">
-                <!-- <Avatar src="{settlement>statusIcon}" backgroundColor="{path: 'settlement>statusText',formatter: '.formatAvatarColor'}"  displaySize="L" class="sapUiTinyMarginEnd" /> -->
-                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
-                    <Label text="Partner" />
-                    <ObjectAttribute text="{detail>/disputeId}" />
-                </layout:VerticalLayout>
-                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
-                    <Label text="Related Settlement" />
-                    <ObjectAttribute text="{detail>/Related Settlement}" />
-                </layout:VerticalLayout>
-                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
-                    <Label text="Raised Date" />
-                    <ObjectAttribute text="{detail>/raisedDate}" />
-                </layout:VerticalLayout>
-                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
-                    <Label text="Assigned To" />
-                     <ObjectAttribute text="{detail>/assignedTo}" />
-                </layout:VerticalLayout>
-                 <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
-                    <Label text="Priority" />
-                    <ObjectStatus text="{detail>/Priority}" state="Success" />
-                </layout:VerticalLayout>
-            </FlexBox>
-      
+                    <FlexBox
+                        wrap="Wrap"
+                        fitContainer="true"
+                        alignItems="Stretch"
+                    >
+                        <!-- <Avatar src="{settlement>statusIcon}" backgroundColor="{path: 'settlement>statusText',formatter: '.formatAvatarColor'}"  displaySize="L" class="sapUiTinyMarginEnd" /> -->
+                        <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                            <Label text="Partner" />
+                            <ObjectAttribute text="{detail>/disputeId}" />
+                        </layout:VerticalLayout>
+                        <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                            <Label text="Related Settlement" />
+                            <ObjectAttribute
+                                text="{detail>/Related Settlement}"
+                            />
+                        </layout:VerticalLayout>
+                        <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                            <Label text="Raised Date" />
+                            <ObjectAttribute text="{detail>/raisedDate}" />
+                        </layout:VerticalLayout>
+                        <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                            <Label text="Assigned To" />
+                            <ObjectAttribute text="{detail>/assignedTo}" />
+                        </layout:VerticalLayout>
+                        <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                            <Label text="Priority" />
+                            <ObjectStatus
+                                text="{detail>/Priority}"
+                                state="Success"
+                            />
+                        </layout:VerticalLayout>
+                    </FlexBox>
                 </uxap:expandedContent>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
 
         <uxap:headerContent>
-        <FlexBox >
-        <GenericTile frameType="OneByHalf" header="Partner Claimed" subheader="As per partner records" class="sapUiTinyMarginBegin">
-        <TileContent>
-                                <NumericContent  value="166500"  scale="K"/>
-                            </TileContent>
-        </GenericTile>
-        <GenericTile frameType="OneByHalf" header="System Calculated" subheader="As per rebate engine" class="sapUiTinyMarginBegin">
-        <TileContent>
-                                <NumericContent value="15600"  scale="K"/>
-                            </TileContent>
-        </GenericTile>
-        <GenericTile frameType="OneByHalf"  header="Variance" subheader="6.7% difference" class="sapUiTinyMarginBegin">
-        <TileContent>
-                                <NumericContent value="10500"  scale="K"/>
-                            </TileContent>
-        </GenericTile>
-        </FlexBox>
-            </uxap:headerContent>
-
+            <FlexBox class="sapUiSmallMarginTop">
+                <GenericTile
+                    frameType="OneByHalf"
+                    header="Partner Claimed"
+                    subheader="As per partner records"
+                    class="sapUiTinyMarginBegin"
+                >
+                    <TileContent>
+                        <NumericContent
+                            value="166500"
+                            scale="K"
+                        />
+                    </TileContent>
+                </GenericTile>
+                <GenericTile
+                    frameType="OneByHalf"
+                    header="System Calculated"
+                    subheader="As per rebate engine"
+                    class="sapUiTinyMarginBegin"
+                >
+                    <TileContent>
+                        <NumericContent
+                            value="15600"
+                            scale="K"
+                        />
+                    </TileContent>
+                </GenericTile>
+                <GenericTile
+                    frameType="OneByHalf"
+                    header="Variance"
+                    subheader="6.7% difference"
+                    class="sapUiTinyMarginBegin"
+                >
+                    <TileContent>
+                        <NumericContent
+                            value="10500"
+                            scale="K"
+                        />
+                    </TileContent>
+                </GenericTile>
+            </FlexBox>
+        </uxap:headerContent>
 
         <uxap:sections>
             <uxap:ObjectPageSection title="Summary">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="Dispute Details">
                         <uxap:blocks>
-                            <VBox justifyContent="SpaceAround" width = "100%" alignItems="Center">
-                                <HBox justifyContent="SpaceAround" width = "100%" alignItems="Center" class="sapUiMediumMargin">
-                                    <VBox alignItems="Center" class="cardWhite">
-                                        <Label text="Total Accrued" />
-                                        <Title text="₹1,00,000" level="H3" />
-                                        <Text text="3 Periods" class="sapUiTinyMarginTop" />
-                                    </VBox>
-                                    <core:Icon src="sap-icon://arrow-right" size="2rem" color="#888" />
-                                    <VBox alignItems="Center" class="cardWhite">
-                                        <Label text="Adjustments" />
-                                        <Title text="+₹56,000" level="H3" class="sapUiPositiveText" />
-                                        <Text text="2 Entries" class="sapUiTinyMarginTop" />
-                                    </VBox>
-                                    <core:Icon src="sap-icon://arrow-right" size="2rem" color="#888" />
-                                    <VBox alignItems="Center" class="cardWhite">
-                                        <Label text="Final Settlement" />
-                                        <Title text="₹1,56,000" level="H1" />
-                                        <ObjectStatus text="Delta +56%" state="Success" class="sapUiTinyMarginTop" />
-                                    </VBox>
-                                </HBox>
-                                <!-- <ToolbarSeparator ></ToolbarSeparator> -->
-                                <ToolbarSpacer ></ToolbarSpacer>
-                                <HBox alignItems="Center">
-                                    <Text text="📈 Delta: +₹56,000 (+56% vs accrued)"></Text>
-                                </HBox>
+                            <VBox width="100%">
+                                <form:SimpleForm
+                                    id="disputeDetailsForm"
+                                    editable="false"
+                                    layout="ColumnLayout"
+                                    columnsXL="2"
+                                    columnsL="2"
+                                    columnsM="2"
+                                >
+                                    <Label text="Dispute Type" />
+                                    <Text text="{detail>/disputeType}" />
 
+                                    <Label text="Related Agreement" />
+                                    <Link text="{detail>/relatedAgreement}" />
+
+                                    <Label text="SLA Due Date" />
+                                    <Text
+                                        text="{detail>/SLADuedate}"
+                                        class="slaDateRed"
+                                    />
+
+                                    <Label text="Fiscal Period" />
+                                    <Text text="{detail>/fiscalPeriod}" />
+
+                                    <Label text="Description" />
+                                    <Text
+                                        text="{detail>/description}"
+                                        wrapping="true"
+                                    />
+                                </form:SimpleForm>
                             </VBox>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                   
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
@@ -118,101 +169,191 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="Amount Comparison">
                         <uxap:blocks>
-                            <VBox justifyContent="SpaceAround" width = "100%" alignItems="Center">
-                                <HBox justifyContent="SpaceAround" width = "100%" alignItems="Center">
-                                    <VBox alignItems="Start" width = "100%" class="cardPurple sapUiMediumMarginStartEnd ">
-                                        <Label text="January 2025" />
-                                        <Title text="₹32,000" level="H3" />
-                                        <Text text="RUN-2025-01-001" class="sapUiTinyMarginTop" />
-                                    </VBox>
-                                    <VBox alignItems="Start" width = "100%" class="cardPurple sapUiMediumMarginStartEnd">
-                                        <Label text="February 2025" />
-                                        <Title text="₹35,000" level="H3" />
-                                        <Text text="RUN-2025-02-001" class="sapUiTinyMarginTop" />
-                                    </VBox>
-                                    <VBox alignItems="Start" width = "100%" class="cardPurple sapUiMediumMarginStartEnd">
-                                        <Label text="March 2025" />
-                                        <Title text="₹33,000" level="H3" />
-                                        <Text text="RUN-2025-03-001" class="sapUiTinyMarginTop" />
-                                    </VBox>
-                                </HBox>
+                            <VBox width="100%">
+                                <Table
+                                    width="100%"
+                                    items="{disputeManagementModel>/AmountComparison}"
+                                >
+                                    <columns>
+                                        <Column>
+                                            <Text text="Line Item" />
+                                            <footer>
+                                                <Text text="Total" />
+                                            </footer>
+                                        </Column>
+                                        <Column hAlign="End">
+                                            <Text text="Partner Amount" />
+                                            <footer>
+                                                <Text text="₹1,66,500" />
+                                            </footer>
+                                        </Column>
+                                        <Column hAlign="End">
+                                            <Text text="System Amount" />
+                                            <footer>
+                                                <Text text="₹1,56,000" />
+                                            </footer>
+                                        </Column>
+                                        <Column hAlign="End">
+                                            <Text text="Variance" />
+
+                                            <footer>
+                                                <ObjectStatus
+                                                    state="Error"
+                                                    text="₹10,500"
+                                                />
+                                            </footer>
+                                        </Column>
+                                    </columns>
+
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text
+                                                    text="{disputeManagementModel>lineItem}"
+                                                />
+
+                                                <Text
+                                                    text="{disputeManagementModel>partnerAmount}"
+                                                />
+
+                                                <Text
+                                                    text="{disputeManagementModel>systemAmount}"
+                                                />
+                                                <ObjectStatus
+                                                    text="{disputeManagementModel>variance}"
+                                                   
+                                                />
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
                             </VBox>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                    
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
             <uxap:ObjectPageSection title="">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="Activity Timeline">
+                        <uxap:actions>
+                            <Button
+                                text="+ Add Note"
+                                type="Transparent"
+                            />
+                        </uxap:actions>
                         <uxap:blocks>
-                            <VBox justifyContent="SpaceBetween" width = "100%" alignItems="Start">
-                                <HBox justifyContent="SpaceBetween" width = "100%" class="sapUiSmallMarginTopBottom cardGreen">
-                                    <VBox alignItems="Start">
-                                        <Text text="Retroactive Rate Correction" />
-                                        <Label text="Added by Priya Sharma • 03-Apr-2025 • Reason: Tier 3 rate applied from Jan" />
-                                    </VBox>
-                                    <VBox alignItems="End">
-                                        <Title text="+₹45,000" level="H3" />
-                                    </VBox>
-                                </HBox>
-                                <HBox justifyContent="SpaceBetween" width = "100%" class="sapUiSmallMarginTopBottom cardGreen">
-                                    <VBox alignItems="Start">
-                                        <Text text="Dispute Resolution - INV-2025-00234" />
-                                        <Label text="Added by Rahul Kumar • 04-Apr-2025 • Reason: Missing invoice added" />
-                                    </VBox>
-                                    <VBox alignItems="End">
-                                        <Title text="+₹11,000" level="H3" />
-                                    </VBox>
-                                </HBox>
-                                <HBox justifyContent="SpaceBetween" width = "100%" class="sapUiSmallMarginTopBottom">
-                                    <VBox alignItems="Start">
-                                        <Text text="Total Adjustments" />
-                                    </VBox>
-                                    <VBox alignItems="End">
-                                        <Title text="+₹56,000" level="H3" />
-                                    </VBox>
-                                </HBox>
-                            </VBox>
-
+                           
+                                <suite:Timeline
+                                    showHeaderBar="true"
+                                    width="100%"
+                                    height="100px"
+                                    showSort="false"
+                                    enableScroll="false"
+                                    content="{disputeManagementModel>/activityTimeline}"
+                                >
+                                    <suite:content>
+                                        <suite:TimelineItem
+                                            dateTime="{disputeManagementModel>dateTime}"
+                                            title="{disputeManagementModel>user}"
+                                            userName="{disputeManagementModel>title}"
+                                            icon="{disputeManagementModel>icon}"
+                                            status="{disputeManagementModel>status}"
+                                            text="{disputeManagementModel>description}"
+                                        />
+                                    </suite:content>
+                                </suite:Timeline>
+                            
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
             <uxap:ObjectPageSection title="Attachments">
-                <uxap:subSections >
+                <uxap:subSections>
                     <uxap:ObjectPageSubSection title="Attachments">
+                        <uxap:actions>
+                            <unified:FileUploader
+                                buttonOnly="true"
+                                buttonText="+ Upload"
+                                change="onuploadChange"
+                            />
+                        </uxap:actions>
                         <uxap:blocks>
-                            <VBox justifyContent="SpaceAround" width = "100%" alignItems="Center">
-                                <HBox justifyContent="SpaceAround" width="100%">
-                                    <VBox alignItems="Center" class="sapUiMediumMargin cardWhite">
-                                        <Title text="1" level="H1" class="sapUiPositiveText" />
-                                        <Label text="Included in Settlement" />
-                                        <Text text="₹{detailModel>/disputes/included/amount}" />
-                                    </VBox>
-                                    <VBox alignItems="Center" class="sapUiMediumMargin cardWhite">
-                                        <Title text="2" level="H1" class="sapUiCriticalText" />
-                                        <Label text="Excluded (Pending)" />
-                                        <Text text="₹{detailModel>/disputes/excluded/amount}" />
-                                    </VBox>
-                                    <VBox alignItems="Center" class="sapUiMediumMargin cardWhite">
-                                        <Title text="0" level="H1" />
-                                        <Label text="Deferred" />
-                                        <Text text="₹{detailModel>/disputes/deferred/amount}" />
-                                    </VBox>
-                                </HBox>
+                            <VBox width="100%">
+                                <!-- Attachment List -->
+                                <List
+                                    items="{disputeManagementModel>/attachments}"
+                                    class="sapUiNoMargin"
+                                    showSeparators="None"
+                                >
+                                    <items>
+                                        <CustomListItem>
+                                            <HBox
+                                                width="100%"
+                                                alignItems="Center"
+                                                justifyContent="SpaceBetween"
+                                                class="sapUiSmallMargin sapUiContentPadding sapUiMediumMarginBottom sapUiBorderRadius"
+                                            >
+                                                <!-- Left content -->
+                                                <HBox alignItems="Center">
+                                                    <Avatar
+                                                        displaySize="S"
+                                                        class="sapUiTinyMarginEnd"
+                                                    />
+
+                                                    <VBox>
+                                                        <Link
+                                                            text="{disputeManagementModel>fileName}"
+                                                            press=".onPreview"
+                                                        />
+                                                        <Text
+                                                            text="{disputeManagementModel>info}"
+                                                            class="sapUiTinyMarginTop sapUiTextColorSecondary"
+                                                        />
+                                                    </VBox>
+                                                </HBox>
+
+                                                <!-- Download -->
+                                                <Button
+                                                    class="sapUiMediumMarginEnd"
+                                                    text="Download"
+                                                    type="Transparent"
+                                                    press=".onDownload"
+                                                />
+                                            </HBox>
+                                        </CustomListItem>
+                                    </items>
+                                </List>
                             </VBox>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-
                 </uxap:subSections>
-
             </uxap:ObjectPageSection>
-
-         
-               
         </uxap:sections>
+        <uxap:footer>
+            <Toolbar>
+                <Button
+                    text="👤 Reassign "
+                    press="onClickReassignDM"
+                />
+                <Button
+                    text="⬆️ Escalate "
+                    press="onClickEscalate"
+                />
+                <ToolbarSpacer />
+                <Button
+                    type="Negative"
+                    text="Reject"
+                    press="onClickRejectDM"
+                />
+                <Button
+                    type="Accept"
+                    text="Resolve"
+                    icon="sap-icon://accept"
+                    press="onClickResolveaDM"
+                />
+            </Toolbar>
+        </uxap:footer>
     </uxap:ObjectPageLayout>
 </mvc:View>

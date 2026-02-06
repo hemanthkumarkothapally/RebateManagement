@@ -366,7 +366,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
                         <uxap:blocks>
-                            <suite:Timeline content="{settlement>/history}">
+                            <suite:Timeline enableScroll="false" content="{settlement>/history}">
                                 <suite:content>
                                     <suite:TimelineItem dateTime="{settlement>dateTime}" title="{settlement>title}" userName="{settlement>user}" icon="{settlement>icon}" status="{settlement>status}" />
                                 </suite:content>

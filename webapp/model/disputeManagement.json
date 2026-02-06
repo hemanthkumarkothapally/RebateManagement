@@ -15,8 +15,14 @@
       "Priority": "High",
       "Related Settlement": "STL-2025-Q1-001",
       "assignedTo": "Rahul Kumar",
-      "raisedDate": "2025-04-05"
+      "raisedDate": "2025-04-05",
+      "disputeType": "Missing Transaction",
+      "fiscalPeriod": "2025-Q1",
+      "relatedAgreement": "AGR-2025-001",
+      "SLADuedate": "19-Apr-2025"
+      
     },
+    
     {
       "disputeId": "DSP-2025-0041",
       "partner": "XYZ Stores Ltd",
@@ -124,5 +130,79 @@
       "assignedTo": "Priya Sharma",
       "raisedDate": "2025-03-01"
     }
-  ]
+  ],
+  "AmountComparison": [
+        {
+          "lineItem": "Volume Tier Rebate",
+          "partnerAmount": "₹1,50,000",
+          "systemAmount": "₹1,50,000",
+          "variance": "₹0",
+          "Status": "Success"
+        },
+        {
+          "lineItem": "Growth Incentive",
+          "partnerAmount": "₹6,000",
+          "systemAmount": "₹6,000",
+          "variance": "₹0",
+          "Status": "POSITIVE"
+        },
+        {
+          "lineItem": "INV-2025-00234 (Disputed)",
+          "partnerAmount": "₹10,500",
+          "systemAmount": "₹0",
+          "variance": "₹10,500",
+          "Status": "NEGATIVE"
+        }
+      ],
+      "activityTimeline": [
+        {
+          "dateTime": "05/04/2025 10:30",
+          "title": "Dispute Created",
+          "user": "Partner Portal",
+          "description": "ABC Retail raised dispute via partner portal claiming invoice INV-2025-00234 was not included in settlement.",
+          "icon": "sap-icon://add-document",
+          "status": "Success"
+        },
+        {
+          "dateTime": "05/04/2025 11:15",
+          "title": "Assigned to Rahul Kumar",
+          "user": "System Auto-Assignment",
+          "description": "",
+          "icon": "sap-icon://employee",
+          "status": "Success"
+        },
+        {
+          "dateTime": "06/04/2025 09:00",
+          "title": "Investigation Started",
+          "user": "Rahul Kumar",
+          "description": "Checking transaction logs and agreement eligibility criteria for the disputed invoice.",
+          "icon": "sap-icon://inspection",
+          "status": "Warning"
+        },
+        {
+          "dateTime": "08/04/2025 14:30",
+          "title": "Partner Contacted",
+          "user": "Rahul Kumar",
+          "description": "Requested copy of original invoice and delivery proof from partner for verification.",
+          "icon": "sap-icon://email",
+          "status": "Neutral"
+        }
+      ],
+      "attachments": [
+        {
+          "fileName": "INV-2025-00234.pdf",
+          "info": "Uploaded by ABC Retail • 05-Apr-2025 • 245 KB",
+          "icon": "sap-icon://pdf-attachment"
+        },
+        {
+          "fileName": "Settlement_Calculation_Q1.xlsx",
+          "info": "Uploaded by Rahul Kumar • 06-Apr-2025 • 128 KB",
+          "icon": "sap-icon://excel-attachment"
+        },
+        {
+          "fileName": "Partner_Communication.pdf",
+          "info": "Uploaded by Rahul Kumar • 08-Apr-2025 • 89 KB",
+          "icon": "sap-icon://attachment"
+        }
+      ]
 }
