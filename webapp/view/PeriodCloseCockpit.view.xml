@@ -45,7 +45,7 @@
                     <f:content>
                         <HBox class="sapUiSmallMargin" width="100%" justifyContent="SpaceAround">
 
-                            <GenericTile frameType="Auto" class="sapUiSmallMargin" header="Agreements" subheader="Active this period" press=".onActionPress">
+                            <GenericTile frameType="OneByHalf" class="sapUiSmallMargin" header="Agreements" subheader="Active this period" press=".onActionPress">
                                 <TileContent>
                                     <content>
                                         <NumericContent value="{PeriodCloseCockpit>/current_period_summary/kpis/active_agreements}" icon="sap-icon://document"/>
@@ -53,7 +53,7 @@
                                 </TileContent>
                             </GenericTile>
 
-                            <GenericTile frameType="Auto" class="sapUiSmallMargin" header="Transactions" subheader="Processed" press=".onActionPress">
+                            <GenericTile frameType="OneByHalf" class="sapUiSmallMargin" header="Transactions" subheader="Processed" press=".onActionPress">
                                 <TileContent>
                                     <content>
                                         <NumericContent value="{PeriodCloseCockpit>/current_period_summary/kpis/transactions_display}" scale="K" icon="sap-icon://sales-document"/>
@@ -61,7 +61,7 @@
                                 </TileContent>
                             </GenericTile>
 
-                            <GenericTile frameType="Auto" class="sapUiSmallMargin" header="Total Accrued" subheader="This period" press=".onActionPress">
+                            <GenericTile frameType="OneByHalf" class="sapUiSmallMargin" header="Total Accrued" subheader="This period" press=".onActionPress">
                                 <TileContent>
                                     <content>
                                         <NumericContent value="{PeriodCloseCockpit>/current_period_summary/kpis/total_accrued_display}" scale="L" valueColor="Good" icon="sap-icon://loan"/>
@@ -69,7 +69,7 @@
                                 </TileContent>
                             </GenericTile>
 
-                            <GenericTile frameType="Auto" class="sapUiSmallMargin" header="Settled" subheader="Amount paid" press=".onActionPress">
+                            <GenericTile frameType="OneByHalf" class="sapUiSmallMargin" header="Settled" subheader="Amount paid" press=".onActionPress">
                                 <TileContent>
                                     <content>
                                         <NumericContent value="{PeriodCloseCockpit>/current_period_summary/kpis/settled_display}" scale="L" valueColor="Good" icon="sap-icon://credit-card"/>
@@ -247,31 +247,44 @@
                                         </GenericTile>
                                     </VBox>
                                 </HBox>
-                                <HBox >
+                                
                                     <Panel headerText="Comparison vs Prior Period" width="100%">
-                                        <HBox alignItems="Center" class="sapUiSmallMargin">
-
-
-
-                                            <VBox alignItems="Center" class="sapUiMediumMarginBeginEnd">
-                                                <ObjectStatus text="Qualified: {PeriodCloseCockpit>/current_period_summary/comparison_vs_prior/transactions_change_percent}" active="true" inverted="true" state="Indication14" />
-                                            </VBox>
-
-
-
-                                            <VBox alignItems="Center" class="sapUiMediumMarginBeginEnd">
-                                                <ObjectStatus text="Rejected: {PeriodCloseCockpit>/current_period_summary/comparison_vs_prior/accruals_change_percent}" active="true" inverted="true" state="Indication14" />
-                                            </VBox>
-
-
-
-                                            <VBox alignItems="Center" class="sapUiMediumMarginBeginEnd">
-                                                <ObjectStatus text="Disputed: {PeriodCloseCockpit>/current_period_summary/comparison_vs_prior/disputes_change_percent}" active="true" inverted="true" state="Indication12" />
-                                            </VBox>
-
-                                        </HBox>
+                                       <HBox justifyContent="SpaceAround">
+                                <VBox
+                                    alignItems="Center"
+                                    class="sapUiSmallMargin"
+                                >
+                                    <Text text="Qualified" />
+                                    <ObjectStatus
+                                        class="largeStatText"
+                                        state="Success"
+                                        text="{PeriodCloseCockpit>/current_period_summary/comparison_vs_prior/transactions_change_percent}"
+                                    />
+                                </VBox> 
+                                <VBox
+                                    alignItems="Center"
+                                    class="sapUiSmallMargin"
+                                >
+                                    <Text text="Rejected" />
+                                    <ObjectStatus
+                                        class="largeStatText"
+                                        text="{PeriodCloseCockpit>/current_period_summary/comparison_vs_prior/accruals_change_percent}"
+                                        state="Warning"
+                                    />
+                                </VBox> 
+                                <VBox
+                                    alignItems="Center"
+                                    class="sapUiSmallMargin"
+                                >
+                                    <Text text="Disputed" />
+                                    <ObjectStatus
+                                        class="largeStatText"
+                                        state="Error"
+                                        text="{PeriodCloseCockpit>/current_period_summary/comparison_vs_prior/disputes_change_percent}"
+                                    />
+                                </VBox>
+                            </HBox>
                                     </Panel>
-                                </HBox>
                             </VBox>
                         </f:content>
                     </f:Card>

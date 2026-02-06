@@ -38,7 +38,11 @@
       "slaState": "Warning",
       "slaIcon": "sap-icon://pending",
       "assignedTo": "Priya Sharma",
-      "raisedDate": "2025-04-02"
+      "raisedDate": "2025-04-02",
+      "disputeType": "Missing Transaction",
+      "fiscalPeriod": "2025-Q1",
+      "relatedAgreement": "AGR-2025-001",
+      "SLADuedate": "19-Apr-2025"
     },
     {
       "disputeId": "DSP-2025-0040",
@@ -53,7 +57,11 @@
       "slaState": "Success",
       "slaIcon": "sap-icon://accept",
       "assignedTo": "Amit Patel",
-      "raisedDate": "2025-03-28"
+      "raisedDate": "2025-03-28",
+      "disputeType": "Missing Transaction",
+      "fiscalPeriod": "2025-Q1",
+      "relatedAgreement": "AGR-2025-001",
+      "SLADuedate": "19-Apr-2025"
     },
     {
       "disputeId": "DSP-2025-0039",
@@ -68,7 +76,11 @@
       "slaState": "Success",
       "slaIcon": "sap-icon://complete",
       "assignedTo": "Rahul Kumar",
-      "raisedDate": "2025-03-20"
+      "raisedDate": "2025-03-20",
+      "disputeType": "Missing Transaction",
+      "fiscalPeriod": "2025-Q1",
+      "relatedAgreement": "AGR-2025-001",
+      "SLADuedate": "19-Apr-2025"
     },
     {
       "disputeId": "DSP-2025-0038",
@@ -83,7 +95,11 @@
       "slaState": "Success",
       "slaIcon": "sap-icon://complete",
       "assignedTo": "Priya Sharma",
-      "raisedDate": "2025-03-15"
+      "raisedDate": "2025-03-15",
+      "disputeType": "Missing Transaction",
+      "fiscalPeriod": "2025-Q1",
+      "relatedAgreement": "AGR-2025-001",
+      "SLADuedate": "19-Apr-2025"
     },
     {
       "disputeId": "DSP-2025-0037",
@@ -98,7 +114,11 @@
       "slaState": "Warning",
       "slaIcon": "sap-icon://pending",
       "assignedTo": "Amit Patel",
-      "raisedDate": "2025-03-10"
+      "raisedDate": "2025-03-10",
+      "disputeType": "Missing Transaction",
+      "fiscalPeriod": "2025-Q1",
+      "relatedAgreement": "AGR-2025-001",
+      "SLADuedate": "19-Apr-2025"
     },
     {
       "disputeId": "DSP-2025-0036",
@@ -113,7 +133,11 @@
       "slaState": "Warning",
       "slaIcon": "sap-icon://pending",
       "assignedTo": "Rahul Kumar",
-      "raisedDate": "2025-03-07"
+      "raisedDate": "2025-03-07",
+      "disputeType": "Missing Transaction",
+      "fiscalPeriod": "2025-Q1",
+      "relatedAgreement": "AGR-2025-001",
+      "SLADuedate": "19-Apr-2025"
     },
     {
       "disputeId": "DSP-2025-0035",
@@ -128,7 +152,11 @@
       "slaState": "Success",
       "slaIcon": "sap-icon://complete",
       "assignedTo": "Priya Sharma",
-      "raisedDate": "2025-03-01"
+      "raisedDate": "2025-03-01",
+      "disputeType": "Missing Transaction",
+      "fiscalPeriod": "2025-Q1",
+      "relatedAgreement": "AGR-2025-001",
+      "SLADuedate": "19-Apr-2025"
     }
   ],
   "AmountComparison": [
