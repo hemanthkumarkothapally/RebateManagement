@@ -1,6 +1,8 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
-], (Controller) => {
+    "sap/ui/core/mvc/Controller",
+        "sap/m/MessageToast"
+
+], (Controller,MessageToast) => {
     return Controller.extend("com.cy.rbm.controller.DisputeManagement", {
 
         onCreateDMDialog: function () {
@@ -18,6 +20,12 @@ sap.ui.define([
             this._oCreateDialog.open();
         },
         onCancelCreateDispute: function () {
+            this._oCreateDialog.close();
+        },
+        onConfirmCreateDispute: function () {
+            
+            let msg = 'Dispute Created Successfully..';
+            MessageToast.show(msg);
             this._oCreateDialog.close();
         },
         onNavToDMDDetail: function (oEvent) {
