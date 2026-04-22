@@ -26,22 +26,22 @@
             <f:DynamicPageHeader pinnable="true">
                 <f:content>
                     <HBox wrap="Wrap" displayInline="true" justifyContent="SpaceAround">
-                        <GenericTile frameType="OneByHalf" header="Total Disputes" subheader="This quarter" class="sapUiTinyMarginBegin">
+                        <GenericTile frameType="OneByHalf" header="Total Disputes" subheader="This quarter" class="sapUiTinyMarginBegin generictileClass purple">
                             <TileContent>
                                 <NumericContent value="12" icon="sap-icon://crm-service-manager" />
                             </TileContent>
                         </GenericTile>
-                        <GenericTile frameType="OneByHalf" header="Open" subheader="Require action" class="sapUiTinyMarginBegin">
+                        <GenericTile frameType="OneByHalf" header="Open" subheader="Require action" class="sapUiTinyMarginBegin generictileClass green">
                             <TileContent>
                                 <NumericContent value="5" valueColor="Critical" icon="sap-icon://pending" />
                             </TileContent>
                         </GenericTile>
-                        <GenericTile frameType="OneByHalf" header="SLA Breached" subheader="Overdue" class="sapUiTinyMarginBegin">
+                        <GenericTile frameType="OneByHalf" header="SLA Breached" subheader="Overdue" class="sapUiTinyMarginBegin generictileClass blue">
                             <TileContent>
                                 <NumericContent value="3" valueColor="Good" icon="sap-icon://accept" />
                             </TileContent>
                         </GenericTile>
-                        <GenericTile frameType="OneByHalf" header="Total Value" subheader="Disputed amount" class="sapUiTinyMarginBegin">
+                        <GenericTile frameType="OneByHalf" header="Total Value" subheader="Disputed amount" class="sapUiTinyMarginBegin generictileClass yellow">
                             <TileContent>
                                 <NumericContent value="2.1L" valueColor="Neutral" icon="sap-icon://upload" />
                             </TileContent>

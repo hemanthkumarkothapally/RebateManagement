@@ -14,31 +14,31 @@
 
         <content>
             <layout:HorizontalLayout class="sapUiSmallMarginTop sapUiSmallMarginBottom">
-                <GenericTile header="Total Runs (2025)" frameType="TwoByHalf" width="10rem" class="sapUiMediumMarginEnd">
+                <GenericTile header="Total Runs (2025)" frameType="TwoByHalf" width="10rem" class="sapUiMediumMarginEnd generictileClass purple">
                     <TileContent>
                         <NumericContent value="{accrualRunsModel>/kpi/totalRuns}" valueColor="Neutral"/>
                     </TileContent>
                 </GenericTile>
 
-                <GenericTile header="Processing" frameType="TwoByHalf" width="9rem" class="sapUiMediumMarginEnd">
+                <GenericTile header="Processing" frameType="TwoByHalf" width="9rem" class="sapUiMediumMarginEnd generictileClass green">
                     <TileContent>
                         <NumericContent value="{accrualRunsModel>/kpi/processing}" valueColor="Critical"/>
                     </TileContent>
                 </GenericTile>
 
-                <GenericTile header="Completed" frameType="TwoByHalf" width="9rem" class="sapUiMediumMarginEnd">
+                <GenericTile header="Completed" frameType="TwoByHalf" width="9rem" class="sapUiMediumMarginEnd generictileClass blue">
                     <TileContent>
                         <NumericContent value="{accrualRunsModel>/kpi/completed}" valueColor="Good"/>
                     </TileContent>
                 </GenericTile>
 
-                <GenericTile header="Failed" frameType="TwoByHalf" width="9rem" class="sapUiMediumMarginEnd">
+                <GenericTile header="Failed" frameType="TwoByHalf" width="9rem" class="sapUiMediumMarginEnd generictileClass yellow">
                     <TileContent>
                         <NumericContent value="{accrualRunsModel>/kpi/failed}" valueColor="Error"/>
                     </TileContent>
                 </GenericTile>
 
-                <GenericTile header="Total Accrued (YTD)" frameType="TwoByHalf" width="11rem">
+                <GenericTile header="Total Accrued (YTD)" frameType="TwoByHalf" width="11rem" class="generictileClass teal">
                     <TileContent>
                         <NumericContent value="{
                 path: 'accrualRunsModel>/kpi/totalAccrued',

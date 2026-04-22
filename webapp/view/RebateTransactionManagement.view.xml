@@ -136,7 +136,7 @@
                                 <GenericTile
                                     header="Total"
                                     frameType="OneByHalf"
-                                    class="sapUiTinyMargin"
+                                    class="sapUiTinyMargin generictileClass purple"
                                 >
                                     <TileContent>
                                         <NumericContent
@@ -149,7 +149,7 @@
                                 <GenericTile
                                     header="Qualified"
                                     frameType="OneByHalf"
-                                    class="sapUiTinyMargin"
+                                    class="sapUiTinyMargin generictileClass green"
                                 >
                                     <TileContent>
                                         <NumericContent
@@ -162,7 +162,7 @@
                                 <GenericTile
                                     header="Rejected"
                                     frameType="OneByHalf"
-                                    class="sapUiTinyMargin"
+                                    class="sapUiTinyMargin generictileClass blue"
                                 >
                                     <TileContent>
                                         <NumericContent
@@ -175,7 +175,7 @@
                                 <GenericTile
                                     header="Disputed"
                                     frameType="OneByHalf"
-                                    class="sapUiTinyMargin"
+                                    class="sapUiTinyMargin generictileClass yellow"
                                 >
                                     <TileContent>
                                         <NumericContent
@@ -188,7 +188,7 @@
                                 <GenericTile
                                     header="Accrued"
                                     frameType="OneByHalf"
-                                    class="sapUiTinyMargin"
+                                    class="sapUiTinyMargin generictileClass teal"
                                 >
                                     <TileContent>
                                         <NumericContent

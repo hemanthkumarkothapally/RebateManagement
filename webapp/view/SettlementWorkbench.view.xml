@@ -28,27 +28,27 @@
             <f:DynamicPageHeader pinnable="true">
                 <f:content>
                     <HBox wrap="Wrap" displayInline="true" justifyContent="SpaceAround">
-                        <GenericTile frameType="OneByHalf" header="Total Settlements" subheader="All Status" class="sapUiTinyMarginBegin">
+                        <GenericTile frameType="OneByHalf" header="Total Settlements" subheader="All Status" class="sapUiTinyMarginBegin generictileClass purple">
                             <TileContent>
                                 <NumericContent value="8" icon="sap-icon://crm-service-manager" />
                             </TileContent>
                         </GenericTile>
-                        <GenericTile frameType="OneByHalf" header="Pending" subheader="Action Required" class="sapUiTinyMarginBegin">
+                        <GenericTile frameType="OneByHalf" header="Pending" subheader="Action Required" class="sapUiTinyMarginBegin generictileClass green">
                             <TileContent>
                                 <NumericContent value="4" valueColor="Critical" icon="sap-icon://pending" />
                             </TileContent>
                         </GenericTile>
-                        <GenericTile frameType="OneByHalf" header="Approved" subheader="Ready to Post" class="sapUiTinyMarginBegin">
+                        <GenericTile frameType="OneByHalf" header="Approved" subheader="Ready to Post" class="sapUiTinyMarginBegin generictileClass blue">
                             <TileContent>
                                 <NumericContent value="2" valueColor="Good" icon="sap-icon://accept" />
                             </TileContent>
                         </GenericTile>
-                        <GenericTile frameType="OneByHalf" header="Posted" subheader="Ready to Post" class="sapUiTinyMarginBegin">
+                        <GenericTile frameType="OneByHalf" header="Posted" subheader="Ready to Post" class="sapUiTinyMarginBegin generictileClass yellow">
                             <TileContent>
                                 <NumericContent value="1" valueColor="Neutral" icon="sap-icon://upload" />
                             </TileContent>
                         </GenericTile>
-                        <GenericTile frameType="OneByHalf" header="Ready for Payment" subheader="INR" class="sapUiTinyMarginBegin">
+                        <GenericTile frameType="OneByHalf" header="Ready for Payment" subheader="INR" class="sapUiTinyMarginBegin generictileClass teal">
                             <TileContent>
                                 <NumericContent value="45.6L" scale="INR" valueColor="Neutral" />
                             </TileContent>

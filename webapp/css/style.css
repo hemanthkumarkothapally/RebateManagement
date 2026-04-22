@@ -81,3 +81,38 @@
     width: 300px !important;
     height: 300px !important;
 }
+.generictileClass {
+    border: 1px solid #e5e7eb;
+    border-left-width: 6px;           /* thick left border */
+    border-left-style: solid;
+    border-radius: 14px;
+}
+/* Purple – Total Accrued */
+.generictileClass.purple {
+    border-left-color: #7c4dff;
+}
+
+/* Green – Adjustments */
+.generictileClass.green {
+    border-left-color: #2e7d32;
+}
+
+/* Blue – Final Settlement */
+.generictileClass.blue {
+    border-left-color: #1565c0;
+}
+
+/* Yellow – Payment Due */
+.generictileClass.yellow {
+    border-left-color: #f9a825;
+}
+
+/* Teal */
+.generictileClass.teal {
+    border-left-color: #00897b;
+}
+
+/* Orange */
+.generictileClass.orange {
+    border-left-color: #ef6c00;
+}

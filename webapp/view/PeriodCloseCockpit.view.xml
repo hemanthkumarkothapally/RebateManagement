@@ -45,7 +45,7 @@
                     <f:content>
                         <HBox class="sapUiSmallMargin" width="100%" justifyContent="SpaceAround">
 
-                            <GenericTile frameType="OneByHalf" class="sapUiSmallMargin" header="Agreements" subheader="Active this period" press=".onActionPress">
+                            <GenericTile frameType="OneByHalf" class="sapUiSmallMargin generictileClass purple" header="Agreements" subheader="Active this period" press=".onActionPress">
                                 <TileContent>
                                     <content>
                                         <NumericContent value="{PeriodCloseCockpit>/current_period_summary/kpis/active_agreements}" icon="sap-icon://document"/>
@@ -53,7 +53,7 @@
                                 </TileContent>
                             </GenericTile>
 
-                            <GenericTile frameType="OneByHalf" class="sapUiSmallMargin" header="Transactions" subheader="Processed" press=".onActionPress">
+                            <GenericTile frameType="OneByHalf" class="sapUiSmallMargin generictileClass green" header="Transactions" subheader="Processed" press=".onActionPress">
                                 <TileContent>
                                     <content>
                                         <NumericContent value="{PeriodCloseCockpit>/current_period_summary/kpis/transactions_display}" scale="K" icon="sap-icon://sales-document"/>
@@ -61,7 +61,7 @@
                                 </TileContent>
                             </GenericTile>
 
-                            <GenericTile frameType="OneByHalf" class="sapUiSmallMargin" header="Total Accrued" subheader="This period" press=".onActionPress">
+                            <GenericTile frameType="OneByHalf" class="sapUiSmallMargin generictileClass blue" header="Total Accrued" subheader="This period" press=".onActionPress">
                                 <TileContent>
                                     <content>
                                         <NumericContent value="{PeriodCloseCockpit>/current_period_summary/kpis/total_accrued_display}" scale="L" valueColor="Good" icon="sap-icon://loan"/>
@@ -69,7 +69,7 @@
                                 </TileContent>
                             </GenericTile>
 
-                            <GenericTile frameType="OneByHalf" class="sapUiSmallMargin" header="Settled" subheader="Amount paid" press=".onActionPress">
+                            <GenericTile frameType="OneByHalf" class="sapUiSmallMargin generictileClass yellow" header="Settled" subheader="Amount paid" press=".onActionPress">
                                 <TileContent>
                                     <content>
                                         <NumericContent value="{PeriodCloseCockpit>/current_period_summary/kpis/settled_display}" scale="L" valueColor="Good" icon="sap-icon://credit-card"/>
